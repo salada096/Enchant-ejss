@@ -1,0 +1,335 @@
+/* ========================================================== */
+/* === Importação de Fontes e Configurações Globais === */
+/* ========================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Lexend Deca", sans-serif;
+  box-sizing: border-box; 
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ========================================================== */
+/* === Header Original === */
+/* ========================================================== */
+#fixado {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 14px;
+    gap: 0.5rem;
+    margin-left: 20px;
+}
+
+.menu-lateral {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.img {
+    margin-top: -0.6rem;
+    margin-left: 1rem;
+}
+
+#dona1, #doap, #doain {
+    font-size: 14px;
+}
+
+#conteudoNavbarSuportado {
+    text-align: left;
+}
+
+.nav-centralizada {
+    gap: 1px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.nav-item {
+    margin: 0 5px;
+}
+
+#icone {
+    border: none;
+    outline: none;
+}
+
+.btn-brown, #doeagora {
+    background-color: rgba(226, 204, 174, 1);
+    border-color: rgba(226, 204, 174, 1);
+    color: #4E3629;
+    font-weight: 700;
+    font-family: "Lexend Deca";
+}
+
+#doeagora {
+    font-size: 16px;
+    width: 9rem;
+    margin-right: 2rem;
+}
+
+#doeagora:hover {
+    background-color: #caae8d;
+}
+
+/* ========================================================== */
+/* === Estilos da Tipografia e Títulos === */
+/* ========================================================== */
+.titulo {
+  text-align: center;
+  color: #693B11;
+  margin: 40px 0 50px;
+  font-family: "Passion One", sans-serif;
+  font-size: 2rem;
+}
+
+.aviso {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 20px 40px 40px;
+}
+
+/* ========================================================== */
+/* === Layout Principal e Estrutura do Formulário === */
+/* ========================================================== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.formulario {
+  background-color: #F9E7D2;
+  padding: 30px;
+  margin-bottom: 100px;
+}
+
+/* ========================================================== */
+/* === Componentes do Formulário (Campos e Inputs) === */
+/* ========================================================== */
+.campo {
+  margin: 0 40px 40px;
+  width: auto;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 400;
+}
+
+.campo label span.obrigatorio {
+  color: red;
+}
+
+.campo input,
+.campo textarea,
+.campo select {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #929191;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 100px;
+  padding-left: 20px;
+}
+
+.campo input:focus,
+.campo textarea:focus,
+.campo select:focus {
+  border-color: #E2CCAE;
+  outline: none;
+}
+
+.campo input[type="file"] {
+  display: none;
+}
+
+.documentos-lista p {
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+}
+
+.documentos-lista p span {
+    color: red;
+}
+
+/* ========================================================== */
+/* === Botões e Navegação do Formulário === */
+/* ========================================================== */
+.botoes {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 50px;
+  padding: 0 40px;
+}
+
+#btn-voltar {
+  background-color: transparent;
+  padding: 8px 25px;
+  border-radius: 10px;
+  border: 1px #000000 solid;
+  color: #3E3E3E;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 400;
+  margin-right: 20px;
+}
+
+#btn-continuar,
+#btn-enviar {
+  background-color: #E2CCAE;
+  border: none;
+  color: #3E3E3E;
+  padding: 8px 25px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+#btn-voltar:hover {
+  background-color: #f5f5f5;
+  color: #000000;
+  border: 1px solid #3E3E3E;
+}
+
+#btn-continuar:hover,
+#btn-enviar:hover {
+  background-color: #caae8d;
+  color: #3d2106;
+  border: 1px solid #d8b48bce;
+}
+
+.passos-container {
+  display: flex;
+  width: 300px;
+  margin-left: auto;
+  margin-right: 40px;
+}
+
+.passo {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  background-color: #FFFBF8;
+  color: #000000;
+  border: none;
+}
+
+.passo.ativo {
+  background-color: #F9E7D2;
+  font-weight: 500;
+}
+
+/* ========================================================== */
+/* === Footer Original === */
+/* ========================================================== */
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: var(--corfundo-footer);
+    gap: 40px;
+    padding: 20px 50px;
+}
+.footer-left{
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    height: 100%;
+    gap: 10px;
+}
+#footer-logo{
+    width: 200px;
+    height: auto;
+}
+.footer-left p{
+    font-size: 10px;
+    color: var(--cortexto);
+}
+.footer-right{
+    display: flex;
+    height: 100%;
+}
+.footer-column {
+    flex: 2;
+    min-width: 200px;
+    text-align: center;
+}
+.footer-right h3{
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--cortexto);
+}
+.footer-right a{
+    color: var(--corlink);
+    text-decoration: none;
+    font-size: 12px;
+    display: block;
+}
+
+/* ========================================================== */
+/* === Media Queries para Responsividade === */
+/* ========================================================== */
+@media (max-width: 950px) {
+  .formulario {
+    padding: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .passos-container {
+    display: none;
+  }
+  
+  .campo {
+    margin: 0 5px 25px;
+  }
+  
+  .botoes {
+    justify-content: center;
+    gap: 15px;
+    padding: 0;
+  }
+  
+  #btn-voltar,
+  #btn-continuar,
+  #btn-enviar {
+    width: 45%;
+    max-width: 150px;
+    margin: 0;
+  }
+  
+  .footer-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 20px;
+  }
+  .footer-right {
+      flex-direction: column;
+      gap: 20px;
+  }
+}

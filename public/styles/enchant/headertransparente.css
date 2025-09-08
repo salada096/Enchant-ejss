@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Lexend Deca", sans-serif;
+  }
+  
+
+/* Estilos específicos para a header */
+#fixado {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+    /* Adicione estas propriedades: */
+    background-color: transparent !important; /* Fundo branco com 80% de opacidade */
+
+  }
+  
+  .navbar-nav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 14px;
+    gap: 0.5rem;
+    margin-left: 20px;
+  }
+  
+  .menu-lateral {
+    justify-content: flex-start;
+    text-align: left;
+  }
+  
+  .img {
+    margin-top: -0.6rem;
+    margin-left: 1rem;
+  }
+  
+  #dona1,
+  #doap,
+  #doain {
+    font-size: 14px;
+  }
+  
+  #conteudoNavbarSuportado {
+    text-align: left;
+  }
+  
+  .nav-centralizada {
+    gap: 1px;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .nav-item {
+    margin: 0 5px;
+  }
+  
+  #icone {
+    border: none;
+    outline: none;
+  }
+  
+  .btn-brown,
+  #doeagora {
+    background-color: rgba(226, 204, 174, 1);
+    border-color: rgba(226, 204, 174, 1);
+    color: #4E3629;
+    font-weight: 700;
+    font-family: "Lexend Deca";
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  #doeagora {
+    font-size: 16px;
+    width: 9rem;
+    margin-right: 2rem;
+  }
+  
+  #doeagora:hover {
+    background-color: #caae8d;
+    color: #3d2106;
+    border: 1px solid #d8b48bce;
+    text-decoration: none !important;
+  }
+  
+  #doeagora:focus {
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* Media Queries para responsividade */
+  @media (min-width: 1000px) {
+    .navbar-nav {
+      margin-left: 20px;
+      margin-right: auto;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .mr-auto {
+      border: none;
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .navbar-brand {
+      margin-right: 0;
+      margin: -20px;
+    }
+    
+    .navbar-toggler {
+      margin-right: 15px;
+    }
+    
+    #conteudoNavbarSuportado {
+      text-align: left !important;
+    }
+    
+    .navbar-collapse.show .navbar-nav,
+    .navbar-collapse.collapsing .navbar-nav {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+    }
+    
+    .nav-centralizada {
+      display: block;
+      width: 100%;
+      text-align: left;
+      justify-content: flex-start;
+    }
+    
+    .btn-brown {
+      margin: 10px 0;
+      justify-content: flex-start;
+      display: block;
+      margin-right: auto;
+    }
+    
+    .dropdown-menu {
+      text-align: left;
+      padding-left: 15px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .btn-brown {
+      width: auto;
+      padding: 5px 15px;
+      font-size: 16px;
+    }
+    
+    .img {
+      margin-left: 0;
+    }
+    .navbar-brand {
+      margin-right: 0;
+      margin-left: 15px;
+    }
+  }

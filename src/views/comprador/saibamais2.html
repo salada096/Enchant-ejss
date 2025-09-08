@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saiba mais - Enchant</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../../../public/styles/comprador/saibamais2.css"
+    />
+    <script src="../../../public/scripts/comprador/saibamais2.js"></script>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="content-area">
+        <h1>Saiba mais</h1>
+
+        <!-- Seção inicial - Saiba mais -->
+        <div class="saiba-mais-section" id="saiba-mais">
+          <div id="saiba-mais-container">
+            <!-- Template para novos itens será inserido aqui -->
+          </div>
+          <button class="btn-add-more" onclick="addSaibaItem()">
+            + Adicionar nova informação
+          </button>
+        </div>
+
+        <!-- Seção Relatórios Sociais -->
+        <div class="relatorios-section" id="relatorios">
+          <h2>Relatórios Sociais</h2>
+          <p style="color: #888; margin-bottom: 20px">
+            Aqui você pode obter um resumo sobre seus relatórios sociais...
+          </p>
+
+          <div id="relatorios-container">
+            <!-- Template para relatórios será inserido aqui -->
+          </div>
+          <button class="btn-add-more" onclick="addRelatorioItem()">
+            + Adicionar relatório social
+          </button>
+        </div>
+
+        <!-- Seção Certificados -->
+        <div id="certificados">
+          <h2>Nossos certificados e premiações</h2>
+          <p style="color: #888; margin-bottom: 20px">
+            Aqui você pode inserir um resumo sobre seus certificados e
+            premiações.
+          </p>
+
+          <div id="certificados-container" class="cards-grid">
+            <!-- Template para certificados será inserido aqui -->
+          </div>
+          <button class="btn-add-more" onclick="addCertificadoItem()">
+            + Adicionar certificado/premiação
+          </button>
+        </div>
+
+        <!-- Timeline Renovada -->
+        <div id="timeline">
+          <h2>Conheça mais da nossa história</h2>
+
+          <div class="timeline-container">
+            <!-- Linha da timeline com marcadores -->
+            <div class="timeline-path">
+              <svg
+                viewBox="0 0 2000 180"
+                width="100%"
+                xmlns="http://www.w3.org/2000/svg"
+                id="timeline-svg"
+              >
+                <path
+                  id="timeline-line"
+                  d="M 50 90 Q 400 40 750 90 T 1350 90 Q 1550 140 1750 90 Q 1850 65 1950 90"
+                  stroke="#693B11"
+                  stroke-width="3"
+                  fill="none"
+                  stroke-dasharray="8,4"
+                />
+              </svg>
+
+              <!-- Marcadores da timeline -->
+              <div class="timeline-markers" id="timeline-markers">
+                <!-- Marcadores serão inseridos aqui -->
+              </div>
+            </div>
+
+            <!-- Conteúdo da timeline -->
+            <div id="timeline-content-container">
+              <!-- Cards de conteúdo da timeline serão inseridos aqui -->
+            </div>
+          </div>
+
+          <button class="btn-add-more" onclick="addTimelineYear()">
+            + Adicionar ano histórico
+          </button>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-card">
+          <h4>Principais questões</h4>
+          <ul>
+            <li onclick="scrollToSection('saiba-mais')">Saiba mais</li>
+            <li onclick="scrollToSection('relatorios')">Relatórios sociais</li>
+            <li onclick="scrollToSection('certificados')">
+              Certificados e Premiações
+            </li>
+            <li onclick="scrollToSection('timeline')">Linha do tempo</li>
+            <li onclick="scrollToSection('estatuto')">Estatuto Social</li>
+          </ul>
+        </div>
+
+        <!-- Estatuto Social na Sidebar -->
+        <div id="estatuto">
+          <div class="estatuto-section">
+            <div class="estatuto-grid">
+              <div
+                class="estatuto-image"
+                onclick="document.getElementById('estatuto-file').click()"
+              >
+                <div
+                  class="add-icon"
+                  style="
+                    margin-bottom: 5px;
+                    width: 30px;
+                    height: 30px;
+                    font-size: 20px;
+                  "
+                >
+                  +
+                </div>
+                <div style="font-size: 12px">Estatuto<br />Social</div>
+                <input
+                  type="file"
+                  id="estatuto-file"
+                  style="display: none"
+                  accept="image/*,application/pdf"
+                />
+              </div>
+              <div class="estatuto-content">
+                <textarea
+                  placeholder="Aqui você pode adicionar um resumo sobre o Estatuto Social. Clique para começar a digitar..."
+                  id="estatuto-text"
+                ></textarea>
+                <div class="image-size-hint">
+                  Tamanho recomendado: 400x300px
+                </div>
+                <div style="margin-top: 15px">
+                  <button class="btn-save" onclick="saveEstatuto()">
+                    Salvar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

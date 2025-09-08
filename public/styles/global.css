@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Passion+One&family=Lexend+Deca&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
+
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root{
+
+        /*Cores*/
+
+        --cor-titulo:#693b11;
+        --cor-fundo:#ffffff;
+        --cor-texto:#000000;
+        --cor-link:#EC9E07;
+        --cor-link-hover:#a36d40;
+        --cor-container-cadastro:#F9E7D2;
+     
+        
+
+        /*TAMANHHOS*/
+
+        --Tamanhos-titulo:32px;
+        --Tamanhos-subtitulo:24px;
+        --Tamanhos-texto:16px;
+        --Tamanho-placeholder:14px;
+        --Tamanho-link:12px;
+        --Tamanho-requisitos:12px;
+        --Tamanho-input-height:90px;
+
+        /*FONTES*/
+
+        --Fonte-geral: 'Lexend Deca', sans-serif;
+        --Fonte-titulo: 'Passion One', cursive;
+
+
+    }
+
+    body{
+
+        font-family: var(--Fonte-geral);
+        font-size: var(--Tamanhos-texto);
+        color: var(--cor-texto);
+        background-color: var(--cor-fundo);
+    }
+
+    h1{
+        font-size: var(--Tamanhos-titulo);
+        color: var(--cor-titulo);
+        text-align: center;
+        margin-top: 4rem;
+        margin-bottom: 20px;
+    }
+
+    a{
+        text-decoration:;
+        color: var(--cor-link);
+        font-size: var(--Tamanho-link);
+    }
+
+    a:hover{
+        color: var(--cor-link-hover);
+    }
+

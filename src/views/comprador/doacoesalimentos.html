@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doação de Alimentos e ração para animais</title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Passero+One&family=Passion+One:wght@400;700;900&display=swap">
+  <link rel="shortcut icon" href="https://i.ibb.co/7NybZ3W7/1.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css/">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="https://phosphoricons.com?q=%22menu%22" />
+
+  <link rel="stylesheet" href="../../../public/styles/comprador/doacoesalimentos.css">
+  <script src="../../../public/scripts/comprador/doacoesalimentos.js"></script>
+
+  <link rel="stylesheet" href="../../../public/styles/global.css">
+  <script src="../../../public/scripts/layouts/comprador/headercomprador.js" defer></script>
+  <script src="../../../public/scripts/layouts/comprador/footercomprador.js" defer></script>
+  <script src="../../../public/scripts/layouts/comprador/sidebar.js" defer></script>
+</head>
+
+<body>
+
+  <main id="main">
+    <div class="main-container">
+      <div>
+        <h1 class="title">Faça sua doação</h1>
+      </div>
+
+      <div class="content-wrapper">
+        <div class="background-container">
+          <img src="../../../public/assets/imgs/comprador/imagem de ddoação - caixa.png" alt="Imagem de fundo" id="img1" class="background-image">
+          <img src="../../../public/assets/imgs/comprador/imagem de doação - caixa  aberta maior com milho e óleo.png" alt="Imagem de fundo" id="img2" class="background-image">
+          <img src="../../../public/assets/imgs/comprador/imagem de doação - caixa aberta menor.png" alt="Imagem de fundo" id="img3" class="background-image">
+          <img src="../imagens/1.png" alt="Imagem de fundo" id="img4" class="background-image">
+        </div>
+
+        <div class="tab-buttons">
+          <button id="comida-tab" class="navigation-btn active">
+            <span class="material-symbols-outlined">nutrition</span>
+          </button>
+          <button id="pets-tab" class="navigation-btn">
+            <span class="material-symbols-outlined">pet_supplies</span>
+          </button>
+        </div>
+
+        <div class="form-container">
+          <div id="comida" class="section-card">
+            <h2 class="section-title">Alimentos</h2>
+
+            <div class="form-group">
+              <label class="form-label">Tipo</label>
+              <select id="alimntostipo" name="alimentostipo" class="form-control">
+                <option value="" disabled selected>Selecione...</option>
+                <option value="Perecíveis">Perecíveis</option>
+                <option value="NãoPerecíveis">Não Perecíveis</option>
+              </select>
+            </div>
+
+
+
+            <div class="form-group">
+              <label class="form-label">Quantidade(kg)</label>
+              <input type="number" id="alimentosquantidade" name="alimentosquantidade" placeholder="Digite..." min="1"
+                class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Validade</label>
+              <input type="date" id="alimentovalidade" name="alimentosvalidade" placeholder="Digite..." min="1"
+                class="form-control" required>
+            </div>
+
+
+            <div class="form-group">
+              <label class="form-label">Especificação</label>
+              <input type="text" id="alimentosespecificações" name="alimentosespecificações" placeholder="Digite.."
+                class="form-control" required>
+            </div>
+
+            <div class="button-container">
+
+              <button id="bottao" class="botaozinho">Avançar</button>
+            </div>
+          </div>
+
+          <div id="pet" class="section-card">
+            <h2 class="section-title">Ração para animais</h2>
+
+            <div class="form-group">
+              <label class="form-label">Tamanho</label>
+              <select id="tamanhoracao" name="tamanhoracao" class="form-control">
+                <option value="" disabled selected>Selecione...</option>
+                <option value="Gporte">Grande Porte</option>
+                <option value="Pporte">Pequeno Porte</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Tipo</label>
+              <select id="Tiporacao" name="Tiporacao" class="form-control">
+                <option value="" disabled selected>Selecione...</option>
+                <option value="Adulto">Adulto</option>
+                <option value="Filhote">Filhote</option>
+
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Quantidade(kg)</label>
+              <input type="number" id="racaoquantidade" name="racaoquantidade" placeholder="Digite..." min="1"
+                class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Animal</label>
+              <input type="text" id="racaoespecificao" name="racaoespecificao" placeholder="Gato, cachorro.."
+                class="form-control" required>
+            </div>
+
+            <div class="buttoon-container">
+              <button id="back-to-roupas" class="botaosem">Voltar</button>
+              <button id="bbtn" class="botaozinho">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  </div>
+
+
+  <div class="modal fade" id="erroSenhaModal" tabindex="-1" aria-labelledby="erroSenhaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="erroSenhaModalLabel">Atenção</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body" id="erroSenhaModalBody">
+          <!-- Mensagem de erro será inserida aqui -->
+        </div>
+        <div class="modal-footer">
+          <button id="botao-validar" type="button" class="botaozinho" data-bs-dismiss="modal">Entendi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmação (Atualizado com o novo estilo) -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Sucesso!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body" id="confirmModalBody">
+          <p>Formulário enviado com sucesso!</p>
+        </div>
+        <div class="modal-footer">
+          <button id="closeConfirmModal" type="button" class="botaozinho" data-bs-dismiss="modal">Entendi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Erro (Atualizado com o novo estilo) -->
+  <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="errorModalLabel">Atenção</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body" id="errorModalBody">
+          <p>Por favor, preencha pelo menos um dos formulários (Alimentos ou Ração para Animais) antes de enviar.</p>
+        </div>
+        <div class="modal-footer">
+          <button id="closeErrorModal" type="button" class="botaozinho" data-bs-dismiss="modal">Entendi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS e Popper -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="../JS/doacoesalimentos.js"></script>
+  <script src="../JS/barraheadercomprador.js"></script>
+
+
+</body>
+
+</html>

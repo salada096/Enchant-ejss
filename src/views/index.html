@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENCHANT - Transformando Vidas Através da Conexão</title>
+    <meta name="description" content="ENCHANT - Uma plataforma dedicada a conectar pessoas e transformar vidas através de experiências significativas.">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&family=Passion+One:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../public/styles/global.css">
+    <style>
+        :root {
+            --primary-color: #c09975;
+            --secondary-color: #8B7777;
+            --tertiary-color: #4E3629;
+            --light-bg: #fcf2e8;
+            --accent-color: #E2CCAE;
+            --text-dark: #333;
+            --text-light: #666;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Lexend Deca", sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #f8f1e4 50%, var(--accent-color) 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 80px;
+        }
+        .hero-content { z-index: 2; position: relative; }
+        .hero-title {
+            font-family: "Passion One", cursive;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: var(--tertiary-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary-color), #f4b942);
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(236, 158, 7, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(236, 158, 7, 0.4);
+            color: white;
+        }
+        .hero-image { position: relative; animation: float 6s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .hero-decorative {
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        .features-section { padding: 100px 0; background: white; }
+        .section-title {
+            font-family: "Passion One", cursive;
+            font-size: 3rem;
+            color: var(--tertiary-color);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            border: 1px solid rgba(236, 158, 7, 0.1);
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary-color), #f4b942);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 2rem;
+        }
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--tertiary-color);
+            margin-bottom: 15px;
+        }
+        .feature-description {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .about-section { padding: 100px 0; background: var(--light-bg); }
+        .about-content { display: flex; align-items: center; gap: 60px; }
+        .about-text h2 {
+            font-family: "Passion One", cursive;
+            font-size: 2.8rem;
+            color: var(--tertiary-color);
+            margin-bottom: 25px;
+        }
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        .stats-container { display: flex; gap: 30px; margin-top: 40px; }
+        .stat-item { text-align: center; }
+        .stat-number {
+            font-family: "Passion One", cursive;
+            font-size: 3rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--tertiary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-family: "Passion One", cursive;
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+        }
+        .cta-section p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        .cta-button-white {
+            background: white;
+            color: var(--tertiary-color);
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cta-button-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,255,255,0.4);
+            color: var(--tertiary-color);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-on-scroll { opacity: 0; animation: fadeInUp 0.8s ease forwards; }
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3rem; }
+            .hero-subtitle { font-size: 1.3rem; }
+            .hero-description { font-size: 1rem; }
+            .section-title { font-size: 2.5rem; }
+            .about-content { flex-direction: column; gap: 40px; }
+            .stats-container { justify-content: center; gap: 20px; }
+            .cta-section h2 { font-size: 2.8rem; }
+        }
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite;
+        }
+        .floating-shape:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            width: 100px;
+            height: 100px;
+            background: var(--primary-color);
+            animation-delay: -2s;
+        }
+        .floating-shape:nth-child(2) {
+            top: 70%;
+            right: 5%;
+            width: 150px;
+            height: 150px;
+            background: var(--accent-color);
+            animation-delay: -4s;
+        }
+        .floating-shape:nth-child(3) {
+            bottom: 20%;
+            left: 8%;
+            width: 80px;
+            height: 80px;
+            background: var(--secondary-color);
+            animation-delay: -6s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Container -->
+    <div id="header-container"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+            <div class="hero-decorative"></div>
+            
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="hero-content">
+                            <h1 class="hero-title animate-on-scroll">ENCHANT</h1>
+                            <p class="hero-subtitle animate-on-scroll">Transformando Vidas Através da Conexão</p>
+                            <p class="hero-description animate-on-scroll">
+                                Descubra uma nova forma de se conectar com o mundo. O ENCHANT é mais que uma plataforma - 
+                                é um movimento dedicado a criar laços significativos e transformar experiências em memórias inesquecíveis.
+                            </p>
+                            <button class="btn cta-button animate-on-scroll">
+                                <i class="fas fa-rocket me-2"></i>
+                                Comece Sua Jornada
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="hero-image text-center">
+                            <img src="https://i.postimg.cc/g0RvMKxc/2475bcce-285c-4b1b-b92b-8e3b0680fef1.png" 
+                                 alt="ENCHANT Logo" 
+                                 class="img-fluid" 
+                                 style="max-width: 400px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Por Que Escolher o ENCHANT?</h2>
+                
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card animate-on-scroll">
+                            <div class="feature-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3 class="feature-title">Conexões Autênticas</h3>
+                            <p class="feature-description">
+                                Criamos um ambiente seguro onde relacionamentos genuínos podem florescer, 
+                                conectando pessoas com interesses e valores similares.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card animate-on-scroll">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="feature-title">Comunidade Acolhedora</h3>
+                            <p class="feature-description">
+                                Faça parte de uma comunidade inclusiva que valoriza a diversidade e 
+                                celebra as diferenças como forma de enriquecimento mútuo.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card animate-on-scroll">
+                            <div class="feature-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h3 class="feature-title">Experiências Únicas</h3>
+                            <p class="feature-description">
+                                Participe de eventos exclusivos, workshops inspiradores e atividades 
+                                que promovem crescimento pessoal e profissional.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card animate-on-scroll">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="feature-title">Ambiente Seguro</h3>
+                            <p class="feature-description">
+                                Sua privacidade e segurança são nossas prioridades. Contamos com 
+                                sistemas avançados de proteção e moderação ativa.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card animate-on-scroll">
+                            <div class="feature-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h3 class="feature-title">Inovação Constante</h3>
+                            <p class="feature-description">
+                                Estamos sempre evoluindo com novas funcionalidades e melhorias 
+                                baseadas no feedback da nossa comunidade.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card animate-on-scroll">
+                            <div class="feature-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h3 class="feature-title">Alcance Global</h3>
+                            <p class="feature-description">
+                                Conecte-se com pessoas ao redor do mundo e descubra diferentes 
+                                culturas, perspectivas e oportunidades de crescimento.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="about-text animate-on-scroll">
+                            <h2>Nossa Missão</h2>
+                            <p>
+                                O ENCHANT nasceu da crença de que conexões humanas significativas são 
+                                fundamentais para uma vida plena e realizada. Nossa missão é criar um 
+                                espaço digital que facilite encontros autênticos e promova o crescimento 
+                                pessoal através da interação social.
+                            </p>
+                            <p>
+                                Acreditamos que cada pessoa tem algo único a oferecer, e nossa plataforma 
+                                foi desenvolvida para destacar e celebrar essas qualidades especiais, 
+                                criando oportunidades para que pessoas como você encontrem sua tribo.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="stats-container animate-on-scroll">
+                            <div class="stat-item">
+                                <div class="stat-number">50K+</div>
+                                <div class="stat-label">Usuários Ativos</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">200+</div>
+                                <div class="stat-label">Eventos Realizados</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">98%</div>
+                                <div class="stat-label">Satisfação</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="animate-on-scroll">Pronto Para Começar?</h2>
+                        <p class="animate-on-scroll">
+                            Junte-se a milhares de pessoas que já descobriram o poder das conexões autênticas. 
+                            Sua jornada de transformação começa aqui.
+                        </p>
+                        <button class="btn cta-button-white animate-on-scroll">
+                            <i class="fas fa-user-plus me-2"></i>
+                            Cadastre-se Gratuitamente
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Container -->
+    <div id="enchant-footer"></div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // JS customizado da página para animações, counters, efeitos, etc
+      document.addEventListener('DOMContentLoaded', function () {
+        // Animation on scroll
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }
+          });
+        }, observerOptions);
+        document.querySelectorAll('.animate-on-scroll').forEach((el, index) => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(30px)';
+          el.style.transition = `opacity 0.8s ease ${index * 0.1}s, transform 0.8s ease ${index * 0.1}s`;
+          observer.observe(el);
+        });
+        // Counter animation for stats
+        function animateCounter(element, target, duration = 2000) {
+          let start = 0;
+          const increment = target / (duration / 16);
+          const timer = setInterval(() => {
+            start += increment;
+            if (start >= target) {
+              element.textContent = target.toLocaleString() + (element.textContent.includes('+') ? '+' : element.textContent.includes('%') ? '%' : '');
+              clearInterval(timer);
+            } else {
+              element.textContent = Math.floor(start).toLocaleString() + (element.textContent.includes('+') ? '+' : element.textContent.includes('%') ? '%' : '');
+            }
+          }, 16);
+        }
+        // Animate stats when they come into view
+        const statsObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const statNumbers = entry.target.querySelectorAll('.stat-number');
+              statNumbers.forEach(stat => {
+                const text = stat.textContent;
+                let target = parseInt(text.replace(/[^\d]/g, ''));
+                if (text.includes('K')) target *= 1000;
+                if (text.includes('%')) target = parseInt(text);
+                animateCounter(stat, target);
+              });
+              statsObserver.unobserve(entry.target);
+            }
+          });
+        });
+        const statsContainer = document.querySelector('.stats-container');
+        if (statsContainer) {
+          statsObserver.observe(statsContainer);
+        }
+        // Parallax effect hero section
+        window.addEventListener('scroll', () => {
+          const scrolled = window.pageYOffset;
+          const heroSection = document.querySelector('.hero-section');
+          const heroContent = document.querySelector('.hero-content');
+          if (heroSection && heroContent) {
+            heroContent.style.transform = `translateY(${scrolled * 0.1}px)`;
+          }
+        });
+        // Hover effects feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+          card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-10px) scale(1.02)';
+          });
+          card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0) scale(1)';
+          });
+        });
+        // Ripple effect CTA buttons
+        document.querySelectorAll('.cta-button, .cta-button-white').forEach(button => {
+          button.addEventListener('click', (e) => {
+            const ripple = document.createElement('span');
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            ripple.style.cssText = `
+              position: absolute;
+              width: ${size}px;
+              height: ${size}px;
+              left: ${x}px;
+              top: ${y}px;
+              background: rgba(255,255,255,0.3);
+              border-radius: 50%;
+              transform: scale(0);
+              animation: ripple 0.6s linear;
+              pointer-events: none;
+            `;
+            button.style.position = 'relative';
+            button.style.overflow = 'hidden';
+            button.appendChild(ripple);
+            setTimeout(() => { ripple.remove(); }, 600);
+          });
+        });
+        // CSS for ripple animation
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `@keyframes ripple { to { transform: scale(2); opacity: 0; } }`;
+        document.head.appendChild(rippleStyle);
+      });
+    </script>
+    <script src="../../../public/scripts/layouts/enchant/headerenchant.js"></script>
+    <script src="../../../public/scripts/layouts/enchant/footerenchant.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        HeaderComponent.loadDependencies();
+        // Renderizar o header no container
+        initializeHeader('header-container');
+      });
+    </script>
+</body>
+</html>

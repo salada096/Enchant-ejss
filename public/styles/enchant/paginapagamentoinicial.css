@@ -1,0 +1,274 @@
+/*
+ * Arquivo CSS Organizado
+ */
+
+/* Importação de fontes */
+@import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
+
+/* Variáveis de cores */
+:root {
+    --corfundo: #F5F5F5;
+    --corfundo-footer: #fcf2e8;
+    --corfundo-container: #F9E7D2;
+    --corbotao1: #e2ccae;
+    --corbotao2: #caae8d;
+    --cortitulo: #4E3629;
+    --cortexto: #535151;
+    --corlink: #EC9E07;
+}
+
+/* Estilos globais e reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Lexend Deca", sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--corfundo);
+    justify-content: space-between;
+}
+
+/*
+------------------------ Main Area ------------------------
+*/
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 1rem 7rem 1rem;
+    z-index: 1;
+    margin-top: 80px;
+}
+
+main h2,
+.pagamento {
+    font-family: "Passion One";
+    color: var(--cortitulo);
+    text-align: center;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    border: 1.5px #4E3629 solid;
+    padding: 2rem 0;
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto 0;
+    border-radius: 10px;
+}
+
+.recomendações {
+    padding: 10px 55px;
+    font-size: 16px;
+}
+
+/* Formulários */
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 3rem;
+    gap: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+select {
+    width: 100%;
+    height: auto;
+    border: 1px solid #B7B6B6;
+    padding: 10px 15px;
+    border-radius: 50px;
+    font-size: 14px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+select {
+    color: #757575;
+}
+
+select:focus,
+input:focus {
+    outline: none;
+}
+
+label {
+    line-height: 45px;
+    margin-left: 15px;
+}
+
+/* Área de Senha */
+.senha-area {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.senha-area > div {
+    width: 48%;
+}
+
+.requerimento-senha p {
+    line-height: 5px;
+    font-size: 12px;
+}
+
+.requerimento-senha p:not(:first-child) {
+    margin-left: 10px;
+    color: #757575;
+}
+
+/* Botões */
+.div-botao-continuar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.botao-continuar {
+    border: none;
+    background-color: var(--corbotao1);
+    color: var(--cortitulo);
+    font-weight: 500;
+    font-size: 14px;
+    padding: 8px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.botao-continuar:hover {
+    background-color: var(--corbotao2);
+}
+
+.botaocomprar {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+#comprar, .btn-voltar {
+    background-color: var(--corbotao1);
+    border: 1px solid var(--corbotao1);
+    color: var(--cortitulo);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 10px;
+}
+
+#comprar:hover, .btn-voltar:hover {
+    background-color: var(--corbotao2);
+}
+
+/*
+------------------------ Segunda Parte (Pagamento) ------------------------
+*/
+.segunda-parte {
+    display: none; /* INICIA OCULTO */
+    flex-direction: column;
+}
+
+.pagamento-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.3rem;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.asd {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+}
+
+.detalhes-container {
+    display: flex;
+    width: 50rem;
+    max-width: 100%;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 2rem;
+    gap: 1.5rem;
+}
+
+.detalhes-container .titulo,
+.pedido .titulo {
+    border-bottom: 1px solid #B7B6B6;
+    padding-bottom: 1rem;
+}
+
+.informações {
+    display: flex;
+    justify-content: space-around;
+}
+
+.detalhe-column p:first-child {
+    color: #B7B6B6;
+}
+
+.pedido {
+    width: 30rem;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--corfundo-footer);
+    border-radius: 20px;
+    padding: 2rem;
+    gap: 1.5rem;
+}
+
+.valor {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Modal */
+.modal-header {
+    background-color: var(--corbotao2);
+    color: var(--cortitulo);
+}
+
+.modal-content {
+    border: 2px solid var(--cortitulo);
+}
+
+/*
+------------------------ Responsividade ------------------------
+*/
+@media (max-width: 992px) {
+    .pagamento-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .senha-area {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .senha-area > div {
+        width: 100%;
+    }
+}
