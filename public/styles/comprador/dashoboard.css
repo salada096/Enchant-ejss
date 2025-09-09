@@ -15,6 +15,7 @@
     --warning-color: #ffc107;
     --danger-color: #dc3545;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --transition: all 0.3s ease;
     --border-radius: 12px;
 }
 
@@ -79,6 +80,7 @@ body {
     font-size: 0.875rem;
     cursor: pointer;
     white-space: nowrap;
+    transition: var(--transition);
     border: none;
     font-weight: 500;
     display: inline-flex;
@@ -94,6 +96,7 @@ body {
 
 .btn-primary:hover {
     background-color: #caae8d;
+    transform: translateY(-2px);
     box-shadow: var(--shadow);
 }
 
@@ -105,6 +108,7 @@ body {
 
 .btn-outline:hover {
     background-color: var(--primary-light);
+    transform: translateY(-2px);
     box-shadow: var(--shadow);
 }
 
@@ -167,8 +171,14 @@ body {
     gap: 1rem;
     border: 1px solid var(--border-color);
     transition: var(--transition);
-
+    box-shadow: var(--shadow);
 }
+
+.summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
 .summary-card-icon {
     font-size: 2rem;
     color: var(--primary-color);
@@ -337,7 +347,13 @@ body {
     gap: 0.5rem;
     justify-content: center;
     min-height: 140px;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+}
 
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .stat-card-primary {
@@ -851,49 +867,6 @@ input:focus-visible {
     .completion-card,
     .progress-card {
         border: 2px solid var(--primary-dark);
-    }
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --text-color: #f0f0f0;
-        --text-light: #b0b0b0;
-        --card-bg: #2a2a2a;
-    }
-    
-    body {
-        background-color: #1a1a1a;
-        color: var(--text-color);
-    }
-    
-    .chart-card,
-    .sidebar-card,
-    .stat-card-outline,
-    .completion-card,
-    .progress-card {
-        background-color: var(--card-bg);
-        border-color: #444;
-    }
-    
-    .btn-date-filter {
-        background-color: #333;
-        color: var(--text-color);
-        border-color: #555;
-    }
-    
-    .custom-date-range {
-        background-color: #333;
-        border-color: #555;
-    }
-    
-    .custom-date-range input {
-        background-color: #333;
-        color: var(--text-color);
-    }
-    
-    .progress-bar {
-        background: #444;
     }
 }
 
