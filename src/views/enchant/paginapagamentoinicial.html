@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <link rel="stylesheet" href="../../../public/styles/enchant/paginapagamentoinicial.css">
+    <script src="../../../public/scripts/enchant/paginapagamentoinicial.js"></script>
   
     <link rel="stylesheet" href="../../../public/styles/global.css">
     <script src="../../../public/scripts/layouts/enchant/headerenchant.js"></script>
@@ -99,11 +100,11 @@
                         </div>
                     </div>
                     <div class="requerimento-senha full-width">
-                        <p id="senha-conter">Sua senha deve conter:</p>
-                        <p id="minimodigitos">Mínimo 8 dígitos</p>
-                        <p id="doisnumeros">Pelo menos 2 números</p>
-                        <p id="umcaracterespecial">Pelo menos 1 caracter especial</p>
-                        <p id="letramaiuscula">Pelo menos 1 letra maiúscula</p>
+                        <p id="senha-conter"><b style="color: #FF0404;">*</b> Sua senha deve conter:</p>
+                        <p id="minimodigitos"><b style="color: #FF0404;">*</b> Mínimo 8 dígitos</p>
+                        <p id="doisnumeros"><b style="color: #FF0404;">*</b> Pelo menos 2 números</p>
+                        <p id="umcaracterespecial"><b style="color: #FF0404;">*</b> Pelo menos 1 caracter especial</p>
+                        <p id="letramaiuscula"><b style="color: #FF0404;">*</b> Pelo menos 1 letra maiúscula</p>
                     </div>
                     <div class="div-botao-continuar">
                         <button type="submit" class="botao-continuar" id="botao-continuar">Continuar</button>
@@ -120,7 +121,7 @@
                 <div class="asd">
                     <div class="detalhes-container">
                         <div class="titulo">
-                            <h4>Detalhes do cliente</h4>
+                            <h4 id="subtitulo">Detalhes do cliente</h4>
                         </div>
                         <div class="informações">
                             <div class="detalhe-column">
@@ -139,7 +140,7 @@
                     </div>
                     <div class="detalhes-container">
                         <div class="titulo">
-                            <h4>Detalhes do pagamento</h4>
+                            <h4 id="subtitulo">Detalhes do pagamento</h4>
                         </div>
                         <div class="asd">
                             <form class="form-pagamento">
@@ -197,6 +198,7 @@
                                         <div style="display: flex; flex-direction: column;">
                                             <label for="mesdebito">Data de expiração: <b style="color: #FF0404;">*</b></label>
                                             <div>
+                                     
                                                 <select name="mesdebito" id="mesdebito">
                                                     <option value="" disabled hidden selected>Mês</option>
                                                     <option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
@@ -260,7 +262,7 @@
               </div>
               <div class="modal-body" id="errorModalBody"></div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
               </div>
             </div>
           </div>
@@ -272,8 +274,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    
-    <script src="../../../public/scripts/enchant/paginapagamentoinicial.js"></script>
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {

@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (estadoSelect) {
         estadoSelect.addEventListener('change', atualizarCidades);
-        console.log("Listener do seletor de ESTADO adicionado.");
     }
 
     if (dadosForm) {
@@ -74,28 +73,35 @@ document.addEventListener('DOMContentLoaded', function() {
     if (senhaInput) {
         senhaInput.addEventListener('input', function() {
             const validacao = validarSenha(this.value);
-            document.getElementById('minimodigitos').style.color = validacao.temMinimo8 ? 'green' : '#757575';
-            document.getElementById('doisnumeros').style.color = validacao.tem2Numeros ? 'green' : '#757575';
-            document.getElementById('umcaracterespecial').style.color = validacao.temCaractereEspecial ? 'green' : '#757575';
-            document.getElementById('letramaiuscula').style.color = validacao.temMaiuscula ? 'green' : '#757575';
+            const minimoDigitos = document.getElementById('minimodigitos');
+            const doisNumeros = document.getElementById('doisnumeros');
+            const umCaractereEspecial = document.getElementById('umcaracterespecial');
+            const letraMaiuscula = document.getElementById('letramaiuscula');
+            
+            if (minimoDigitos) minimoDigitos.style.color = validacao.temMinimo8 ? 'green' : '#757575';
+            if (doisNumeros) doisNumeros.style.color = validacao.tem2Numeros ? 'green' : '#757575';
+            if (umCaractereEspecial) umCaractereEspecial.style.color = validacao.temCaractereEspecial ? 'green' : '#757575';
+            if (letraMaiuscula) letraMaiuscula.style.color = validacao.temMaiuscula ? 'green' : '#757575';
         });
-        console.log("Listener do campo de SENHA adicionado.");
     }
 
     paymentOptions.forEach(option => {
         option.addEventListener('click', () => mudarpagamento(parseInt(option.value)));
     });
-
+    
     mudarpagamento(1);
     addInputMasks();
 });
 
+// A única função necessária para o modal é a que o exibe.
 function showErrorModal(message) {
     const modalBody = document.getElementById('errorModalBody');
     if (modalBody) {
         modalBody.textContent = message;
+        // Confia 100% no jQuery e Bootstrap para mostrar o modal.
         $('#errorModal').modal('show');
     } else {
+        // Fallback caso o modal não exista, evitando travar a página.
         alert(message);
     }
 }
@@ -103,6 +109,9 @@ function showErrorModal(message) {
 function atualizarCidades() {
     const estadoSelect = document.getElementById('estado');
     const cidadeSelect = document.getElementById('cidade');
+    
+    if (!estadoSelect || !cidadeSelect) return;
+    
     const estadoSelecionado = estadoSelect.value;
 
     cidadeSelect.innerHTML = '<option value="" hidden>Selecione uma cidade...</option>';
@@ -121,13 +130,19 @@ function atualizarCidades() {
 
 function irParaPagamento() {
     const dadosForm = document.getElementById('dados-form');
-    if (!dadosForm.checkValidity()) {
+    if (!dadosForm || !dadosForm.checkValidity()) {
         showErrorModal('Por favor, preencha todos os campos obrigatórios (*) corretamente.');
         return;
     }
 
-    const senha = document.getElementById('senha').value;
-    const confirmarSenha = document.getElementById('confirmarsenha').value;
+    const senha = document.getElementById('senha')?.value;
+    const confirmarSenha = document.getElementById('confirmarsenha')?.value;
+    
+    if (!senha || !confirmarSenha) {
+        showErrorModal('Por favor, preencha as senhas.');
+        return;
+    }
+    
     if (senha !== confirmarSenha) {
         showErrorModal('As senhas não coincidem.');
         return;
@@ -139,17 +154,29 @@ function irParaPagamento() {
         return;
     }
 
-    document.getElementById('display-nome').textContent = document.getElementById('nomecomprador').value;
-    document.getElementById('display-email').textContent = document.getElementById('email').value;
-    document.getElementById('display-telefone').textContent = document.getElementById('tel').value;
+    const displayNome = document.getElementById('display-nome');
+    const displayEmail = document.getElementById('display-email');
+    const displayTelefone = document.getElementById('display-telefone');
+    const nomeComprador = document.getElementById('nomecomprador');
+    const email = document.getElementById('email');
+    const tel = document.getElementById('tel');
+    const primeiraParte = document.getElementById('primeira-parte');
+    const segundaParte = document.getElementById('segunda-parte');
 
-    document.getElementById('primeira-parte').style.display = 'none';
-    document.getElementById('segunda-parte').style.display = 'flex';
+    if (displayNome && nomeComprador) displayNome.textContent = nomeComprador.value;
+    if (displayEmail && email) displayEmail.textContent = email.value;
+    if (displayTelefone && tel) displayTelefone.textContent = tel.value;
+
+    if (primeiraParte) primeiraParte.style.display = 'none';
+    if (segundaParte) segundaParte.style.display = 'flex';
 }
 
 function voltarParaDados() {
-    document.getElementById('segunda-parte').style.display = 'none';
-    document.getElementById('primeira-parte').style.display = 'block';
+    const segundaParte = document.getElementById('segunda-parte');
+    const primeiraParte = document.getElementById('primeira-parte');
+    
+    if (segundaParte) segundaParte.style.display = 'none';
+    if (primeiraParte) primeiraParte.style.display = 'block';
 }
 
 function validarSenha(senha) {
@@ -195,10 +222,20 @@ function validatePayment(paymentMethod) {
 }
 
 function validateCreditCardForm() {
-    const numerocartao = document.getElementById("numerocartao").value.replace(/\D/g, '');
-    const cvv = document.getElementById("cvv").value.replace(/\D/g, '');
-    const mes = document.getElementById("mes").value;
-    const ano = document.getElementById("ano").value;
+    const numeroCartaoElement = document.getElementById("numerocartao");
+    const cvvElement = document.getElementById("cvv");
+    const mesElement = document.getElementById("mes");
+    const anoElement = document.getElementById("ano");
+    
+    if (!numeroCartaoElement || !cvvElement || !mesElement || !anoElement) {
+        showErrorModal("Elementos do formulário de cartão de crédito não encontrados.");
+        return;
+    }
+    
+    const numerocartao = numeroCartaoElement.value.replace(/\D/g, '');
+    const cvv = cvvElement.value.replace(/\D/g, '');
+    const mes = mesElement.value;
+    const ano = anoElement.value;
 
     if (numerocartao.length !== 16) {
         showErrorModal("O número do cartão de crédito deve conter 16 dígitos.");
@@ -207,15 +244,25 @@ function validateCreditCardForm() {
     } else if (!mes || !ano) {
         showErrorModal("Por favor, selecione a data de validade do cartão de crédito.");
     } else {
-        alert("Pagamento com Cartão de Crédito validado! Redirecionando...");
+        showErrorModal("Pagamento com Cartão de Crédito validado! Redirecionando...");
     }
 }
 
 function validateDebitCardForm() {
-    const numerocartao = document.getElementById("numerocartaodebito").value.replace(/\D/g, '');
-    const cvv = document.getElementById("cvvdebito").value.replace(/\D/g, '');
-    const mes = document.getElementById("mesdebito").value;
-    const ano = document.getElementById("anodebito").value;
+    const numeroCartaoElement = document.getElementById("numerocartaodebito");
+    const cvvElement = document.getElementById("cvvdebito");
+    const mesElement = document.getElementById("mesdebito");
+    const anoElement = document.getElementById("anodebito");
+    
+    if (!numeroCartaoElement || !cvvElement || !mesElement || !anoElement) {
+        showErrorModal("Elementos do formulário de cartão de débito não encontrados.");
+        return;
+    }
+    
+    const numerocartao = numeroCartaoElement.value.replace(/\D/g, '');
+    const cvv = cvvElement.value.replace(/\D/g, '');
+    const mes = mesElement.value;
+    const ano = anoElement.value;
 
     if (numerocartao.length !== 16) {
         showErrorModal("O número do cartão de débito deve conter 16 dígitos.");
@@ -224,20 +271,28 @@ function validateDebitCardForm() {
     } else if (!mes || !ano) {
         showErrorModal("Por favor, selecione a data de validade do cartão de débito.");
     } else {
-        alert("Pagamento com Cartão de Débito validado! Redirecionando...");
+        showErrorModal("Pagamento com Cartão de Débito validado! Redirecionando...");
     }
 }
 
 function validatePixForm() {
-    const nomecompleto = document.getElementById("nomecompleto").value.trim();
-    const cpf = document.getElementById("cpf").value.replace(/\D/g, '');
+    const nomeCompletoElement = document.getElementById("nomecompleto");
+    const cpfElement = document.getElementById("cpf");
+    
+    if (!nomeCompletoElement || !cpfElement) {
+        showErrorModal("Elementos do formulário PIX não encontrados.");
+        return;
+    }
+    
+    const nomecompleto = nomeCompletoElement.value.trim();
+    const cpf = cpfElement.value.replace(/\D/g, '');
 
     if (nomecompleto === "") {
         showErrorModal("Por favor, preencha o nome completo para o pagamento PIX.");
     } else if (cpf.length !== 11) {
         showErrorModal("O CPF para o pagamento PIX deve conter 11 dígitos.");
     } else {
-        alert("Pagamento com PIX validado! Redirecionando...");
+        showErrorModal("Pagamento com PIX validado! Redirecionando...");
     }
 }
 
@@ -285,14 +340,20 @@ function addInputMasks() {
         e.target.value = value.substring(0, 19);
     };
     
-    document.getElementById('numerocartao')?.addEventListener('input', mascaraCartao);
-    document.getElementById('numerocartaodebito')?.addEventListener('input', mascaraCartao);
+    const numeroCartaoCredito = document.getElementById('numerocartao');
+    const numeroCartaoDebito = document.getElementById('numerocartaodebito');
+    
+    if (numeroCartaoCredito) numeroCartaoCredito.addEventListener('input', mascaraCartao);
+    if (numeroCartaoDebito) numeroCartaoDebito.addEventListener('input', mascaraCartao);
 
     const mascaraCVV = function(e) {
         let value = e.target.value.replace(/\D/g, '');
         e.target.value = value.substring(0, 4);
     };
 
-    document.getElementById('cvv')?.addEventListener('input', mascaraCVV);
-    document.getElementById('cvvdebito')?.addEventListener('input', mascaraCVV);
+    const cvvCredito = document.getElementById('cvv');
+    const cvvDebito = document.getElementById('cvvdebito');
+    
+    if (cvvCredito) cvvCredito.addEventListener('input', mascaraCVV);
+    if (cvvDebito) cvvDebito.addEventListener('input', mascaraCVV);
 }

@@ -33,7 +33,6 @@ main {
     flex-direction: column;
     gap: 2rem;
     padding: 2rem 1rem 7rem 1rem;
-    z-index: 1;
     margin-top: 80px;
 }
 
@@ -204,6 +203,7 @@ label {
 .escolher-pagamento {
     display: flex;
     justify-content: space-between;
+     margin-top: 10px;
     gap: 1rem;
     margin-bottom: 2rem;
 }
@@ -214,6 +214,7 @@ label {
 
 .escolher-pagamento label {
     flex: 1; 
+     margin-top: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -221,20 +222,20 @@ label {
     padding: 1rem;
     border: 1.5px solid #B7B6B6;
     border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
     text-align: center;
     margin: 0; 
-    color: var(--cortexto);
 }
 
+#subtitulo{
+    color: var(--cortitulo);
+    font-family: 'Passion One';
+    font-size: 25px;
+}
 .escolher-pagamento label:hover {
-    border-color: var(--corbotao2);
-    background-color: #fdf8f2;
+    background-color: #caac8d36;
 }
 
 .escolher-pagamento input[type="radio"]:checked + label {
-    background-color: var(--corfundo-container);
     border-color: var(--cortitulo);
     color: var(--cortitulo);
     font-weight: 500;
@@ -242,13 +243,19 @@ label {
 
 .escolher-pagamento label svg,
 .escolher-pagamento label i {
-    fill: var(--cortexto);
-    transition: fill 0.3s ease;
+    margin-top: 10px;
+    border-color: var(--cortitulo);
+    color: var(--cortitulo);
+    font-weight: 500;
 }
 
 .escolher-pagamento input[type="radio"]:checked + label svg,
 .escolher-pagamento input[type="radio"]:checked + label i {
-    fill: var(--cortitulo); 
+    margin-top: 10px;
+    border-color: var(--cortitulo);
+    color: var(--cortitulo);
+    font-weight: 500;
+    
 }
 
 
@@ -298,14 +305,17 @@ label {
 
 .modal-title {
     color: rgba(97, 53, 12, 1);
-    font-size: 1.5rem;
+    font-size: 20px;
+    font-size: 'Lexend Deca';
+    font-weight: bold;   
 }
 
 .modal-body {
     padding: 1.5rem;
     color: black;
     font-family: 'Lexend Deca', sans-serif;
-}
+    font-size: 16px;
+}  
 
 .modal-body ul {
     text-align: left;
@@ -325,7 +335,8 @@ label {
     color: #4e3629;
     border: none;
     border-radius: 10px;
-    border: 1px solid rgba(226, 204, 174, 1);
+    font-family: 'Lexend Deca';
+    font-size: 14px;
 }
 
 .modal .btn-primary:hover {
