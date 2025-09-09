@@ -1,4 +1,3 @@
-// Estados e cidades do Brasil
 const estadosCidades = {
     'AC': ['Rio Branco', 'Cruzeiro do Sul', 'Sena Madureira'],
     'AL': ['Maceió', 'Arapiraca', 'Palmeira dos Índios'],
@@ -30,25 +29,25 @@ const estadosCidades = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Esconde a segunda parte do formulário ao carregar a página
+    console.log("Script 'paginapagamentoinicial.js' iniciado.");
+
     const segundaParte = document.getElementById('segunda-parte');
+    const estadoSelect = document.getElementById('estado');
+    const dadosForm = document.getElementById('dados-form');
+    const comprarButton = document.getElementById("comprar");
+    const voltarBotao = document.getElementById('voltar-pagamento');
+    const senhaInput = document.getElementById('senha');
+    const paymentOptions = document.querySelectorAll('input[name="opcao"]');
+
     if (segundaParte) {
         segundaParte.style.display = 'none';
     }
 
-    // Popular o dropdown de estados
-    const estadoSelect = document.getElementById('estado');
     if (estadoSelect) {
-        for (const estado in estadosCidades) {
-            const option = document.createElement('option');
-            option.value = estado;
-            option.textContent = estado;
-            estadoSelect.appendChild(option);
-        }
+        estadoSelect.addEventListener('change', atualizarCidades);
+        console.log("Listener do seletor de ESTADO adicionado.");
     }
 
-    // Lida com a submissão da primeira parte do formulário
-    const dadosForm = document.getElementById('dados-form');
     if (dadosForm) {
         dadosForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -56,24 +55,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Lida com o clique do botão de comprar
-    const comprarButton = document.getElementById("comprar");
     if (comprarButton) {
         comprarButton.addEventListener("click", function(e) {
             e.preventDefault();
-            const pagamentoSelecionado = document.querySelector('input[name="inlineRadioOptions"]:checked').value;
-            validatePayment(parseInt(pagamentoSelecionado));
+            const pagamentoSelecionado = document.querySelector('input[name="opcao"]:checked');
+            if (pagamentoSelecionado) {
+                validatePayment(parseInt(pagamentoSelecionado.value));
+            } else {
+                showErrorModal("Por favor, selecione uma forma de pagamento.");
+            }
         });
     }
 
-    // Lida com o clique do botão de voltar
-    const voltarBotao = document.getElementById('voltar-pagamento');
     if (voltarBotao) {
         voltarBotao.addEventListener('click', voltarParaDados);
     }
 
-    // Validação em tempo real da senha
-    const senhaInput = document.getElementById('senha');
     if (senhaInput) {
         senhaInput.addEventListener('input', function() {
             const validacao = validarSenha(this.value);
@@ -82,21 +79,34 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('umcaracterespecial').style.color = validacao.temCaractereEspecial ? 'green' : '#757575';
             document.getElementById('letramaiuscula').style.color = validacao.temMaiuscula ? 'green' : '#757575';
         });
+        console.log("Listener do campo de SENHA adicionado.");
     }
 
-    // Inicializa a forma de pagamento (crédito) e as máscaras
+    paymentOptions.forEach(option => {
+        option.addEventListener('click', () => mudarpagamento(parseInt(option.value)));
+    });
+
     mudarpagamento(1);
     addInputMasks();
 });
 
-// Função para atualizar o dropdown de cidades com base no estado
+function showErrorModal(message) {
+    const modalBody = document.getElementById('errorModalBody');
+    if (modalBody) {
+        modalBody.textContent = message;
+        $('#errorModal').modal('show');
+    } else {
+        alert(message);
+    }
+}
+
 function atualizarCidades() {
     const estadoSelect = document.getElementById('estado');
     const cidadeSelect = document.getElementById('cidade');
     const estadoSelecionado = estadoSelect.value;
 
-    cidadeSelect.innerHTML = '<option value="" hidden>Selecione um estado primeiro...</option>';
-    cidadeSelect.disabled = true;
+    cidadeSelect.innerHTML = '<option value="" hidden>Selecione uma cidade...</option>';
+    cidadeSelect.setAttribute('disabled', 'true');
 
     if (estadoSelecionado && estadosCidades[estadoSelecionado]) {
         estadosCidades[estadoSelecionado].forEach(cidade => {
@@ -105,56 +115,48 @@ function atualizarCidades() {
             option.textContent = cidade;
             cidadeSelect.appendChild(option);
         });
-        cidadeSelect.disabled = false;
+        cidadeSelect.removeAttribute('disabled');
     }
 }
 
-// Função para navegar para a segunda parte do formulário
 function irParaPagamento() {
     const dadosForm = document.getElementById('dados-form');
-
     if (!dadosForm.checkValidity()) {
-        dadosForm.reportValidity();
+        showErrorModal('Por favor, preencha todos os campos obrigatórios (*) corretamente.');
         return;
     }
 
     const senha = document.getElementById('senha').value;
     const confirmarSenha = document.getElementById('confirmarsenha').value;
-
     if (senha !== confirmarSenha) {
-        alert('As senhas não coincidem.');
+        showErrorModal('As senhas não coincidem.');
         return;
     }
 
     const validacao = validarSenha(senha);
     if (!validacao.valida) {
-        alert('A senha não atende aos requisitos de segurança.');
+        showErrorModal('A senha não atende aos requisitos de segurança. Verifique as regras.');
         return;
     }
 
-    // Passa os dados para a segunda parte
     document.getElementById('display-nome').textContent = document.getElementById('nomecomprador').value;
     document.getElementById('display-email').textContent = document.getElementById('email').value;
     document.getElementById('display-telefone').textContent = document.getElementById('tel').value;
 
-    // Exibe a segunda parte e esconde a primeira
     document.getElementById('primeira-parte').style.display = 'none';
     document.getElementById('segunda-parte').style.display = 'flex';
 }
 
-// Função para voltar para a primeira parte do formulário
 function voltarParaDados() {
     document.getElementById('segunda-parte').style.display = 'none';
     document.getElementById('primeira-parte').style.display = 'block';
 }
 
-// Função para validar a senha
 function validarSenha(senha) {
     const temMinimo8 = senha.length >= 8;
     const tem2Numeros = (senha.match(/\d/g) || []).length >= 2;
     const temCaractereEspecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(senha);
     const temMaiuscula = /[A-Z]/.test(senha);
-
     return {
         temMinimo8,
         tem2Numeros,
@@ -164,7 +166,6 @@ function validarSenha(senha) {
     };
 }
 
-// Função para mudar a forma de pagamento
 function mudarpagamento(opcao) {
     const cartaoCredito = document.querySelector('.cartao-credito');
     const cartaoDebito = document.querySelector('.cartao-debito');
@@ -183,7 +184,6 @@ function mudarpagamento(opcao) {
     }
 }
 
-// Funções de validação de pagamento
 function validatePayment(paymentMethod) {
     if (paymentMethod === 1) {
         validateCreditCardForm();
@@ -201,14 +201,13 @@ function validateCreditCardForm() {
     const ano = document.getElementById("ano").value;
 
     if (numerocartao.length !== 16) {
-        alert("O número do cartão deve conter 16 dígitos.");
-    } else if (cvv.length !== 3 && cvv.length !== 4) {
-        alert("O CVV deve conter 3 ou 4 dígitos.");
+        showErrorModal("O número do cartão de crédito deve conter 16 dígitos.");
+    } else if (cvv.length < 3 || cvv.length > 4) {
+        showErrorModal("O CVV do cartão de crédito deve conter 3 ou 4 dígitos.");
     } else if (!mes || !ano) {
-        alert("Por favor, selecione a data de validade do cartão.");
+        showErrorModal("Por favor, selecione a data de validade do cartão de crédito.");
     } else {
         alert("Pagamento com Cartão de Crédito validado! Redirecionando...");
-        window.location.href = "../index.html";
     }
 }
 
@@ -219,75 +218,81 @@ function validateDebitCardForm() {
     const ano = document.getElementById("anodebito").value;
 
     if (numerocartao.length !== 16) {
-        alert("O número do cartão de débito deve conter 16 dígitos.");
-    } else if (cvv.length !== 3 && cvv.length !== 4) {
-        alert("O CVV deve conter 3 ou 4 dígitos.");
+        showErrorModal("O número do cartão de débito deve conter 16 dígitos.");
+    } else if (cvv.length < 3 || cvv.length > 4) {
+        showErrorModal("O CVV do cartão de débito deve conter 3 ou 4 dígitos.");
     } else if (!mes || !ano) {
-        alert("Por favor, selecione a data de validade do cartão de débito.");
+        showErrorModal("Por favor, selecione a data de validade do cartão de débito.");
     } else {
         alert("Pagamento com Cartão de Débito validado! Redirecionando...");
-        window.location.href = "../index.html";
     }
 }
 
 function validatePixForm() {
-    const nomecompleto = document.getElementById("nomecomprador").value.trim();
+    const nomecompleto = document.getElementById("nomecompleto").value.trim();
     const cpf = document.getElementById("cpf").value.replace(/\D/g, '');
 
     if (nomecompleto === "") {
-        alert("Por favor, preencha o nome completo.");
+        showErrorModal("Por favor, preencha o nome completo para o pagamento PIX.");
     } else if (cpf.length !== 11) {
-        alert("O CPF deve conter 11 dígitos.");
+        showErrorModal("O CPF para o pagamento PIX deve conter 11 dígitos.");
     } else {
         alert("Pagamento com PIX validado! Redirecionando...");
-        window.location.href = "../index.html";
     }
 }
 
-// Adiciona máscaras aos campos de input
 function addInputMasks() {
-    document.getElementById('cnpj').addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        value = value.replace(/^(\d{2})(\d)/, '$1.$2');
-        value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
-        value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
-        value = value.replace(/(\d{4})(\d)/, '$1-$2');
-        e.target.value = value.substring(0, 18);
-    });
+    const cnpjInput = document.getElementById('cnpj');
+    if (cnpjInput) {
+        cnpjInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+            value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+            value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+            value = value.replace(/(\d{4})(\d)/, '$1-$2');
+            e.target.value = value.substring(0, 18);
+        });
+    }
 
-    document.getElementById('tel').addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length > 2) {
-            value = '(' + value.substring(0, 2) + ') ' + value.substring(2);
-        }
-        if (value.length > 9) {
-            value = value.substring(0, 9) + '-' + value.substring(9);
-        }
-        e.target.value = value.substring(0, 15);
-    });
-
-    document.getElementById('cpf').addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        value = value.replace(/(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d)/, '$1.$2');
-        value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-        e.target.value = value.substring(0, 14);
-    });
+    const telInput = document.getElementById('tel');
+    if (telInput) {
+        telInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 2) {
+                value = `(${value.substring(0, 2)}) ${value.substring(2)}`;
+            }
+            if (value.length > 9) {
+                value = `${value.substring(0, 9)}-${value.substring(9)}`;
+            }
+            e.target.value = value.substring(0, 15);
+        });
+    }
+    
+    const cpfInput = document.getElementById('cpf');
+    if (cpfInput) {
+        cpfInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+            value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            e.target.value = value.substring(0, 14);
+        });
+    }
 
     const mascaraCartao = function(e) {
         let value = e.target.value.replace(/\D/g, '');
         value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
         e.target.value = value.substring(0, 19);
     };
-
-    document.getElementById('numerocartao').addEventListener('input', mascaraCartao);
-    document.getElementById('numerocartaodebito').addEventListener('input', mascaraCartao);
+    
+    document.getElementById('numerocartao')?.addEventListener('input', mascaraCartao);
+    document.getElementById('numerocartaodebito')?.addEventListener('input', mascaraCartao);
 
     const mascaraCVV = function(e) {
         let value = e.target.value.replace(/\D/g, '');
         e.target.value = value.substring(0, 4);
     };
 
-    document.getElementById('cvv').addEventListener('input', mascaraCVV);
-    document.getElementById('cvvdebito').addEventListener('input', mascaraCVV);
+    document.getElementById('cvv')?.addEventListener('input', mascaraCVV);
+    document.getElementById('cvvdebito')?.addEventListener('input', mascaraCVV);
 }

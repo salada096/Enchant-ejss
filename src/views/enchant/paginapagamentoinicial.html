@@ -1,26 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="https://i.ibb.co/7NybZ3W7/1.png" type="image/x-icon">
     <title>Enchant - Pagamento</title>
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../CSS/paginapagamentoinicial.css">
-    <link rel="stylesheet" href="../CSS/paginapagamento.css">
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <link rel="stylesheet" href="../../../public/styles/enchant/paginapagamentoinicial.css">
-    <link rel="stylesheet" href="../../../public/scripts/enchant/paginapagamentoinicial.js">
-
-
-  <script src="../../../public/scripts/layouts/enchant/headerenchant.js"></script>
-  <script src="../../../public/scripts/layouts/enchant/footerenchant.js"></script>
-  <link rel="stylesheet" href="../../../public/styles/global.css">
-
+  
+    <link rel="stylesheet" href="../../../public/styles/global.css">
+    <script src="../../../public/scripts/layouts/enchant/headerenchant.js"></script>
+    <script src="../../../public/scripts/layouts/enchant/footerenchant.js"></script>
 
 </head>
 <body>
@@ -29,10 +22,9 @@
     </section>
 
     <main>
-        <!-- Primeira Parte - Formulário de Dados -->
         <div class="primeira-parte" id="primeira-parte">
             <div>
-                <h2 class="pagamento">Insira os seus dados</h2>
+                <h2 class="pagamento">Pagamento - Insira os seus dados</h2>
             </div>
             <section class="container">
                 <div class="recomendações">
@@ -40,8 +32,8 @@
                         Recomendamos atenção total ao preencher os dados nos campos solicitados. É fundamental que as informações sejam inseridas de forma responsável, a fim de evitar fraudes.
                     </p>
                 </div>
-                <form id="dados-form">
-                    <div>
+                <form id="dados-form" novalidate>
+                    <div class="full-width">
                         <label for="nomecomprador">Nome da Instituição/ONG: <b style="color: #FF0404;">*</b></label>
                         <input type="text" name="nomecomprador" id="nomecomprador" autocomplete="off" placeholder="ex: Nome da Instituição" required>
                     </div>
@@ -55,11 +47,11 @@
                     </div>
                     <div>
                         <label for="tel">Telefone: <b style="color: #FF0404;">*</b></label>
-                        <input type="tel" name="tel" id="tel" autocomplete="off" placeholder="ex: 55+ (XX) XXXXX-XXXX" required>
+                        <input type="tel" name="tel" id="tel" autocomplete="off" placeholder="ex: (XX) XXXXX-XXXX" required>
                     </div>
                     <div>
                         <label for="estado">Estado: <b style="color: #FF0404;">*</b></label>
-                        <select name="estado" id="estado" onchange="atualizarCidades()" required>
+                        <select name="estado" id="estado" required>
                             <option value="" hidden>Escolha uma opção...</option>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
@@ -90,28 +82,28 @@
                             <option value="TO">Tocantins</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="full-width">
                         <label for="cidade">Cidade: <b style="color: #FF0404;">*</b></label>
                         <select name="cidade" id="cidade" disabled required>
                             <option value="" hidden>Selecione um estado primeiro...</option>
                         </select>
                     </div>
-                    <div class="senha-area">
+                    <div class="senha-area full-width">
                         <div>
-                            <label for="senha">Senha: <b style="color: #FF0404;">*</b></label><br>
-                            <input type="password" name="senha" id="senha" required>
+                            <label for="senha">Senha: <b style="color: #FF0404;">*</b></label>
+                            <input type="password" name="senha" id="senha" placeholder="ex: Senha@123" required>
                         </div>
                         <div>
-                            <label for="confirmarsenha">Confirme a senha: <b style="color: #FF0404;">*</b></label><br>
-                            <input type="password" name="confirmarsenha" id="confirmarsenha" required>
+                            <label for="confirmarsenha">Confirme a senha: <b style="color: #FF0404;">*</b></label>
+                            <input type="password" name="confirmarsenha" id="confirmarsenha" placeholder="ex: Senha@123" required>
                         </div>
-                    </div><br>
-                    <div class="requerimento-senha">
+                    </div>
+                    <div class="requerimento-senha full-width">
                         <p id="senha-conter">Sua senha deve conter:</p>
-                        <p id="minimodigitos"><b style="color: #FF0404;">*</b> Mínimo 8 dígitos</p>
-                        <p id="doisnumeros"><b style="color: #FF0404;">*</b> Pelo menos 2 números</p>
-                        <p id="umcaracterespecial"><b style="color: #FF0404;">*</b> Pelo menos 1 caracter especial</p>
-                        <p id="letramaiuscula"><b style="color: #FF0404;">*</b> Pelo menos 1 letra maiúscula</p>
+                        <p id="minimodigitos">Mínimo 8 dígitos</p>
+                        <p id="doisnumeros">Pelo menos 2 números</p>
+                        <p id="umcaracterespecial">Pelo menos 1 caracter especial</p>
+                        <p id="letramaiuscula">Pelo menos 1 letra maiúscula</p>
                     </div>
                     <div class="div-botao-continuar">
                         <button type="submit" class="botao-continuar" id="botao-continuar">Continuar</button>
@@ -120,7 +112,6 @@
             </section>
         </div>
 
-        <!-- Segunda Parte - Pagamento -->
         <div class="segunda-parte" id="segunda-parte">
             <div>
                 <h2 class="pagamento">Finalizar Pagamento</h2>
@@ -153,59 +144,46 @@
                         <div class="asd">
                             <form class="form-pagamento">
                                 <div class="escolher-pagamento">
-                                    <input type="radio" name="opcao" value="1" checked onclick="mudarpagamento(1)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000">
-                                        <path d="M880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720Zm-720 80h640v-80H160v80Zm0 160v240h640v-240H160Zm0 240v-480 480Z"/>
-                                    </svg>Cartão de crédito
-                                    <input type="radio" name="opcao" value="2" onclick="mudarpagamento(2)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00000">
-                                        <path d="M880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720Zm-720 80h640v-80H160v80Zm0 160v240h640v-240H160Zm0 240v-480 480Z"/>
-                                    </svg>Cartão de débito
-                                    <input type="radio" name="opcao" value="3" onclick="mudarpagamento(3)">
-                                    <i class="fa-brands fa-pix"></i>Pix
+                                    <input type="radio" name="opcao" value="1" id="opcao-credito" checked>
+                                    <label for="opcao-credito">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720Zm-720 80h640v-80H160v80Zm0 160v240h640v-240H160Zm0 240v-480 480Z"/></svg>
+                                        Cartão de crédito
+                                    </label>
+                                    
+                                    <input type="radio" name="opcao" value="2" id="opcao-debito">
+                                    <label for="opcao-debito">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720Zm-720 80h640v-80H160v80Zm0 160v240h640v-240H160Zm0 240v-480 480Z"/></svg>
+                                        Cartão de débito
+                                    </label>
+                                    
+                                    <input type="radio" name="opcao" value="3" id="opcao-pix">
+                                    <label for="opcao-pix">
+                                        <i class="fa-brands fa-pix"></i>
+                                        Pix
+                                    </label>
                                 </div>
                                 <div class="cartao-credito">
                                     <div>
-                                        <label for="numerocartao" id="numerocartaolabel">Número do cartão: <b style="color: #FF0404;">*</b></label>
+                                        <label for="numerocartao">Número do cartão: <b style="color: #FF0404;">*</b></label>
                                         <input type="text" name="numerocartao" id="numerocartao" placeholder="ex: 0000 0000 0000 0000" autocomplete="off">
                                     </div>
                                     <div class="informaçoes-pagamento">
                                         <div style="display: flex; flex-direction: column;">
-                                            <label for="datavalidade" id="datalabel">Data de expiração: <b style="color: #FF0404;">*</b></label>
+                                            <label for="mes">Data de expiração: <b style="color: #FF0404;">*</b></label>
                                             <div>
                                                 <select name="mes" id="mes">
                                                     <option value="" disabled hidden selected>Mês</option>
-                                                    <option value="1">01</option>
-                                                    <option value="2">02</option>
-                                                    <option value="3">03</option>
-                                                    <option value="4">04</option>
-                                                    <option value="5">05</option>
-                                                    <option value="6">06</option>
-                                                    <option value="7">07</option>
-                                                    <option value="8">08</option>
-                                                    <option value="9">09</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
+                                                    <option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
                                                 </select>
+                                                <br>
                                                 <select name="ano" id="ano">
                                                     <option value="" disabled hidden selected>Ano</option>
-                                                    <option value="2025">2025</option>
-                                                    <option value="2026">2026</option>
-                                                    <option value="2027">2027</option>
-                                                    <option value="2028">2028</option>
-                                                    <option value="2029">2029</option>
-                                                    <option value="2030">2030</option>
-                                                    <option value="2031">2031</option>
-                                                    <option value="2032">2032</option>
-                                                    <option value="2033">2033</option>
-                                                    <option value="2034">2034</option>
-                                                    <option value="2035">2035</option>
+                                                    <option value="2025">2025</option><option value="2026">2026</option><option value="2027">2027</option><option value="2028">2028</option><option value="2029">2029</option><option value="2030">2030</option><option value="2031">2031</option><option value="2032">2032</option><option value="2033">2033</option><option value="2034">2034</option><option value="2035">2035</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div style="display: flex; flex-direction: column;">
-                                            <label for="cvv" id="cvvlabel">CVV: <b style="color: #FF0404;">*</b></label>
+                                            <label for="cvv">CVV: <b style="color: #FF0404;">*</b></label>
                                             <input type="text" name="cvv" id="cvv" autocomplete="off" minlength="3" maxlength="4">
                                         </div>
                                     </div>
@@ -221,33 +199,11 @@
                                             <div>
                                                 <select name="mesdebito" id="mesdebito">
                                                     <option value="" disabled hidden selected>Mês</option>
-                                                    <option value="1">01</option>
-                                                    <option value="2">02</option>
-                                                    <option value="3">03</option>
-                                                    <option value="4">04</option>
-                                                    <option value="5">05</option>
-                                                    <option value="6">06</option>
-                                                    <option value="7">07</option>
-                                                    <option value="8">08</option>
-                                                    <option value="9">09</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
+                                                    <option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
                                                 </select>
-
                                                 <select name="anodebito" id="anodebito">
                                                     <option value="" disabled hidden selected>Ano</option>
-                                                    <option value="2025">2025</option>
-                                                    <option value="2026">2026</option>
-                                                    <option value="2027">2027</option>
-                                                    <option value="2028">2028</option>
-                                                    <option value="2029">2029</option>
-                                                    <option value="2030">2030</option>
-                                                    <option value="2031">2031</option>
-                                                    <option value="2032">2032</option>
-                                                    <option value="2033">2033</option>
-                                                    <option value="2034">2034</option>
-                                                    <option value="2035">2035</option>
+                                                    <option value="2025">2025</option><option value="2026">2026</option><option value="2027">2027</option><option value="2028">2028</option><option value="2029">2029</option><option value="2030">2030</option><option value="2031">2031</option><option value="2032">2032</option><option value="2033">2033</option><option value="2034">2034</option><option value="2035">2035</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -258,9 +214,9 @@
                                     </div>
                                 </div>
                                 <div class="pix">
-                                    <label for="nomecompleto" id="nomecompletolabel">Nome completo: <b style="color: #FF0404;">*</b></label>
+                                    <label for="nomecompleto">Nome completo: <b style="color: #FF0404;">*</b></label>
                                     <input type="text" name="nomecompleto" id="nomecompleto" autocomplete="off" required>
-                                    <label for="cpf" id="cpflabel">CPF: <b style="color: #FF0404;">*</b></label>
+                                    <label for="cpf">CPF: <b style="color: #FF0404;">*</b></label>
                                     <input type="text" name="cpf" id="cpf" autocomplete="off" required>
                                 </div>
                             </form>
@@ -286,7 +242,7 @@
                         </div>
                     </div>
                     <div class="botaocomprar">
-                        <button class="btn-voltar" onclick="voltarParaDados()">Voltar</button>
+                        <button class="btn-voltar" id="voltar-pagamento">Voltar</button>
                         <button id="comprar">Continuar com a compra</button>
                     </div>
                 </div>
@@ -302,8 +258,7 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body" id="errorModalBody">
-                </div>
+              <div class="modal-body" id="errorModalBody"></div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
               </div>
@@ -313,25 +268,17 @@
     </main>
 
     <div id="enchant-footer"></div>
-    <script src="../../scripts/layouts/enchant/footerenchant.js"></script>
-
-         <script>
-
-      document.addEventListener('DOMContentLoaded', function() {
-        // Carregar Bootstrap e FontAwesome automaticamente
-        HeaderComponent.loadDependencies();
-
-        // Renderizar o header no container
-        initializeHeader('header-container');
-
-          });
-              </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="../../../public/scripts/enchant/paginapagamentoinicial.js"></script>
 
-    <script src="../JS/paginapagamentoinicial.js"></script>
-</html>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        initializeHeader('header-container');
+      });
+    </script>
+</body>
 </html>
