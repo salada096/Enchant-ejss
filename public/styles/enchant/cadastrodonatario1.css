@@ -22,8 +22,6 @@
   text-decoration: none;
 }
 
-
-
 .passo.ativo {
   margin-top: 30px;
   background-color: #FBF6F1;
@@ -45,10 +43,7 @@
     border: none;
   }
   
-  
 
-
-  
   .estado-civil {
     display: flex;
     flex-direction: row;

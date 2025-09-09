@@ -5,8 +5,8 @@ class HeaderComponent {
       <header>
         <nav id="fixado" class="navbar navbar-expand-lg navbar-light bg-light">
           <!-- Adicionando a imagem à esquerda da navbar -->
-          <a class="navbar-brand" href="../index.html">
-            <img src="../../assets/imgs/enchant/logo-enchant.png" width="120" height="auto" alt="Logo" class="img" />
+          <a class="navbar-brand" href="../../../src/views/index.html">
+            <img src="../../../public/assets/imgs/enchant/logo-enchant.png" width="120" height="auto" alt="Logo" class="img" />
           </a>
           <button id="icone" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false"
@@ -512,7 +512,6 @@ class HeaderComponent {
       if (currentPath.includes(linkPath.replace('.html', '')) || 
           (currentPath === '/' && linkPath.includes('index'))) {
         link.classList.add('active');
-        link.style.fontWeight = 'bold';
         link.style.color = '#4E3629';
       }
     });
