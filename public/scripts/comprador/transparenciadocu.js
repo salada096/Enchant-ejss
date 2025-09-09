@@ -1,3 +1,4 @@
+
 // Array para armazenar os documentos
 let documents = [];
 let nextId = 1;
