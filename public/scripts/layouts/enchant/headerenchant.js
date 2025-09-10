@@ -17,16 +17,16 @@ class HeaderComponent {
           <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
             <ul class="navbar-nav menu-lateral">
               <li class="nav-item">
-                <a id="quem" class="nav-link" href="/src/views/enchant/quemsomos1.html" title="Quem somos">Quem somos?</a>
+                <a id="quem" class="nav-link" href="../../../../src/views/enchant/quemsomos1.html" title="Quem somos">Quem somos?</a>
               </li>
               <li class="nav-item">
-                <a id="saiba" class="nav-link" href="/src/views/enchant/saibamais1.html" title="Saiba mais">Saiba mais</a>
+                <a id="saiba" class="nav-link" href="../../../../src/views/enchant/saibamais.html" title="Saiba mais">Saiba mais</a>
               </li>
               <li class="nav-item">
-                <a id="suporte-header" class="nav-link" href="/src/views/enchant/suporte.html" title="Suporte">Suporte</a>
+                <a id="suporte-header" class="nav-link" href="../../../../src/views/enchant/suporte.html" title="Suporte">Suporte</a>
               </li>
               <li class="nav-item">
-                <a id="entrar" class="nav-link" href="/src/views/enchant/entrar1.html" title="Entrar">Entrar</a>
+                <a id="entrar" class="nav-link" href="../../../../src/views/enchant/entrar1.html" title="Entrar">Entrar</a>
               </li>
             </ul>
             <!-- O botão permanece inalterado -->
