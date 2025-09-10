@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             if (formType === 'instituicao') {
-                const select = document.getElementById('instituicao-tipo');
+                const select = document.getElementById('instituicaoTipo');
                 const optionExists = select.querySelector(`option[value="${instituicaoValue}"]`);
                 select.value = optionExists ? instituicaoValue : 'outra';
             }
@@ -209,13 +209,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const novoUploadHTML = `
                 <div class="upload-item">
-                   <input type="file" name="ong_certificados[]" id="${id}" class="input-upload" accept=".jpg, .jpeg, .png, .pdf">
-                   <label for="${id}" class="upload-label">
-                      <i class="bi bi-paperclip"></i>
-                      <span>Anexar certificado</span>
-                   </label>
-                   <span class="nome-arquivo">Nenhum arquivo selecionado</span>
-                   <button type="button" class="btn-remover"><i class="bi bi-trash"></i></button>
+                    <input type="file" name="ong_certificados[]" id="${id}" class="input-upload" accept=".jpg, .jpeg, .png, .pdf">
+                    <label for="${id}" class="upload-label">
+                        <i class="bi bi-paperclip"></i>
+                        <span>Anexar certificado</span>
+                    </label>
+                    <span class="nome-arquivo">Nenhum arquivo selecionado</span>
+                    <button type="button" class="btn-remover"><i class="bi bi-trash"></i></button>
                 </div>
             `;
             
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         validateStep1() {
             let errors = [];
-            if (!this.form.querySelector('#nome-completo').value.trim()) errors.push('O campo <strong>Nome</strong> é obrigatório.');
+            if (!this.form.querySelector('#nomeCompleto').value.trim()) errors.push('O campo <strong>Nome</strong> é obrigatório.');
             if (!this.validators.email(this.form.querySelector('#email').value)) errors.push('Por favor, insira um <strong>E-mail</strong> válido.');
             const senha = this.form.querySelector('#senha').value;
             if (!this.validators.senha(senha).valido) errors.push('A <strong>Senha</strong> não atende a todos os requisitos.');
@@ -294,18 +294,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const formType = this.selectedDoadorFormType;
             
             if (formType === 'pessoa') {
-                if (!this.validators.cpf(this.form.querySelector('#pessoa-cpf').value)) errors.push('Por favor, insira um <strong>CPF</strong> válido.');
-                if (!this.form.querySelector('#pessoa-rg').value.trim()) errors.push('O campo <strong>RG</strong> é obrigatório.');
-                if (!this.validators.telefone(this.form.querySelector('#pessoa-telefone').value)) errors.push('O <strong>Telefone</strong> é inválido.');
+                if (!this.validators.cpf(this.form.querySelector('#pessoaCpf').value)) errors.push('Por favor, insira um <strong>CPF</strong> válido.');
+                if (!this.form.querySelector('#pessoaRg').value.trim()) errors.push('O campo <strong>RG</strong> é obrigatório.');
+                if (!this.validators.telefone(this.form.querySelector('#pessoaTelefone').value)) errors.push('O <strong>Telefone</strong> é inválido.');
             } else if (formType === 'ong') {
-                if (!this.validators.cnpj(this.form.querySelector('#ong-cnpj').value)) errors.push('O <strong>CNPJ</strong> da ONG é inválido.');
-                if (!this.validators.telefone(this.form.querySelector('#ong-telefone').value)) errors.push('O <strong>Telefone</strong> da ONG é inválido.');
+                if (!this.validators.cnpj(this.form.querySelector('#ongCnpj').value)) errors.push('O <strong>CNPJ</strong> da ONG é inválido.');
+                if (!this.validators.telefone(this.form.querySelector('#ongTelefone').value)) errors.push('O <strong>Telefone</strong> da ONG é inválido.');
             } else if (formType === 'instituicao') {
-                if (!this.form.querySelector('#instituicao-tipo').value) errors.push('Selecione o <strong>Tipo principal de instituição</strong>.');
-                if (!this.validators.cnpj(this.form.querySelector('#instituicao-cnpj').value)) errors.push('O <strong>CNPJ</strong> da Instituição é inválido.');
-                if (!this.validators.telefone(this.form.querySelector('#instituicao-telefone').value)) errors.push('O <strong>Telefone</strong> da Instituição é inválido.');
-                if (!this.validators.cep(this.form.querySelector('#instituicao-cep').value)) errors.push('O <strong>CEP</strong> é inválido.');
-                if (!this.form.querySelector('#instituicao-bairro').value.trim()) errors.push('O <strong>Bairro</strong> é obrigatório.');
+                if (!this.form.querySelector('#instituicaoTipo').value) errors.push('Selecione o <strong>Tipo principal de instituição</strong>.');
+                if (!this.validators.cnpj(this.form.querySelector('#instituicaoCnpj').value)) errors.push('O <strong>CNPJ</strong> da Instituição é inválido.');
+                if (!this.validators.telefone(this.form.querySelector('#instituicaoTelefone').value)) errors.push('O <strong>Telefone</strong> da Instituição é inválido.');
+                if (!this.validators.cep(this.form.querySelector('#instituicaoCep').value)) errors.push('O <strong>CEP</strong> é inválido.');
+                if (!this.form.querySelector('#instituicaoBairro').value.trim()) errors.push('O <strong>Bairro</strong> é obrigatório.');
             }
             
             return { isValid: errors.length === 0, errors };
@@ -313,15 +313,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         setupFormatters() {
             const formatters = {
-                'pessoa-cpf': this.formatCPF, 'ong-cnpj': this.formatCNPJ, 'instituicao-cnpj': this.formatCNPJ,
-                'pessoa-telefone': this.formatTelefone, 'ong-telefone': this.formatTelefone, 'instituicao-telefone': this.formatTelefone,
-                'instituicao-cep': this.formatCEP,
+                'pessoaCpf': this.formatCPF, 'ongCnpj': this.formatCNPJ, 'instituicaoCnpj': this.formatCNPJ,
+                'pessoaTelefone': this.formatTelefone, 'ongTelefone': this.formatTelefone, 'instituicaoTelefone': this.formatTelefone,
+                'instituicaoCep': this.formatCEP,
             };
             for (const [id, formatter] of Object.entries(formatters)) {
                 const input = document.getElementById(id);
                 if (input) input.addEventListener('input', (e) => formatter(e.target));
             }
-            const cepInput = document.getElementById('instituicao-cep');
+            const cepInput = document.getElementById('instituicaoCep');
             if (cepInput) cepInput.addEventListener('blur', async (e) => {
                 const cep = e.target.value.replace(/\D/g, '');
                 if (cep.length !== 8) return;
@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
                     if (!response.ok) throw new Error('Falha na requisição.');
                     const data = await response.json();
-                    const bairroInput = document.getElementById('instituicao-bairro');
+                    const bairroInput = document.getElementById('instituicaoBairro');
                     if (data.erro) { this.mostrarAviso('CEP não encontrado.'); } 
                     else if(bairroInput) { bairroInput.value = data.bairro; }
                 } catch (error) { console.error('Erro ao buscar CEP:', error); }
@@ -409,4 +409,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     new FormManager();
+
+    const form = document.getElementById('cadastro-form-multistep');
+
+    form.addEventListener('submit', async (e) => {
+
+        e.preventDefault();
+        const formData = new FormData(form);
+
+        try {
+
+            const response = await fetch('/cadastrar/doador', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) throw new Error('Erro na requisição');
+
+            const data = await response.json();
+            console.log('📦 Dados recebidos:', data);
+            form.reset();
+
+        } catch (error) {
+            console.error('❌ Erro na requisição:', error);
+        }
+    });
+    
 });
