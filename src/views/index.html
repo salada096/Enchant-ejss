@@ -144,8 +144,8 @@
             right: 0;
             height: 100px;
             background: var(--white);
-            border-radius: 0 0 50% 50%;
-            transform: scaleX(2);
+            border-radius: 0 0 50% 50%; 
+            transform: scaleX(2); 
         }
 
         .stats::after {
@@ -227,7 +227,7 @@
 
         /* ======= FEATURES: Copiado do primeiro código (escopado para .features) ======= */
         .features {
-            /* variáveis locais apenas para a seção — não alteram o :root global */
+            /* variáveis locais apenas para a seção – não alteram o :root global */
             --primary-brown: #8B4513;
             --secondary-brown: #A0522D;
             --dark-brown: #654321;
@@ -297,7 +297,7 @@
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* O seu JS adiciona "visible" — deixei compatível com animate do original */
+        /* O seu JS adiciona "visible" – deixei compatível com animate do original */
         .features .feature-item.visible,
         .features .feature-item.animate {
             opacity: 1;
@@ -375,6 +375,10 @@
             overflow: hidden;
             border: 2px solid rgba(139, 69, 19, 0.15);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-visual{
+            transform: rotate(deg);
         }
 
         .features .feature-visual::before {
@@ -516,6 +520,220 @@
             font-size: 0.95rem;
         }
 
+        /* Free Platform Request Section */
+        .free-request {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #4A3728 0%, #3D2B20 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .free-request::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: #F8F5F0;
+            border-radius: 0 0 50% 50%;
+            transform: scaleX(2);
+        }
+
+        .free-request::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: var(--white);
+            border-radius: 50% 50% 0 0;
+            transform: scaleX(2);
+        }
+
+        .free-request-content {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .free-request-text {
+            flex: 1;
+            color: white;
+        }
+
+        .free-request-title {
+            font-family: 'Passion One', sans-serif;
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .highlight-orange {
+            color: var(--accent-orange);
+            text-shadow: 0 0 20px rgba(210, 105, 30, 0.3);
+        }
+
+        .free-request-description {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 500px;
+        }
+
+        .free-request-button {
+            background: linear-gradient(135deg, var(--accent-orange) 0%, #FF8C42 100%);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(210, 105, 30, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .free-request-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .free-request-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(210, 105, 30, 0.4);
+        }
+
+        .free-request-button:hover::before {
+            left: 100%;
+        }
+
+        .free-request-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .laptop-mockup {
+            position: relative;
+            transform: perspective(1000px) rotateX(5deg) rotateY(-15deg);
+            transition: all 0.4s ease;
+        }
+
+        .laptop-mockup:hover {
+            transform: perspective(1000px) rotateX(10deg) rotateY(-20deg) scale(1.05);
+        }
+
+        .laptop-screen {
+            width: 400px;
+            height: 250px;
+            background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-radius: 15px 15px 5px 5px;
+            padding: 20px;
+            box-shadow: 
+                inset 0 2px 10px rgba(255,255,255,0.1),
+                0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .laptop-screen::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: #333;
+            border-radius: 50%;
+        }
+
+        .laptop-base {
+            width: 420px;
+            height: 20px;
+            background: linear-gradient(145deg, #e0e0e0 0%, #c0c0c0 100%);
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            margin-top: -5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .laptop-base::before {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #999;
+            border-radius: 2px;
+        }
+
+        .plan-card-mockup {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            height: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .plan-header {
+            background: var(--accent-orange);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .plan-price-mockup {
+            font-family: 'Passion One', sans-serif;
+            font-size: 2.5rem;
+            color: var(--primary-brown);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .plan-features-mockup {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature-item-mockup {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .check-icon {
+            color: #28a745;
+            font-weight: bold;
+            min-width: 16px;
+        }
+
         /* FAQ Section */
         .faq {
             padding: 100px 0;
@@ -632,7 +850,7 @@
             }
         }
 
-                @media (min-width: 1200px) {
+        @media (min-width: 1200px) {
          .mockup-1 { width: 400px; height: 300px; top: 5%; right: 5%; animation-delay: 0s; }
         .mockup-2 { width: 300px; height: 200px; top: 35%; right: 3%; margin-top:2.5%; animation-delay: 2s; }
         .mockup-3 { width: 400px; height: 300px; bottom: 5%; right: 9%; animation-delay: 4s; }
@@ -642,7 +860,6 @@
         .mockup-7 { width: 300px; height: 250px; top: 20%; left: 6%; margin-top:10%; animation-delay: 6s; }
 
         }
-
 
         @media (max-width: 768px) {
             .container {
@@ -684,6 +901,44 @@
             .faq-content {
                 grid-template-columns: 1fr;
                 gap: 40px;
+            }
+
+            .free-request-content {
+                flex-direction: column;
+                gap: 50px;
+                text-align: center;
+            }
+
+            .free-request-title {
+                font-size: 2.8rem;
+            }
+
+            .free-request-description {
+                font-size: 1.1rem;
+                max-width: none;
+            }
+
+            .laptop-mockup {
+                transform: perspective(800px) rotateX(0deg) rotateY(0deg);
+                scale: 0.8;
+            }
+
+            .laptop-screen {
+                width: 320px;
+                height: 200px;
+                padding: 15px;
+            }
+
+            .laptop-base {
+                width: 340px;
+            }
+
+            .plan-price-mockup {
+                font-size: 2rem;
+            }
+
+            .feature-item-mockup {
+                font-size: 0.8rem;
             }
 
             /* Features responsive adjustments (copiado do primeiro) */
@@ -730,13 +985,8 @@
             </div>
         </div>
 
-
-
-
         <div class="mockup-container">
             <!-- mockups (mantive intactos) -->
-
-
             <div class="mockup mockup-1">
                 <div style="background: #8B5A3C; color: white; padding: 6px 10px; border-radius: 6px 6px 0 0; font-size: 11px; font-weight: bold;">Histórico de doações</div>
                 <div style="background: #F5F1EB; padding: 8px; border-radius: 0 0 6px 6px;">
@@ -898,7 +1148,10 @@
                                 <h3>Dashboard Inteligente</h3>
                                 <p>Visualize dados em tempo real, monitore indicadores críticos e tome decisões informadas com nosso painel de controle avançado equipado com inteligência artificial.</p>
                             </div>
-                            <div class="feature-visual">Dashboard Interativo</div>
+                            <div class="feature-visual"><video width="640" height="360" controls>
+  <source src="/public/assets/imgs/enchant/transparencia.mp4" type="video/mp4">
+  Seu navegador não suporta a tag de vídeo.
+</video></div>
                         </div>
                         <div class="timeline-node"></div>
                     </div>
@@ -1030,6 +1283,51 @@
         </div>
     </section>
 
+    <!-- Free Platform Request Section -->
+    <section class="free-request">
+        <div class="container">
+            <div class="free-request-content">
+                <div class="free-request-text">
+                    <h2 class="free-request-title">
+                        Enchant <span class="highlight-orange">acolhe</span>,<br>
+                        <span class="highlight-orange">impulsiona</span> e<br>
+                        <span class="highlight-orange">realiza</span>!
+                    </h2>
+                    <p class="free-request-description">
+                        Acreditamos que boas ideias não podem ser limitadas pela falta de recursos. Se sua ONG ainda não tem renda suficiente, você pode solicitar nosso plano gratuito. Após uma breve inspeção e validação, sua organização poderá contar com todas as ferramentas essenciais para começar a transformar realidades.
+                    </p>
+                    <button class="free-request-button">Fazer solicitação</button>
+                </div>
+                
+                <div class="free-request-visual">
+                    <div class="laptop-mockup">
+                        <div class="laptop-screen">
+                            <div class="plan-card-mockup">
+                                <div class="plan-header">Plano Aliança</div>
+                                <div class="plan-price-mockup">R$ 0,00</div>
+                                <div class="plan-features-mockup">
+                                    <div class="feature-item-mockup">
+                                        <span class="check-icon">✓</span>
+                                        Acesso a tudo que os planos pagos fornecem
+                                    </div>
+                                    <div class="feature-item-mockup">
+                                        <span class="check-icon">✓</span>
+                                        O caminho completo para novas oportunidades
+                                    </div>
+                                    <div class="feature-item-mockup">
+                                        <span class="check-icon">✓</span>
+                                        O poder de agir, sem limites financeiros
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="laptop-base"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- FAQ Section -->
     <section class="faq">
         <div class="container">
@@ -1127,12 +1425,19 @@
             });
         });
 
+        // Free request button functionality
+        document.querySelector('.free-request-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Here you can add the logic for opening a modal, form, or redirecting to a contact page
+            alert('Funcionalidade de solicitação será implementada em breve!');
+        });
+
         // Feature timeline animation (keeps existing behaviour, adds stagger)
         const timelineObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
                     setTimeout(() => {
-                        // seu JS usa "visible" — manteve-se isso
+                        // seu JS usa "visible" – manteve-se isso
                         entry.target.classList.add('visible');
                     }, index * 200);
                 }
@@ -1142,8 +1447,6 @@
         document.querySelectorAll('.feature-item').forEach(item => {
             timelineObserver.observe(item);
         });
-
-        
 
         // Add floating animation to mockups
         const mockups = document.querySelectorAll('.mockup');
