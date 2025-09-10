@@ -1,7 +1,10 @@
 const loginForm = document.getElementById('loginForm');
 const loginMessage = document.getElementById('loginMessage');
 
+console.log("Script carregado. Formulário encontrado:", loginForm);
+
 loginForm.addEventListener('submit', async (event) => {
+        
     // Previne que a página recarregue ao enviar o formulário
     event.preventDefault();
 
@@ -32,7 +35,7 @@ loginForm.addEventListener('submit', async (event) => {
             loginMessage.classList.add('text-success'); 
 
             setTimeout(() => {
-                window.location.href = data.redirectUrl; // mudar pra pagina inicial dps
+                window.location.href = data.redirectUrl; // mudar pra pagina inicial
             }, 2000);
             
         } else {
