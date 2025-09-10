@@ -1,5 +1,6 @@
  @import url("https://fonts.googleapis.com/css2?family=Passion+One&family=Lexend+Deca:wght@100..900&display=swap");
 
+
         * {
             margin: 0;
             padding: 0;
@@ -7,16 +8,19 @@
             font-family: "Lexend Deca", sans-serif;
         }
 
+
         html, body {
             height: 100%;
             background-color: #ffffff;
         }
+
 
         body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
+
 
         .main-container {
             display: flex;
@@ -25,10 +29,12 @@
             gap: 30px;
         }
 
+
         .content-area {
             flex: 1;
             padding: 20px 0;
         }
+
 
         .sidebar {
             width: 250px;
@@ -38,12 +44,14 @@
             height: fit-content;
         }
 
+
         h1 {
             font-family: "Passion One", sans-serif;
             color: #693B11;
             font-size: 32px;
             margin: 50px 0 30px 0;
         }
+
 
         h2 {
             font-family: "Passion One", sans-serif;
@@ -52,10 +60,12 @@
             margin: 40px 0 20px 0;
         }
 
+
         /* Seção inicial - Saiba mais */
         .saiba-mais-section {
             margin-bottom: 40px;
         }
+
 
         .input-section {
             background: white;
@@ -64,6 +74,7 @@
             margin-bottom: 20px;
             border: 1px dashed #E2CCAE;
         }
+
 
         .saved-section {
             background: white;
@@ -74,6 +85,7 @@
             position: relative;
         }
 
+
         .input-field {
             width: 100%;
             border: 1px solid #ddd;
@@ -83,15 +95,18 @@
             font-family: "Lexend Deca", sans-serif;
         }
 
+
         .input-field:focus {
             outline: none;
             border-color: #693B11;
         }
 
+
         .textarea-field {
             min-height: 100px;
             resize: vertical;
         }
+
 
         .file-controls {
             display: flex;
@@ -100,6 +115,7 @@
             align-items: center;
             flex-wrap: wrap;
         }
+
 
         .file-btn {
             padding: 5px 15px;
@@ -110,11 +126,13 @@
             cursor: pointer;
         }
 
+
         .file-status {
             color: #888;
             font-size: 12px;
             flex: 1;
         }
+
 
         .image-size-hint {
             color: #693B11;
@@ -122,6 +140,7 @@
             margin-top: 5px;
             font-style: italic;
         }
+
 
         /* Imagens padronizadas */
         .standard-image {
@@ -132,6 +151,7 @@
             border: 2px solid #E2CCAE;
         }
 
+
         .small-standard-image {
             width: 100%;
             height: 150px;
@@ -140,10 +160,12 @@
             border: 2px solid #E2CCAE;
         }
 
+
         /* Relatórios Sociais */
         .relatorios-section {
             margin-bottom: 40px;
         }
+
 
         .relatorio-item {
             background: white;
@@ -154,12 +176,14 @@
             position: relative;
         }
 
+
         .relatorio-grid {
             display: grid;
             grid-template-columns: 200px 1fr;
             gap: 20px;
             align-items: start;
         }
+
 
         .relatorio-image-placeholder {
             background-color: #E2CCAE;
@@ -176,9 +200,11 @@
             position: relative;
         }
 
+
         .relatorio-content {
             padding: 0;
         }
+
 
         .relatorio-content h4 {
             color: #693B11;
@@ -186,11 +212,13 @@
             font-size: 18px;
         }
 
+
         .relatorio-content p {
             color: #666;
             font-size: 14px;
             line-height: 1.6;
         }
+
 
         /* Cards certificados */
         .cards-grid {
@@ -200,6 +228,7 @@
             margin-bottom: 20px;
         }
 
+
         .card-item {
             background: white;
             border-radius: 10px;
@@ -208,6 +237,7 @@
             border: 1px solid #E2CCAE;
             position: relative;
         }
+
 
         .card-placeholder, .card-filled {
             background-color: #CCCCCC;
@@ -222,9 +252,11 @@
             margin-bottom: 15px;
         }
 
+
         .card-placeholder:hover {
             background-color: #BBBBBB;
         }
+
 
         .card-filled {
             background-color: #E2CCAE;
@@ -233,6 +265,7 @@
             text-align: center;
             color: #693B11;
         }
+
 
         .add-icon {
             width: 50px;
@@ -247,6 +280,7 @@
             font-weight: bold;
         }
 
+
         .card-description {
             padding: 15px;
             background-color: #f9f9f9;
@@ -255,6 +289,7 @@
             border: 1px dashed #CCCCCC;
         }
 
+
         .card-description h4 {
             color: #693B11;
             font-size: 14px;
@@ -262,11 +297,13 @@
             margin-bottom: 8px;
         }
 
+
         .card-description p {
             color: #888;
             font-size: 12px;
             line-height: 1.4;
         }
+
 
         /* Timeline Renovada */
         .timeline-section {
@@ -274,9 +311,11 @@
             position: relative;
         }
 
+
         .timeline-container {
             margin: 30px 0;
         }
+
 
         .timeline-path {
             position: relative;
@@ -285,15 +324,18 @@
             overflow: visible;
         }
 
+
         .timeline-path svg {
             width: 100%;
             height: 100%;
         }
 
+
         .timeline-markers {
             position: relative;
             height: 180px;
         }
+
 
         .timeline-marker {
             position: absolute;
@@ -302,12 +344,14 @@
             cursor: pointer;
         }
 
+
         .timeline-marker.active {
             width: 15px;
             height: 15px;
             background-color: #693B11;
             border-radius: 50%;
         }
+
 
         .timeline-marker.inactive {
             width: 12px;
@@ -319,6 +363,7 @@
             align-items: center;
             justify-content: center;
         }
+
 
         .timeline-year {
             background-color: #D4AF88;
@@ -334,10 +379,12 @@
             cursor: pointer;
         }
 
+
         .timeline-year.editable {
             background-color: #E2CCAE;
             border: 1px dashed #693B11;
         }
+
 
         /* Timeline Content Cards */
         .timeline-content-grid {
@@ -347,6 +394,7 @@
             margin-top: 30px;
         }
 
+
         .timeline-content-card {
             background: white;
             border-radius: 10px;
@@ -354,6 +402,7 @@
             border: 1px solid #E2CCAE;
             position: relative;
         }
+
 
         .timeline-image {
             background-color: #CCCCCC;
@@ -365,6 +414,7 @@
             cursor: pointer;
         }
 
+
         .timeline-details {
             background-color: #693B11;
             color: white;
@@ -372,11 +422,13 @@
             padding: 20px;
         }
 
+
         .timeline-details h4 {
             border-bottom: 2px solid rgba(255,255,255,0.2);
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
+
 
         .timeline-detail-item {
             display: flex;
@@ -390,13 +442,16 @@
             transition: all 0.3s ease;
         }
 
+
         .timeline-detail-item:hover {
             background-color: rgba(255, 255, 255, 0.2);
         }
 
+
         .timeline-detail-item:last-child {
             margin-bottom: 0;
         }
+
 
         .timeline-detail-item i {
             width: 20px;
@@ -405,6 +460,7 @@
             align-items: center;
             justify-content: center;
         }
+
 
         .timeline-detail-item input {
             border: none;
@@ -416,9 +472,11 @@
             font-size: 14px;
         }
 
+
         .timeline-detail-item input::placeholder {
             color: rgba(255, 255, 255, 0.7);
         }
+
 
         .timeline-detail-item input:focus {
             outline: none;
@@ -426,6 +484,7 @@
             padding: 5px;
             border-radius: 3px;
         }
+
 
         /* Estatuto Social */
         .estatuto-section {
@@ -437,12 +496,14 @@
             position: relative;
         }
 
+
         .estatuto-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
             align-items: start;
         }
+
 
         .estatuto-image {
             background-color: #E2CCAE;
@@ -458,9 +519,17 @@
             font-weight: 600;
         }
 
+
         .estatuto-content {
             padding: 0;
         }
+
+
+        .view-description-btn{
+            background-color: transparent !important;
+                        border-bottom: 1px solid rgba(0, 0, 0) !important;
+        }
+
 
         .estatuto-content textarea {
             width: 100%;
@@ -476,11 +545,13 @@
             line-height: 1.5;
         }
 
+
         .estatuto-content textarea:focus {
             outline: none;
             border-color: #693B11;
             background-color: white;
         }
+
 
         .estatuto-content p {
             color: #666;
@@ -493,6 +564,7 @@
             min-height: 120px;
         }
 
+
         /* Sidebar */
         .sidebar-card {
             background-color: white;
@@ -502,6 +574,7 @@
             margin-bottom: 20px;
         }
 
+
         .sidebar-card h4 {
             color: #693B11;
             font-family: "Passion One", sans-serif;
@@ -509,10 +582,12 @@
             margin-bottom: 15px;
         }
 
+
         .sidebar-card ul {
             list-style: none;
             padding: 0;
         }
+
 
         .sidebar-card li {
             padding: 8px 0;
@@ -522,13 +597,16 @@
             font-size: 14px;
         }
 
+
         .sidebar-card li:hover {
             color: #8B4513;
         }
 
+
         .sidebar-card li:last-child {
             border-bottom: none;
         }
+
 
         .action-btn {
             padding: 8px 16px;
@@ -541,20 +619,46 @@
             font-size: 12px;
         }
 
+
         .btn-edit {
             background-color: #E2CCAE;
             color: #693B11;
         }
+
 
         .btn-delete {
             background-color: #dc3545;
             color: white;
         }
 
+
         .btn-save {
-            background-color: #693B11;
-            color: white;
+    display: block;
+    margin: 20px auto 0;
+    width: 150px;
+    height: 40px;
+    padding: 8px 5px;
+    border-radius: 10px;
+    background: #EDD9C7;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+    border: none;
+    text-decoration: none;
+    transition: background 0.3s;
+    font-family: 'Lexend Deca', sans-serif;
+    cursor: pointer;
+
+
+    font-size: 14px;
         }
+
+
+         
+  .btn-save:hover {
+    background-color: #caae8d;
+    color: #3d2106;
+  }
+
 
         .btn-add-more {
             background-color: #693B11;
@@ -568,6 +672,7 @@
             margin-top: 20px;
         }
 
+
         .edit-controls {
             position: absolute;
             top: 10px;
@@ -575,6 +680,7 @@
             display: none;
             gap: 5px;
         }
+
 
         .saved-section .edit-controls,
         .card-filled .edit-controls,
@@ -584,9 +690,11 @@
             display: flex;
         }
 
+
         .hidden {
             display: none !important;
         }
+
 
         /* Responsividade */
         @media (max-width: 1200px) {
@@ -595,50 +703,55 @@
             }
         }
 
+
         @media (max-width: 992px) {
             .main-container {
                 margin: 0 50px;
                 flex-direction: column;
             }
-            
+           
             .sidebar {
                 width: 100%;
                 position: static;
                 order: -1;
             }
 
+
             .timeline-content-grid {
                 grid-template-columns: 1fr;
             }
+
 
             .relatorio-grid, .estatuto-grid {
                 grid-template-columns: 1fr;
             }
         }
 
+
         @media (max-width: 768px) {
             .main-container {
                 margin: 0 20px;
             }
-            
+           
             .cards-grid {
                 grid-template-columns: 1fr;
             }
-            
+           
             h1 {
                 font-size: 28px;
             }
+
 
             /* Timeline Mobile - Vertical */
             .timeline-path {
                 height: auto;
                 min-height: 400px;
             }
-            
+           
             .timeline-path svg {
                 display: none;
             }
-            
+           
             .timeline-markers {
                 display: flex;
                 flex-direction: column;
@@ -647,7 +760,7 @@
                 padding: 20px 0;
                 position: relative;
             }
-            
+           
             .timeline-markers::before {
                 content: '';
                 position: absolute;
@@ -659,7 +772,7 @@
                 transform: translateX(-50%);
                 z-index: 1;
             }
-            
+           
             .timeline-marker {
                 position: relative !important;
                 transform: none !important;
@@ -667,7 +780,7 @@
                 left: auto !important;
                 z-index: 2;
             }
-            
+           
             .timeline-year {
                 position: relative !important;
                 transform: none !important;
@@ -675,24 +788,26 @@
                 left: auto !important;
                 margin-top: 10px;
             }
-            
+           
             .timeline-content-grid {
                 grid-template-columns: 1fr !important;
                 gap: 20px !important;
                 margin-top: 20px !important;
             }
-            
+           
             .timeline-details {
                 order: -1;
             }
         }
 
+
         @media (max-width: 480px) {
             .main-container {
                 margin: 0 10px;
             }
-            
+           
             h1 {
                 font-size: 24px;
             }
         }
+
