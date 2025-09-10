@@ -3,126 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Requisição e Gratuidade</title>
     <link rel="shortcut icon" href="https://i.ibb.co/7NybZ3W7/1.png" type="image/x-icon">
-    <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Enchant - Pagamento</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
+    
     <link rel="stylesheet" href="../../../public/styles/enchant/requisicao.css">
     <script src="../../../public/scripts/enchant/requisicao.js"></script>
-
+  
+    <link rel="stylesheet" href="../../../public/styles/global.css">
     <script src="../../../public/scripts/layouts/enchant/headerenchant.js"></script>
     <script src="../../../public/scripts/layouts/enchant/footerenchant.js"></script>
-    <link rel="stylesheet" href="../../../public/styles/global.css">
 
 </head>
+
 <body>
 
-     <div id="header-container"></div>
-      
-            <section class="segunda-parte-cadastro d-none">
-                <div class="formulario" id="etapa2">
-                    <form id="formEtapa2">
-                        <div class="campo">
-                            <p class="aviso">Segunda etapa: Informações complementares e documentação necessária para análise da solicitação de gratuidade.</p>
-                        </div>
-                        <div class="campo">
-                            <label for="email-responsavel">E-mail do responsável legal:<span class="obrigatorio">*</span></label>
-                            <input type="email" id="email-responsavel" name="email-responsavel" placeholder="Digite o e-mail do responsável" >
-                        </div>
-                        <div class="campo">
-                            <label for="telefone-responsavel">Telefone do responsável legal:<span class="obrigatorio">*</span></label>
-                            <input type="text" id="telefone-responsavel" name="telefone-responsavel" placeholder="(XX)XXXXX-XXXX" required>
-                        </div>
-                        <div class="campo">
-                            <label for="cpf-responsavel">CPF do responsável legal:<span class="obrigatorio">*</span></label>
-                            <input type="text" id="cpf-responsavel" name="cpf-responsavel" placeholder="000.000.000-00" required>
-                        </div> 
-                        <div class="campo">
-                            <label for="tipo-instituicao">Tipo de instituição:<span class="obrigatorio">*</span></label>
-                            <select id="tipo-instituicao" name="tipo-instituicao" required>
-                                <option value="">Escolha uma opção...</option>
-                                <option value="assistencia-social">Assistência Social</option>
-                                <option value="educacao">Educação</option>
-                                <option value="saude">Saúde</option>
-                                <option value="meio-ambiente">Meio Ambiente</option>
-                                <option value="cultura">Cultura</option>
-                                <option value="esporte">Esporte</option>
-                                <option value="direitos-humanos">Direitos Humanos</option>
-                                <option value="outros">Outros</option>
-                            </select>
-                        </div> 
-                        <div class="campo">
-                            <label for="documentos">Documentos obrigatórios para a solicitação de gratuidade:</label>
-                            <input type="file" id="documentos" name="documentos" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                            <p>Importante: não é necessário enviar todos os documentos listados, mas o envio de pelo menos 3 é obrigatório. Entre eles, a autodeclaração de baixa renda é indispensável para que possamos analisar a solicitação de gratuidade. Certifique-se de que os arquivos estejam legíveis e completos.</p>
-                            <div class="documentos-lista">
-                                <p><span>*</span>Estatuto Social registrado (foto de todas as páginas)</p>
-                                <p><span>*</span>Certidão de CNPJ atualizada (pode ser PDF gerado da Receita Federal)</p>
-                                <p><span>*</span>Documento assinado pelo responsável legal da ONG</p>
-                                <p><span>*</span>Balanço financeiro ou declaração de isenção de IRPJ</p>
-                                <p><span>*</span>Projetos aprovados ou executados com orçamento reduzido</p>
-                                <p><span>*</span>Ata de eleição da diretoria atual</p>
-                                <p><span>*</span>Comprovante de endereço em nome da ONG</p>
-                                <p><span>*</span>Relatório de atividades</p>
-                                <p><span>*</span>Declaração de que não possui receita própria suficiente</p>
-                            </div>
-                        </div>
-                        <section>
-                            <div class="botoes">
-                                <button id="btn-voltar" type="button">Voltar</button>
-                                <button id="btn-enviar" type="submit">Enviar</button>
-                            </div>
-                        </section>
-                    </form>
-                </div>
-            </section>
-        </div>
-    </main>
-    
-    <div class="modal fade" id="erroModal" tabindex="-1" aria-labelledby="erroModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="erroModalLabel">Atenção</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body" id="erroModalBody">
-                    </div>
-                <div class="modal-footer">
-                    <button id="botao-validar" type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendi</button>
-                </div>
+<main>
+    <!-- PRIMEIRA PARTE -->
+    <div class="primeira-parte" id="primeira-parte">
+        <h2 class="pagamento">Página de Requisição</h2>
+        
+        <section class="container">
+            <div class="recomendacoes">
+                <p>
+                    Recomendamos atenção total ao preencher os dados nos campos solicitados. É fundamental que as informações sejam inseridas de forma responsável, a fim de evitar fraudes.
+                </p>
             </div>
-        </div>
+            
+            <form id="dados-form" class="form-grid" novalidate>
+                <div class="form-group full-width">
+                    <label for="nomecomprador">Nome da Instituição/ONG: <span class="obrigatorio">*</span></label>
+                    <input type="text" name="nomecomprador" id="nomecomprador" autocomplete="off" placeholder="ex: Nome da Instituição" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email: <span class="obrigatorio">*</span></label>
+                    <input type="email" name="email" id="email" autocomplete="off" placeholder="ex: example@gmail.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cnpj">CNPJ: <span class="obrigatorio">*</span></label>
+                    <input type="text" name="cnpj" id="cnpj" autocomplete="off" placeholder="ex: XX.XXX.XXX/0001-XX" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tel">Telefone: <span class="obrigatorio">*</span></label>
+                    <input type="tel" name="tel" id="tel" autocomplete="off" placeholder="ex: (XX) XXXXX-XXXX" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="estado">Estado: <span class="obrigatorio">*</span></label>
+                    <select name="estado" id="estado" required>
+                        <option value="" hidden>Escolha uma opção...</option>
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB">Paraíba</option>
+                        <option value="PR">Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                    </select>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="cidade">Cidade: <span class="obrigatorio">*</span></label>
+                    <select name="cidade" id="cidade" disabled required>
+                        <option value="" hidden>Selecione um estado primeiro...</option>
+                    </select>
+                </div>
+                
+                <div class="form-group senha-area full-width">
+                    <div>
+                        <label for="senha">Senha: <span class="obrigatorio">*</span></label>
+                        <input type="password" name="senha" id="senha" placeholder="ex: Senha@123" required>
+                    </div>
+                    <div>
+                        <label for="confirmarsenha">Confirme a senha: <span class="obrigatorio">*</span></label>
+                        <input type="password" name="confirmarsenha" id="confirmarsenha" placeholder="ex: Senha@123" required>
+                    </div>
+                </div>
+                
+                <div class="requerimento-senha full-width">
+                    <p id="senha-conter"><span class="obrigatorio">*</span> Sua senha deve conter:</p>
+                    <p id="minimodigitos"><span class="obrigatorio">*</span> Mínimo 8 dígitos</p>
+                    <p id="doisnumeros"><span class="obrigatorio">*</span> Pelo menos 2 números</p>
+                    <p id="umcaracterespecial"><span class="obrigatorio">*</span> Pelo menos 1 caracter especial</p>
+                    <p id="letramaiuscula"><span class="obrigatorio">*</span> Pelo menos 1 letra maiúscula</p>
+                </div>
+                
+                <div class="div-botao-continuar full-width">
+                    <button type="submit" class="botao-continuar" id="botao-continuar">Continuar</button>
+                </div>
+            </form>
+        </section>
     </div>
 
-    <div class="modal fade" id="sucessoModal" tabindex="-1" aria-labelledby="sucessoModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="sucessoModalLabel">Sucesso!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body" id="sucessoModalBody">
-                    </div>
-                <div class="modal-footer">
-                    <button id="botao-sucesso" type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
-                </div>
+    <!-- SEGUNDA PARTE -->
+    <div class="segunda-parte" id="segunda-parte">
+        <section class="container">
+            <h3 class="subtitulo-secao">Upload de Documentos</h3>
+            
+            <div class="recomendacoes">
+                <p><strong>Importante:</strong> não é necessário enviar todos os documentos listados, mas o envio de pelo menos 3 é obrigatório. Entre eles, a <strong>autodeclaração de baixa renda</strong> é indispensável para que possamos analisar a solicitação de gratuidade. Certifique-se de que os arquivos estejam legíveis e completos.</p>
             </div>
-        </div>
+
+            <form id="documentos-form">
+                <div class="container-flex">
+                    <div class="coluna-esquerda">
+                        <!-- Estatuto Social -->
+                        <div class="form-group">
+                            <label>Estatuto Social registrado (foto de todas as páginas)</label>
+                            <div class="upload-area" data-categoria="estatuto">
+                                <i class="fas fa-cloud-upload-alt fa-2x" style="color: var(--corbotao2); margin-bottom: 1rem;"></i>
+                                <p>Clique ou arraste arquivos aqui</p>
+                                <p style="font-size: 12px; color: var(--cor-placeholder);">JPG, PNG, PDF (máx. 10MB)</p>
+                                <input type="file" class="upload-input" accept=".jpg,.jpeg,.png,.pdf" multiple>
+                            </div>
+                            <div class="arquivos-lista" data-categoria="estatuto"></div>
+                        </div>
+
+                        <!-- Certidão CNPJ -->
+                        <div class="form-group">
+                            <label>Certidão de CNPJ atualizada (pode ser PDF gerado da Receita Federal)</label>
+                            <div class="upload-area" data-categoria="cnpj">
+                                <i class="fas fa-cloud-upload-alt fa-2x" style="color: var(--corbotao2); margin-bottom: 1rem;"></i>
+                                <p>Clique ou arraste arquivos aqui</p>
+                                <p style="font-size: 12px; color: var(--cor-placeholder);">JPG, PNG, PDF (máx. 10MB)</p>
+                                <input type="file" class="upload-input" accept=".jpg,.jpeg,.png,.pdf" multiple>
+                            </div>
+                            <div class="arquivos-lista" data-categoria="cnpj"></div>
+                        </div>
+
+                        <!-- Documento Responsável -->
+                        <div class="form-group">
+                            <label>Documento assinado pelo responsável legal da ONG</label>
+                            <div class="upload-area" data-categoria="documento-responsavel">
+                                <i class="fas fa-cloud-upload-alt fa-2x" style="color: var(--corbotao2); margin-bottom: 1rem;"></i>
+                                <p>Clique ou arraste arquivos aqui</p>
+                                <p style="font-size: 12px; color: var(--cor-placeholder);">JPG, PNG, PDF (máx. 10MB)</p>
+                                <input type="file" class="upload-input" accept=".jpg,.jpeg,.png,.pdf" multiple>
+                            </div>
+                            <div class="arquivos-lista" data-categoria="documento-responsavel"></div>
+                        </div>
+
+                        <!-- Balanço Financeiro -->
+                        <div class="form-group">
+                            <label>Balanço financeiro ou declaração de isenção de IRPJ</label>
+                            <div class="upload-area" data-categoria="balanco">
+                                <i class="fas fa-cloud-upload-alt fa-2x" style="color: var(--corbotao2); margin-bottom: 1rem;"></i>
+                                <p>Clique ou arraste arquivos aqui</p>
+                                <p style="font-size: 12px; color: var(--cor-placeholder);">JPG, PNG, PDF (máx. 10MB)</p>
+                                <input type="file" class="upload-input" accept=".jpg,.jpeg,.png,.pdf" multiple>
+                            </div>
+                            <div class="arquivos-lista" data-categoria="balanco"></div>
+                        </div>
+
+                        <!-- Projetos -->
+                        <div class="form-group">
+                            <label>Projetos aprovados ou executados com orçamento reduzido</label>
+                            <div class="upload-area" data-categoria="projetos">
+                                <i class="fas fa-cloud-upload-alt fa-2x" style="color: var(--corbotao2); margin-bottom: 1rem;"></i>
+                                <p>Clique ou arraste arquivos aqui</p>
+                                <p style="font-size: 12px; color: var(--cor-placeholder);">JPG, PNG, PDF (máx. 10MB)</p>
+                                <input type="file" class="upload-input" accept=".jpg,.jpeg,.png,.pdf" multiple>
+                            </div>
+                            <div class="arquivos-lista" data-categoria="projetos"></div>
+                        </div>
+                    </div>
+
+                    <div class="coluna-direita">
+                        <!-- Ata de Eleição -->
+                        <div class="form-group">
+                            <label>Ata de eleição da diretoria atual</label>
+                            <div class="upload-area" data-categoria="ata-eleicao">
+                                <i class="fas fa-cloud-upload-alt fa-2x" style="color: var(--corbotao2); margin-bottom: 1rem;"></i>
+                                <p>Clique ou arraste arquivos aqui</p>
+                                <p style="font-size: 12px; color: var(--cor-placeholder);">JPG, PNG, PDF (máx. 10MB)</p>
+                                <input type="file" class="upload-input" accept=".jpg,.jpeg,.png,.pdf" multiple>
+                            </div>
+                            <div class="arquivos-lista" data-categoria="ata-eleicao"></div>
+                        </div>
+
+                        <!-- Comprovante de Endereço -->
+                        <div class="form-group">
+                            <label>Comprovante de endereço em nome da ONG</label>
+                            <div class="upload-area" data-categoria="endereco">
+                                <i class="fas fa-cloud-upload-alt fa-2x" style="color: var(--corbotao2); margin-bottom: 1rem;"></i>
+                                <p>Clique ou arraste arquivos aqui</p>
+                                <p style="font-size: 12px; color: var(--cor-placeholder);">JPG, PNG, PDF (máx. 10MB)</p>
+                                <input type="file" class="upload-input" accept=".jpg,.jpeg,.png,.pdf" multiple>
+                            </div>
+                            <div class="arquivos-lista" data-categoria="endereco"></div>
+                        </div>
+
+                        <!-- Relatório de Atividades -->
+                        <div class="form-group">
+                            <label>Relatório de atividades</label>
+                            <div class="upload-area" data-categoria="relatorio">
+                                <i class="fas fa-cloud-upload-alt fa-2x" style="color: var(--corbotao2); margin-bottom: 1rem;"></i>
+                                <p>Clique ou arraste arquivos aqui</p>
+                                <p style="font-size: 12px; color: var(--cor-placeholder);">JPG, PNG, PDF (máx. 10MB)</p>
+                                <input type="file" class="upload-input" accept=".jpg,.jpeg,.png,.pdf" multiple>
+                            </div>
+                            <div class="arquivos-lista" data-categoria="relatorio"></div>
+                        </div>
+
+                        <!-- Declaração Baixa Renda -->
+                        <div class="form-group">
+                            <label><strong>Declaração de que não possui receita própria suficiente</strong> <span class="obrigatorio">*</span></label>
+                            <div class="upload-area" data-categoria="declaracao-renda">
+                                <i class="fas fa-cloud-upload-alt fa-2x" style="color: var(--corbotao2); margin-bottom: 1rem;"></i>
+                                <p>Clique ou arraste arquivos aqui</p>
+                                <p style="font-size: 12px; color: var(--cor-placeholder);">JPG, PNG, PDF (máx. 10MB)</p>
+                                <input type="file" class="upload-input" accept=".jpg,.jpeg,.png,.pdf" multiple>
+                            </div>
+                            <div class="arquivos-lista" data-categoria="declaracao-renda"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="botoes-navegacao">
+                    <button type="button" class="btn-voltar" id="btn-voltar">Voltar</button>
+                    <button type="submit" class="btn-enviar" id="btn-enviar">Enviar Solicitação</button>
+                </div>
+            </form>
+        </section>
     </div>
+
+        <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Erro de Validação</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" id="errorModalBody"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+              </div>
+            </div>
+          </div>
+</main>
+
+    <div id="enchant-footer"></div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
- 
-  <script>
-    const header = new HeaderComponent();
-    header.render("header-container");
-  </script>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        initializeHeader('header-container');
+      });
+    </script>
 </body>
 </html>

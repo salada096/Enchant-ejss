@@ -8,19 +8,21 @@ const __dirname = path.dirname(__filename);
 
 const pageRouter = express.Router();
 
-// ROTA PRINCIPAL ALTERADA
 pageRouter.get('/', (req, res) => {
     console.log(`⬆️   Rota / acessada.`);
-    // A linha abaixo foi modificada para carregar a index.html
     res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
 });
 
-// LOGIN
-pageRouter.get('/logincomprador', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'views', 'comprador', 'entrarcomprador.html'))
+pageRouter.get('/cadastro/doador', (req, res) => {
+    console.log(`⬆️   Rota /cadastro/doador acessada.`);
+    res.sendFile(path.join(__dirname, '..', 'views', 'comprador', 'cadastrodoador.html'));
 });
 
-// ROTA DE TESTE DO BANCO DE DADOS (mantida como estava)
+pageRouter.get('/cadastro/donatario', (req, res) => {
+    console.log(`⬆️   Rota /cadastro/donatario acessada.`);
+    res.sendFile(path.join(__dirname, '..', 'views', 'comprador', 'cadastrodonatario1.html'));
+})
+
 pageRouter.get('/test-db', async (req, res) => {
 
     console.log(`🔃   Iniciando o teste de conexão com o Banco de dados   🔃`)
