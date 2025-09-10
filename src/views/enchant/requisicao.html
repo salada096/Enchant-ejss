@@ -17,10 +17,11 @@
     <script src="../../../public/scripts/layouts/enchant/footerenchant.js"></script>
 
 </head>
-
 <body>
-
 <main>
+    <section>
+       <div id="header-container"></div>
+    </section>
     <!-- PRIMEIRA PARTE -->
     <div class="primeira-parte" id="primeira-parte">
         <h2 class="pagamento">Página de Requisição</h2>
@@ -122,8 +123,9 @@
 
     <!-- SEGUNDA PARTE -->
     <div class="segunda-parte" id="segunda-parte">
+    <h2 class="pagamento">Upload de Documentos</h2>
         <section class="container">
-            <h3 class="subtitulo-secao">Upload de Documentos</h3>
+
             
             <div class="recomendacoes">
                 <p><strong>Importante:</strong> não é necessário enviar todos os documentos listados, mas o envio de pelo menos 3 é obrigatório. Entre eles, a <strong>autodeclaração de baixa renda</strong> é indispensável para que possamos analisar a solicitação de gratuidade. Certifique-se de que os arquivos estejam legíveis e completos.</p>
@@ -146,7 +148,7 @@
 
                         <!-- Certidão CNPJ -->
                         <div class="form-group">
-                            <label>Certidão de CNPJ atualizada (pode ser PDF gerado da Receita Federal)</label>
+                            <label>Certidão de CNPJ atualizada (PDF gerado da Receita Federal)</label>
                             <div class="upload-area" data-categoria="cnpj">
                                 <i class="fas fa-cloud-upload-alt fa-2x" style="color: var(--corbotao2); margin-bottom: 1rem;"></i>
                                 <p>Clique ou arraste arquivos aqui</p>
@@ -246,7 +248,7 @@
 
                 <div class="botoes-navegacao">
                     <button type="button" class="btn-voltar" id="btn-voltar">Voltar</button>
-                    <button type="submit" class="btn-enviar" id="btn-enviar">Enviar Solicitação</button>
+                    <button type="submit" class="botao-continuar" id="btn-enviar">Enviar</button>
                 </div>
             </form>
         </section>
@@ -277,7 +279,7 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        initializeHeader('header-container');
+      initializeHeader('header-container');
       });
     </script>
 </body>

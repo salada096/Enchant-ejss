@@ -261,6 +261,10 @@ margin-bottom: 0.5rem;
 background-color: white;
 }
 
+li{
+  color: #000000;
+  font-size: 15px;
+}
 .arquivo-info {
 display: flex;
 align-items: center;
@@ -327,14 +331,13 @@ padding: 0 1rem;
 }
 
 .btn-voltar {
-background-color: var(--cor-borda);
+background-color: transparent;
+border: #3d2106 1px solid;
 color: var(--cortitulo);
-border: none;
 padding: 10px 30px;
 border-radius: 8px;
 cursor: pointer;
 font-weight: 500;
-transition: background-color 0.3s;
 }
 
 .btn-voltar:hover {
@@ -349,11 +352,6 @@ padding: 10px 30px;
 border-radius: 8px;
 cursor: pointer;
 font-weight: 500;
-transition: background-color 0.3s;
-}
-
-.btn-enviar:hover {
-background-color: #218838;
 }
 
 /* ========== SEÇÕES ========== */
@@ -421,7 +419,7 @@ font-size: 14px;
 .modal .btn-primary:hover {
 background-color: #caae8d;
 color: #3d2106;
-transition: transform 0.2s ease;
+
 }
 
 /* ========== RESPONSIVIDADE ========== */
