@@ -1,171 +1,183 @@
 // colocando o openstreetmap
-const map = L.map('mapa').setView([-12.5, -41.7], 7);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+const map = L.map('mapa').setView([-12.5, -41.7], 7); 
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
 
-        // isso aq vai guardar os dados de risco
-        const dadosRisco = new Map();
+// isso aq vai guardar os dados de risco
+const dadosDosMunicipios = new Map();
+let geojsonFeatureCollection;
+let geojsonLayer;
 
-        function getColor(risco) {
-            if (risco === undefined || isNaN(risco)) return '#CCCCCC';
-            if (risco > 0.8) return '#800026';
-            if (risco > 0.6) return '#BD0026';
-            if (risco > 0.4) return '#E31A1C';
-            if (risco > 0.2) return '#FC4E2A';
-            return '#FFEDA0';
-        }
-        // carrega os municipios .csv e os formatos dos municipios .geojson
-        Promise.all([
-            fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2015_geojson.geojson').then(response => response.json()),
-            fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2015_csv.CSV').then(response => response.text())
-        ]).then(([geojsonFeature, csvData]) => {
-            
-            // ler o csv
-            Papa.parse(csvData, {
-                header: true, // cabeçalho
-                skipEmptyLines: true,
-                complete: function(results) {
-                    console.log("Cabeçalhos e primeira linha do CSV:", results.data[0]);
-                    // processar os dados da planilha csv e guardar no mapa
-                    results.data.forEach(row => {
-                        const codMun = row.geocod_ibge;
-                        const riscoValor = parseFloat(row.valor); 
-                        
-                        if (codMun) {
-                            dadosRisco.set(codMun, riscoValor);
-                        }
-                    });
+// FUNÇÃO DE COR CORRIGIDA
+function getColor(risco) {
+    if (risco === undefined || isNaN(risco)) return '#CCCCCC';
+    if (risco > 0.8) return '#800026'; // Muito Alto
+    if (risco > 0.6) return '#BD0026'; // Alto
+    if (risco > 0.4) return '#E31A1C'; // Médio
+    if (risco > 0.2) return '#FC4E2A'; // Baixo  (> 0.2 até 0.4)
+    return '#FFEDA0';                 // Muito Baixo (0 até 0.2)
+}
 
-                    //testes de depuracao
-                    console.log("DADOS DE RISCO CARREGADOS (do CSV):", dadosRisco);
+// carrega os municipios .csv e os formatos dos municipios .geojson
+Promise.all([
+    fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2015_geojson.geojson').then(response => response.json()),
+    fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2015_csv.CSV').then(response => response.text())
+]).then(([geojson, csvData]) => {
+    geojsonFeatureCollection = geojson;
 
-                    console.log("PROPIEDADES DO PRIMEIRO MUNICÍPIO (do GeoJSON):", geojsonFeature.features[0].properties);
-
-                    // funcao pra desenhar o mapa
-                    desenharMapaGeoJSON(geojsonFeature);
-
-                    const inputBusca = document.getElementById('input-pesquise');
-                    const botaoBusca = document.getElementById('botao-de-busca');
-                    let camadaDestacada = null; // Variável para guardar a camada destacada
-
-                    function buscarEMostrarMunicipio() {
-                    // Pega o valor, remove espaços extras e converte para minúsculas
-                      const nomeCidade = inputBusca.value.trim().toLowerCase();
-
-                      //teste...
-                      console.log(nomeCidade);
-
-                      if (nomeCidade === '') {
-                        alert('Por favor, digite o nome de um município.');
-                        return;
-                      }
-
-                      let municipioEncontrado = null;
-                      // Procura o município na nossa lista de feições do GeoJSON
-                      for (const feature of geojsonFeature.features) {
-                        const nomeDoMapa = feature.properties.name.split('/')[0].trim();
-                        if (nomeDoMapa.toLowerCase() === nomeCidade) {
-                          municipioEncontrado = feature;
-                          break; // Para a busca assim que encontrar
-                        }
-                      }
-
-                      // Se encontrou, dá o zoom e destaca
-                      if (municipioEncontrado) {
-                        // Remove o destaque anterior, se houver
-                        if (camadaDestacada) {
-                          map.removeLayer(camadaDestacada);
-                        }
-
-                        // Cria uma camada temporária para pegar os limites geográficos
-                        const camadaMunicipio = L.geoJson(municipioEncontrado);
-                        map.fitBounds(camadaMunicipio.getBounds());
-
-                      } else {
-                        alert('Município não encontrado. Verifique a ortografia e tente novamente.');
-                      }
-                    }
-                    botaoBusca.addEventListener('click', buscarEMostrarMunicipio);
+    Papa.parse(csvData, {
+        header: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+            results.data.forEach(row => {
+                if (row.geocod_ibge) {
+                    dadosDosMunicipios.set(row.geocod_ibge, row);
                 }
             });
-        });
-
-        function desenharMapaGeoJSON(geojsonFeature) {
-
-            function style(feature) {
-                const risco = dadosRisco.get(feature.properties.geocod_ibge);
-                return {
-                    fillColor: getColor(risco),
-                    weight: 1,
-                    opacity: 1,
-                    color: 'white',
-                    dashArray: '3',
-                    fillOpacity: 0.75
-                };
-            }
-
-            // mudar a cor ao passar o mouse
-            function highlightFeature(e) {
-                const layer = e.target;
-                layer.setStyle({ weight: 3, color: '#666', dashArray: '' });
-                info.update(layer.feature.properties);
-            }
-
-            function resetHighlight(e) {
-                geojsonLayer.resetStyle(e.target);
-                info.update();
-            }
-
-            function onEachFeature(feature, layer) {
-                layer.on({
-                    mouseover: highlightFeature,
-                    mouseout: resetHighlight,
-                });
-            }
-
-            const geojsonLayer = L.geoJson(geojsonFeature, { 
-                style: style,
-                onEachFeature: onEachFeature 
-            }).addTo(map);
-
-            // caixinha de informaçao
-            info.addTo(map);
-            // legenda
-            legend.addTo(map);
+            
+            desenharMapaGeoJSON(geojsonFeatureCollection);
+            configurarFiltros();
+            configurarBusca(geojsonFeatureCollection);
         }
+    });
+}).catch(error => {
+    console.error("Erro ao carregar os arquivos de dados do mapa:", error);
+    alert("Não foi possível carregar os dados do mapa. Verifique o console.");
+});
 
-        // caixinha de informação que mostra o nome e o risco
-        const info = L.control();
-        info.onAdd = function (map) {
-            this._div = L.DomUtil.create('div', 'info');
-            this.update();
-            return this._div;
-        };
-        info.update = function (props) {
-            const risco = props ? dadosRisco.get(props.geocod_ibge) : undefined;
-            const riscoFormatado = (risco !== undefined && !isNaN(risco)) ? risco.toFixed(2) : 'Sem dados';
-            
-            this._div.innerHTML = '<h4>Risco de Inundação no Brasil</h4>' +  (props ?
-                '<b>' + props.name + '</b><br />Índice de Risco: ' + riscoFormatado
-                : 'Passe o mouse sobre um município');
-        };
+function desenharMapaGeoJSON(geojson) {
+    if (geojsonLayer) map.removeLayer(geojsonLayer);
+    geojsonLayer = L.geoJson(geojson, { 
+        style: styleFunction,
+        onEachFeature: onEachFeature 
+    }).addTo(map);
 
-        // legenda de cores
-        const legend = L.control({position: 'bottomright'});
-        legend.onAdd = function (map) {
-            const div = L.DomUtil.create('div', 'info legend'),
-                grades = [0, 0.2, 0.4, 0.6, 0.8];
-            
-            div.innerHTML += '<b>Índice de Risco</b><br>';
-            for (let i = 0; i < grades.length; i++) {
-                div.innerHTML +=
-                    '<i style="background:' + getColor(grades[i] + 0.1) + '"></i> ' +
-                    grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    // Adiciona controles se ainda não existirem
+    if (!map.infoControl) map.infoControl = info.addTo(map);
+    if (!map.legendControl) map.legendControl = legend.addTo(map);
+}
+
+// FUNÇÃO DE ESTILO CORRIGIDA
+function styleFunction(feature) {
+    const codMun = feature.properties.geocod_ibge;
+    const dados = dadosDosMunicipios.get(codMun);
+
+    const regiaoSelecionada = document.getElementById('filter-region').value;
+    const estadoSelecionado = document.getElementById('filter-state').value;
+    const riscosSelecionados = Array.from(document.querySelectorAll('.filter-panel input[type="checkbox"]:checked')).map(cb => cb.value);
+
+    let deveExibir = true;
+
+    if (!dados) {
+        deveExibir = false;
+    } else {
+        const siglaEstado = dados.nome.split('/')[1];
+        if (estadoSelecionado !== "TODOS" && siglaEstado !== estadoSelecionado) {
+            deveExibir = false;
+        }
+        if (deveExibir && estadoSelecionado === "TODOS" && regiaoSelecionada !== "TODAS") {
+            const optionEstado = document.querySelector(`#filter-state option[value="${siglaEstado}"]`);
+            if (optionEstado && optionEstado.dataset.region !== regiaoSelecionada) {
+                deveExibir = false;
             }
-            div.innerHTML += '<br><i style="background:#CCCCCC"></i> Sem dados';
-            return div;
-        };
+        }
+        
+        // CORREÇÃO: Esconde se a lista de filtros estiver vazia
+        if (deveExibir && (riscosSelecionados.length === 0 || !riscosSelecionados.includes(dados.classe))) {
+            deveExibir = false;
+        }
+    }
+
+    if (deveExibir) {
+        const risco = parseFloat(dados.valor);
+        return { fillColor: getColor(risco), weight: 1, opacity: 1, color: 'white', dashArray: '3', fillOpacity: 0.75 };
+    } else {
+        return { fillOpacity: 0, opacity: 0, stroke: false };
+    }
+}
+
+function configurarFiltros() {
+    const filtroRegiao = document.getElementById('filter-region');
+    const filtroEstado = document.getElementById('filter-state');
+    const checkboxesRisco = document.querySelectorAll('.filter-panel input[type="checkbox"]');
+
+    function atualizarMapa() {
+        if (geojsonLayer) {
+            geojsonLayer.setStyle(styleFunction);
+        }
+    }
+
+    filtroRegiao.addEventListener('change', () => {
+        const regiaoSelecionada = filtroRegiao.value;
+        document.querySelectorAll('#filter-state option').forEach(option => {
+            option.style.display = (regiaoSelecionada === 'TODAS' || option.dataset.region === regiaoSelecionada) ? 'block' : 'none';
+        });
+        filtroEstado.value = 'TODOS';
+        atualizarMapa();
+    });
+
+    filtroEstado.addEventListener('change', atualizarMapa);
+    checkboxesRisco.forEach(checkbox => checkbox.addEventListener('change', atualizarMapa));
+}
+
+const info = L.control();
+info.onAdd = function (map) { this._div = L.DomUtil.create('div', 'info'); this.update(); return this._div; };
+info.update = function (props) {
+    const codMun = props ? props.geocod_ibge : undefined;
+    const dados = codMun ? dadosDosMunicipios.get(codMun) : undefined;
+    const risco = dados ? parseFloat(dados.valor) : undefined;
+    const riscoFormatado = (risco !== undefined && !isNaN(risco)) ? risco.toFixed(2) : 'Sem dados';
+    this._div.innerHTML = '<h4>Risco de Inundação no Brasil</h4>' + (props ? '<b>' + props.name + '</b><br />Índice de Risco: ' + riscoFormatado : 'Passe o mouse sobre um município');
+};
+
+function highlightFeature(e) { e.target.setStyle({ weight: 3, color: '#666', dashArray: '' }); info.update(e.target.feature.properties); }
+function resetHighlight(e) { geojsonLayer.resetStyle(e.target); info.update(); }
+function onEachFeature(feature, layer) { layer.on({ mouseover: highlightFeature, mouseout: resetHighlight }); }
+
+const legend = L.control({position: 'bottomright'});
+legend.onAdd = function (map) {
+    const div = L.DomUtil.create('div', 'info legend'), grades = [0, 0.2, 0.4, 0.6, 0.8];
+    div.innerHTML += '<b>Índice de Risco</b><br>';
+    for (let i = 0; i < grades.length; i++) {
+        div.innerHTML += '<i style="background:' + getColor(grades[i] + 0.1) + '"></i> ' + grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+    div.innerHTML += '<br><i style="background:#CCCCCC"></i> Sem dados';
+    return div;
+};
+
+function configurarBusca(geojson) {
+    const inputBusca = document.getElementById('input-pesquise');
+    const botaoBusca = document.getElementById('botao-de-busca');
+
+    function buscarMunicipio() {
+        const nomeCidade = inputBusca.value.trim().toLowerCase();
+        if (nomeCidade === '') return;
+        const municipiosEncontrados = geojson.features.filter(feature => 
+            feature.properties.name.split('/')[0].trim().toLowerCase() === nomeCidade
+        );
+        if (municipiosEncontrados.length === 0) {
+            alert('Município não encontrado.');
+        } else if (municipiosEncontrados.length === 1) {
+            zoomParaMunicipio(municipiosEncontrados[0]);
+        } else {
+            alert('Múltiplos municípios encontrados com este nome. Exibindo o primeiro resultado.');
+            zoomParaMunicipio(municipiosEncontrados[0]);
+        }
+    }
+    
+    // FUNÇÃO DE ZOOM CORRIGIDA
+    function zoomParaMunicipio(municipioFeature) {
+        const camadaMunicipio = L.geoJson(municipioFeature);
+        map.fitBounds(camadaMunicipio.getBounds());
+        inputBusca.value = municipioFeature.properties.name;
+    }
+
+    botaoBusca.addEventListener('click', buscarMunicipio);
+    inputBusca.addEventListener('keypress', e => {
+        if (e.key === 'Enter') buscarMunicipio();
+    });
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   // Função para controlar o dropdown do perfil
