@@ -15,6 +15,11 @@ pageRouter.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
 });
 
+// LOGIN
+pageRouter.get('/logincomprador', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'views', 'comprador', 'entrarcomprador.html'))
+});
+
 // ROTA DE TESTE DO BANCO DE DADOS (mantida como estava)
 pageRouter.get('/test-db', async (req, res) => {
 
