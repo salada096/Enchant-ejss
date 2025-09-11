@@ -51,4 +51,16 @@ pageRouter.get('/test-db', async (req, res) => {
 
 });
 
+pageRouter.get('/esqueci', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', '..', 'client', 'pages', 'esqueciasenha1.html'));
+});
+
+pageRouter.get('/esqueci1', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', '..', 'client', 'pages', 'esqueciasenha2.html'));
+});
+
+pageRouter.get('/esqueci2', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', '..', 'client', 'pages', 'esqueciasenha3.html'));
+});
+
 export default pageRouter;
