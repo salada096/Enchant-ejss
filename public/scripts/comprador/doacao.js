@@ -66,7 +66,6 @@ class SimpleDonationManager {
     addStyles() {
         const style = document.createElement('style');
         style.textContent = `
-
             .category-edit-controls {
                 position: absolute;
                 top: 10px;
@@ -86,16 +85,19 @@ class SimpleDonationManager {
                 align-items: center;
                 justify-content: center;
                 font-size: 14px;
+                transition: all 0.3s ease;
             }
 
             .delete-btn {
                 background-color: #e2ccae;
                 color: #3d2106;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             }
 
             .delete-btn:hover {
                 background-color: #caae8d;
                 color: #3d2106;
+                transform: scale(1.1);
             }
 
             .restore-category-btn {
@@ -108,15 +110,18 @@ class SimpleDonationManager {
                 font-size: 0.85rem;
                 font-weight: bold;
                 font-family: 'Lexend Deca', sans-serif;
+                transition: all 0.3s ease;
             }
 
             .restore-category-btn:hover {
                 background: #bd8e6338;
-
+                transform: translateY(-2px);
             }
 
-            .category-hidden {
-                display: none !important;
+            .category-removing {
+                opacity: 0;
+                transform: scale(0.8);
+                transition: all 0.5s ease;
             }
 
             .edit-mode-active .todas-imagens {
@@ -133,20 +138,12 @@ class SimpleDonationManager {
                 color: white;
                 font-weight: bold;
                 font-family: 'Lexend Deca', sans-serif;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
             }
 
-            .feedback-success {
-                 background: #ffe9c7ff;
-                 color: #3d2106;
-                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-
-            .feedback-warning {
-                background: #ffe9c7ff;
-                color: #3d2106;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-
+            .feedback-success,
+            .feedback-warning,
             .feedback-danger {
                 background: #ffe9c7ff;
                 color: #3d2106;
@@ -190,15 +187,13 @@ class SimpleDonationManager {
             if (editMode) {
                 this.enableEditMode();
                 toggleBtn.innerHTML = 'Finalizar Edição';
-                toggleBtn.style.background = '#e2ccae';
-                toggleBtn.style.color = ' #3d2106';
+                toggleBtn.style.backgroundColor = '#caae8d';
                 document.getElementById('restore-section').style.display = 'block';
                 this.updateDeletedCategoriesList();
             } else {
                 this.disableEditMode();
-                toggleBtn.innerHTML = '</i> Editar Categorias';
-                toggleBtn.style.background = '#e2ccae;)';
-                toggleBtn.style.color = '#3d2106;)';
+                toggleBtn.innerHTML = 'Editar Categorias';
+                toggleBtn.style.backgroundColor = '#e2ccae';
                 document.getElementById('restore-section').style.display = 'none';
             }
         });
@@ -208,7 +203,7 @@ class SimpleDonationManager {
     enableEditMode() {
         document.body.classList.add('edit-mode-active');
         
-        const categories = document.querySelectorAll('.todas-imagens:not(.category-hidden)');
+        const categories = document.querySelectorAll('.todas-imagens');
         categories.forEach(category => {
             this.addEditControls(category);
         });
@@ -264,7 +259,7 @@ class SimpleDonationManager {
         const categoryTitle = this.getCategoryTitle(categoryElement);
 
         if (confirm(`Tem certeza que deseja remover a categoria "${categoryTitle}"?`)) {
-            // Salva dados da categoria antes de remover
+            // Salva dados da categoria antes de remover PERMANENTEMENTE
             const categoryData = {
                 element: categoryElement.outerHTML,
                 title: categoryTitle,
@@ -275,10 +270,11 @@ class SimpleDonationManager {
             this.saveDeletedCategories();
 
             // Anima remoção
-            categoryElement.classList.add('category-deleting');
+            categoryElement.classList.add('category-removing');
             
             setTimeout(() => {
-                categoryElement.classList.add('category-hidden');
+                // REMOVE REALMENTE do DOM
+                categoryElement.remove();
                 this.showFeedback(`"${categoryTitle}" foi removida.`, 'danger');
                 this.updateDeletedCategoriesList();
             }, 500);
@@ -296,10 +292,10 @@ class SimpleDonationManager {
         tempDiv.innerHTML = categoryData.element;
         const restoredElement = tempDiv.firstElementChild;
 
-        // Remove classe de hidden se existir
-        restoredElement.classList.remove('category-hidden', 'category-deleting');
+        // Remove classes de animação se existirem
+        restoredElement.classList.remove('category-removing');
 
-        // Insere a categoria de volta
+        // Insere a categoria de volta no DOM
         container.appendChild(restoredElement);
 
         // Remove dos deletados
@@ -356,6 +352,7 @@ class SimpleDonationManager {
             data[key] = value;
         });
         localStorage.setItem('deleted_donation_categories', JSON.stringify(data));
+        console.log('📁 Categorias deletadas salvas:', data);
     }
 
     // Carrega categorias deletadas do localStorage
@@ -364,18 +361,21 @@ class SimpleDonationManager {
             const saved = localStorage.getItem('deleted_donation_categories');
             if (saved) {
                 const data = JSON.parse(saved);
+                console.log('📁 Carregando categorias deletadas:', data);
+                
                 Object.entries(data).forEach(([key, value]) => {
                     this.deletedCategories.set(key, value);
                     
-                    // Oculta a categoria se ela ainda estiver no DOM
+                    // REMOVE REALMENTE a categoria do DOM se ela ainda estiver lá
                     const element = document.getElementById(key);
                     if (element) {
-                        element.classList.add('category-hidden');
+                        console.log(`🗑️ Removendo categoria salva: ${key}`);
+                        element.remove();
                     }
                 });
             }
         } catch (error) {
-            console.warn('Erro ao carregar categorias deletadas:', error);
+            console.warn('❌ Erro ao carregar categorias deletadas:', error);
         }
     }
 
@@ -410,36 +410,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Utilitário para reset completo
 window.resetDonationCategories = () => {
-    const modalTitle = document.getElementById('erroSenhaModalLabel');
-    const modalBody = document.getElementById('erroSenhaModalBody');
-    const modalButton = document.getElementById('botao-validar');
-    
-    modalTitle.textContent = 'Resetar Categorias';
-    modalBody.innerHTML = `
-        <p>Isso irá restaurar todas as categorias e limpar o histórico. Continuar?</p>
-        <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center;">
-            <button id="reset-yes" class="design-botao" style="width: 100px; background-color: #ffc107; color: #333;">
-                Sim, resetar
-            </button>
-            <button id="reset-no" class="design-botao" style="width: 100px;">
-                Cancelar
-            </button>
-        </div>
-    `;
-    
-    modalButton.style.display = 'none';
-    
-    const modal = new bootstrap.Modal(document.getElementById('erroSenhaModal'));
-    modal.show();
-    
-    document.getElementById('reset-yes').addEventListener('click', () => {
-        modal.hide();
+    if (confirm('Isso irá restaurar todas as categorias e limpar o histórico. Continuar?')) {
         localStorage.removeItem('deleted_donation_categories');
+        console.log('🔄 Reset completo realizado - recarregando página...');
         location.reload();
-    });
-    
-    document.getElementById('reset-no').addEventListener('click', () => {
-        modal.hide();
-        modalButton.style.display = 'block';
-    });
+    }
 };
