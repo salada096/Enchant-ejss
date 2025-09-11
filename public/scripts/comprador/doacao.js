@@ -85,19 +85,16 @@ class SimpleDonationManager {
                 align-items: center;
                 justify-content: center;
                 font-size: 14px;
-                transition: all 0.3s ease;
             }
 
             .delete-btn {
                 background-color: #e2ccae;
                 color: #3d2106;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             }
 
             .delete-btn:hover {
                 background-color: #caae8d;
                 color: #3d2106;
-                transform: scale(1.1);
             }
 
             .restore-category-btn {
@@ -110,18 +107,10 @@ class SimpleDonationManager {
                 font-size: 0.85rem;
                 font-weight: bold;
                 font-family: 'Lexend Deca', sans-serif;
-                transition: all 0.3s ease;
             }
 
             .restore-category-btn:hover {
                 background: #bd8e6338;
-                transform: translateY(-2px);
-            }
-
-            .category-removing {
-                opacity: 0;
-                transform: scale(0.8);
-                transition: all 0.5s ease;
             }
 
             .edit-mode-active .todas-imagens {
@@ -138,8 +127,6 @@ class SimpleDonationManager {
                 color: white;
                 font-weight: bold;
                 font-family: 'Lexend Deca', sans-serif;
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
             }
 
             .feedback-success,
