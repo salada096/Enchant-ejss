@@ -197,7 +197,8 @@ class SimpleDonationManager {
             } else {
                 this.disableEditMode();
                 toggleBtn.innerHTML = '</i> Editar Categorias';
-                toggleBtn.style.background = 'linear-gradient(135deg, #8B4513, #A0522D)';
+                toggleBtn.style.background = '#e2ccae;)';
+                toggleBtn.style.color = '#3d2106;)';
                 document.getElementById('restore-section').style.display = 'none';
             }
         });
