@@ -411,11 +411,16 @@ document.addEventListener('DOMContentLoaded', () => {
     new FormManager();
 
     const form = document.getElementById('cadastro-form-multistep');
+    const entendiBtn = document.getElementById('botao-validar');
 
     form.addEventListener('submit', async (e) => {
 
         e.preventDefault();
         const formData = new FormData(form);
+
+        function esperar(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
 
         try {
 
@@ -430,9 +435,21 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('📦 Dados recebidos:', data);
             form.reset();
 
+            if (data.redirectTo) {
+                await esperar(2000);
+                window.location.href = data.redirectTo;
+            }
+
         } catch (error) {
             console.error('❌ Erro na requisição:', error);
         }
+
+        entendiBtn.addEventListener('click', async () => {
+            await esperar(500);
+            if (redirectTo) {
+                window.location.href = redirectTo;
+            }
+        })
     });
     
 });

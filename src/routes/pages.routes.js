@@ -21,7 +21,12 @@ pageRouter.get('/cadastro/doador', (req, res) => {
 pageRouter.get('/cadastro/donatario', (req, res) => {
     console.log(`⬆️   Rota /cadastro/donatario acessada.`);
     res.sendFile(path.join(__dirname, '..', 'views', 'comprador', 'cadastrodonatario1.html'));
-})
+});
+
+pageRouter.get('/login', (req, res) => {
+    console.log(`⬆️   Rota /login acessada.`);
+    res.sendFile(path.join(__dirname, '..', 'views', 'enchant', 'entrar1.html'));
+});
 
 pageRouter.get('/test-db', async (req, res) => {
 

@@ -124,6 +124,7 @@ a {
 .campo input[type="password"],
 .campo input[type="tel"],
 .campo input[type="number"],
+.campo input[type="date"],
 .campo select {
     width: 100%;
     padding: 10px 20px;
