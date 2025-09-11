@@ -210,6 +210,7 @@ main {
   cursor: pointer;
   margin-top: auto;
   transition: background-color 0.3s, transform 0.2s;
+
 }
 
 .design-botao:hover {
@@ -263,26 +264,6 @@ i {
 }
 
 @media (max-width: 1270px) {
-   
-footer{
-   margin-left: 0px !important;
-}
-}
-
-@media (min-width: 1271px) {
-
-footer{
-   margin-left: 48px !important;
-}
-}
-
-.footer-column a {
-  color: #EC9E07;
-  text-decoration: none;
-  font-size: 12px;
-  margin-bottom: 5px;
-  margin-top: 0;
-}
 
 /* MODAL DIALOG (Bootstrap) */
 .modal-dialog {
@@ -319,6 +300,7 @@ footer{
 
 #botao-validar:hover {
   background-color: #caae8d;
+}
 }
 
 /* MOBILE TWEAKS */
