@@ -1,5 +1,3 @@
-import pool from "../db/pool.db.js";
-import path from "path";
 import { 
   startPasswordReset, 
   verifyResetCode, 
@@ -8,34 +6,36 @@ import {
 
 async function handleRequestReset(req, res){
 
-  console.log(`❗   Entrando na rota POST /forgotPassword`);
-  console.log(`📦   Dados recebidos: `, JSON.stringify(req.body, null, 2));
+  console.log(`\n❗   Entrando na rota POST /forgotPassword`);
+  console.log(`\n📦   Dados recebidos: ${JSON.stringify(req.body, null, 2)}\n`);
 
-  try {
+  try {
 
-    const { email } = req.body;
-    
-    if (!email) {
-      return res.status(400).json({ message: 'O e-mail é obrigatório.' });
-    }
+    const { email } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({ message: 'O e-mail é obrigatório.' });
+    }
 
-    await startPasswordReset(email);
+    await startPasswordReset(email);
 
-    res.status(201).json({
-        message: 'Código enviado com sucesso.',
-        redirectTo: '/esqueci/verificar'
-    });
-    
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message || 'Erro interno.' });
-  }
+    res.status(201).json({
+        message: 'Código enviado com sucesso.',
+        redirectTo: '/esqueci/verificar'
+    });
+    
+  } catch (error) {
+
+    res.status(500).json({ success: false, message: error.message || 'Erro interno.' });
+
+  }
 
 };
 
 async function handleVerifyCode(req, res){
 
-  console.log(`❗   Entrando na rota POST /verifyCode`);
-  console.log(`📦   Dados recebidos: `, JSON.stringify(req.body, null, 2));
+  console.log(`\n❗   Entrando na rota POST /verifyCode`);
+  console.log(`\n📦   Dados recebidos: `, JSON.stringify(req.body, null, 2));
 
     try {
         const { email, code } = req.body;
@@ -52,8 +52,8 @@ async function handleVerifyCode(req, res){
 
 async function handleCompleteReset(req, res){
 
-  console.log(`❗   Entrando na rota POST /resetPassword`);
-  console.log(`📦   Dados recebidos: `, JSON.stringify(req.body, null, 2));
+  console.log(`\n❗   Entrando na rota POST /resetPassword`);
+  console.log(`\n📦   Dados recebidos: `, JSON.stringify(req.body, null, 2));
 
     try {
         const { token, newPassword } = req.body;
