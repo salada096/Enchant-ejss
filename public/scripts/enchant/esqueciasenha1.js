@@ -124,11 +124,11 @@ document.addEventListener('DOMContentLoaded', function () {
       mostrarMensagem('Email enviado com sucesso! Redirecionando...', 'sucesso');
 
       setTimeout(() => {
-        console.log('Tentativa 1 de redirect'); // Debug
+        console.log('Redirecionando');
         if (data.redirectTo) {
           window.location.href = data.redirectTo;
         }
-      }, 9000);
+      }, 1000);
 
     } catch (error) {
 
