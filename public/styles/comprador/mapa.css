@@ -28,6 +28,24 @@ main {
     width: 100%;
 }
 
+/* Estilos para o container do gráfico */
+.grafico {
+    width: 87vh;
+    height: 100%;
+    margin: 40px auto; /* Centraliza e adiciona espaço acima/abaixo */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.grafico h3 {
+    text-align: center;
+    font-size: 1.3vh;
+    margin-bottom: 25px;
+    color: #333;
+}
+
 /* === LAYOUT PRINCIPAL (MAPA E BUSCA) === */
 .imagem-mapa img {
     width: 100%;
@@ -105,14 +123,9 @@ main {
 
 /* === NOVO DASHBOARD COM CSS GRID === */
 .dashboard-container {
-    display: grid;
-    gap: 20px;
-    /* Layout para Desktops (3 colunas) */
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-areas:
-        "performance  impact   causes"
-        "graph        graph    causes"
-        "safety       safety   safety";
+    display: flex;
+    width: 100%;
+    gap: 30px;
 }
 
 /* Mapeamento dos cards para as áreas do grid */
@@ -378,14 +391,6 @@ i {
 
 /* Layout para Tablets (2 colunas) */
 @media (max-width: 1024px) {
-    .dashboard-container {
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-            "performance  impact"
-            "causes       causes"
-            "graph        graph"
-            "safety       safety";
-    }
 }
 
 /* Layout para Celulares (1 coluna) */
@@ -393,17 +398,12 @@ i {
     main {
         padding: 15px;
     }
-    
-    .dashboard-container {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "performance"
-            "impact"
-            "causes"
-            "graph"
-            "safety";
+    .grafico{
+        width: 90%;
     }
-    
+    .dashboard-container{
+        flex-wrap: wrap;
+    }
     .card h3 {
         font-size: 1.3rem;
     }

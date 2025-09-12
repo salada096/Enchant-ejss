@@ -22,11 +22,13 @@ function getColor(risco) {
 // carrega os municipios .csv e os formatos dos municipios .geojson
 Promise.all([
     fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2015_geojson.geojson').then(response => response.json()),
-    fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2015_csv.CSV').then(response => response.text())
-]).then(([geojson, csvData]) => {
+    fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2015_csv.CSV').then(response => response.text()),
+    fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2030_csv.CSV').then(response => response.text()),
+    fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2050_csv.CSV').then(response => response.text())
+]).then(([geojson, csvData2015, csvData2030, csvData2050]) => {
     geojsonFeatureCollection = geojson;
 
-    Papa.parse(csvData, {
+    Papa.parse(csvData2015, {
         header: true,
         skipEmptyLines: true,
         complete: function(results) {
@@ -36,9 +38,15 @@ Promise.all([
                 }
             });
             
+            const dados2030 = Papa.parse(csvData2030, { header: true, skipEmptyLines: true }).data;
+            const dados2050 = Papa.parse(csvData2050, { header: true, skipEmptyLines: true }).data;
+
+            //chamar as funcoes
             desenharMapaGeoJSON(geojsonFeatureCollection);
             configurarFiltros();
             configurarBusca(geojsonFeatureCollection);
+            criarGraficoDeRisco(results.data); 
+            criarGraficoDeRiscoEmpilhado(results.data, dados2030, dados2050);
         }
     });
 }).catch(error => {
@@ -176,6 +184,156 @@ function configurarBusca(geojson) {
     botaoBusca.addEventListener('click', buscarMunicipio);
     inputBusca.addEventListener('keypress', e => {
         if (e.key === 'Enter') buscarMunicipio();
+    });
+}
+
+function criarGraficoDeRisco(dadosCsv) {
+  
+    const contagemPorClasse = {
+        'Muito baixo': 0,
+        'Baixo': 0,
+        'Médio': 0,
+        'Alto': 0,
+        'Muito alto': 0,
+        'Dado indisponível': 0
+    };
+
+    dadosCsv.forEach(row => {
+        const classe = row.classe;
+        if (classe in contagemPorClasse) {
+            contagemPorClasse[classe]++;
+        } else {
+            contagemPorClasse['Dado indisponível']++;
+        }
+    });
+
+    const labels = Object.keys(contagemPorClasse); //classe
+    const data = Object.values(contagemPorClasse); //quantostem
+
+    const backgroundColors = [
+        '#28a745', 
+        '#90EE90', 
+        '#FFC107', 
+        '#FD7E14',
+        '#DC3545', 
+        '#6C757D'  
+    ];
+
+    // criar grafico
+    const ctx = document.getElementById('graficoRisco').getContext('2d');
+    
+    new Chart(ctx, {
+        type: 'bar', 
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Nº de Municípios',
+                data: data,
+                backgroundColor: backgroundColors,
+                borderColor: backgroundColors,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true, 
+                    title: {
+                        display: true,
+                        text: 'Número de Municípios'
+                    }
+                },
+                x: {
+                  ticks: {
+                    maxRotation: 0,
+                    minRotation: 0,
+
+                    font: {
+                        size: 11 
+                    }
+                  }
+                }
+            }
+        }
+    });
+}
+
+function criarGraficoDeRiscoEmpilhado(dadosPresente, dados2030, dados2050) {
+    
+    // Função auxiliar para contar as classes em um conjunto de dados
+    const contarClasses = (dados) => {
+        const contagem = { 'Muito baixo': 0, 'Baixo': 0, 'Médio': 0, 'Alto': 0, 'Muito alto': 0 };
+        dados.forEach(row => {
+            if (row.classe && row.classe in contagem) {
+                contagem[row.classe]++;
+            }
+        });
+        return contagem;
+    };
+
+    const contagemPresente = contarClasses(dadosPresente);
+    const contagem2030 = contarClasses(dados2030);
+    const contagem2050 = contarClasses(dados2050);
+
+    // No gráfico empilhado, cada CLASSE de risco é um "dataset"
+    const labels = ['Presente (2015)', 'Otimista (2030)', 'Otimista (2050)'];
+    const classesDeRisco = ['Muito baixo', 'Baixo', 'Médio', 'Alto', 'Muito alto'];
+    const colors = {
+        'Muito baixo': '#28a745', 
+        'Baixo': '#90EE90',       
+        'Médio': '#FFC107',       
+        'Alto': '#FD7E14',        
+        'Muito alto': '#DC3545'   
+    };
+
+    const datasets = classesDeRisco.map(classe => {
+        return {
+            label: classe,
+            data: [
+                contagemPresente[classe],
+                contagem2030[classe],
+                contagem2050[classe]
+            ],
+            backgroundColor: colors[classe]
+        }
+    });
+
+    //criar o grafico
+    const ctx = document.getElementById('graficoRisco2').getContext('2d');
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom' // Mostra a legenda de cores embaixo
+                }
+            },
+            scales: {
+                x: {
+                    stacked: true, // A MÁGICA: Empilha as barras no eixo X
+                },
+                y: {
+                    stacked: true, // A MÁGICA: Empilha as barras no eixo Y
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Número de Municípios'
+                    }
+                }
+            }
+        }
     });
 }
 

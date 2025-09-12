@@ -10,16 +10,21 @@
     
     <link rel="stylesheet" href="../../../public/styles/comprador/mapa.css">
 
-  <link rel="stylesheet" href="../../../public/styles/global.css">
-  <script src="../../../public/scripts/layouts/comprador/headercomprador.js" defer></script>
-  <script src="../../../public/scripts/layouts/comprador/footercomprador.js" defer></script>
-  <script src="../../../public/scripts/layouts/comprador/sidebar.js" defer></script>
+    <link rel="stylesheet" href="../../../public/styles/global.css">
+    <script src="../../../public/scripts/layouts/comprador/headercomprador.js" defer></script>
+    <script src="../../../public/scripts/layouts/comprador/footercomprador.js" defer></script>
+    <script src="../../../public/scripts/layouts/comprador/sidebar.js" defer></script>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
       <div class="map-container">
@@ -109,36 +114,15 @@
         </div>
   
         <div class="dashboard-container">
-  
-          <div class="card card-performance">
-              <div class="chart-title">O número de visualizações do seu documento aumentou significativamente em comparação a semana passada. Houve um crescimento de 75% em sua performance vs. Média.</div>
-              <div class="donut-chart">
-                  <div class="donut-chart-inner"></div>
-              </div>
-              <div class="chart-label">75% de crescimento total</div>
+          <div class="grafico">
+            <h3>Número de municípios por classe de risco</h3>
+            <canvas id="graficoRisco"></canvas>
           </div>
-          
-          <div class="card card-impact">
-              <div class="chart-title">Análise sobre o impacto do seu conteúdo nos últimos 30 dias:</div>
-              <div class="pie-chart"></div>
-              <div class="chart-label">Distribuição por área</div>
+
+          <div class="grafico">
+            <h3>Número de municípios por classe num cenário otimista</h3>
+            <canvas id="graficoRisco2"></canvas>
           </div>
-            
-          <div class="card card-text-causes">
-              <h3>Porque isso acontece?</h3>
-              <p>As enchentes urbanas são resultado de uma série de fatores interligados, entre os quais se destacam: chuvas intensas, impermeabilização do solo, descarte inadequado de resíduos, falhas nos sistemas de drenagem e ocupação irregular do espaço urbano. Chuvas de curta duração e alta intensidade podem provocar inundações rápidas, pois o volume de água se acumula mais rapidamente do que é capaz de escoar.</p>
-              <p>O acúmulo de água em bueiros e pontes, frequentemente agravado pela presença de lixo, pode levar à obstrução do escoamento. Superfícies impermeáveis, como concreto e asfalto, dificultam a infiltração da água da chuva no solo, resultando em um aumento do escoamento superficial e, consequentemente, na intensificação das enchentes. Em áreas urbanas, a velocidade e o volume do escoamento são significativamente maiores, o que sobrecarrega os sistemas de drenagem.</p>
-          </div>
-  
-          <div class="card card-graph-image">
-              <img src="../../../public/assets/imgs/comprador/grafico-mapa.png" alt="Gráfico de análise de risco" id="imagem3">
-          </div>
-          
-          <div class="card card-text-safety">
-              <h3>Por que eu deveria estar longe?</h3>
-              <p>Estar longe de áreas de risco de inundações, enxurradas e alagamentos é crucial para garantir a segurança e minimizar danos. Em primeiro lugar, protege vidas, já que esses eventos podem causar afogamentos e lesões graves. Também ajuda a preservar bens materiais, como casas e veículos, evitando prejuízos financeiros e emocionais. Além disso, áreas alagadas aumentam o risco de doenças, como leptospirose e dengue, e comprometem infraestruturas essenciais, como estradas e sistemas de saneamento. Afastar-se dessas zonas de risco previne perdas econômicas e facilita um planejamento urbano mais resiliente frente às mudanças climáticas.</p>
-          </div>
-  
         </div>
       </main>
       
