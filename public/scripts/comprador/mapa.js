@@ -1,7 +1,7 @@
 // colocando o openstreetmap
 const map = L.map('mapa').setView([-12.5, -41.7], 7); 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | <a href="https://adaptabrasil.mcti.gov.br/" target="_blank">AdaptaBrasil MCTI</a>'
 }).addTo(map);
 
 // isso aq vai guardar os dados de risco
