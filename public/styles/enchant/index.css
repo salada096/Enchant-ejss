@@ -13,6 +13,10 @@
             --accent-orange: #D2691E;
         }
 
+        .nav-link{
+            font-size: 14px !important;
+        }
+
         body {
             font-family: 'Lexend Deca', sans-serif;
             line-height: 1.6;
