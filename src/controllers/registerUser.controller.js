@@ -50,6 +50,7 @@ async function registerUserDoador(req, res) {
 
         await pool.query('COMMIT');
         console.log(`\n✅   Cadastro de ${tipo_doador} realizado com sucesso   ✅\n`);
+        
         res.status(201).json({
             message: `Cadastro de ${tipo_doador} realizado com sucesso`,
             redirectTo: '/login'

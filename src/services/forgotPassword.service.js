@@ -6,7 +6,7 @@ import crypto from 'crypto';
 console.log(`Ambiente carregado. SMTP_HOST: ${process.env.SMTP_HOST}`);
 console.log(`Ambiente carregado. SMTP_PORT: ${process.env.SMTP_PORT}`);
 console.log(`Ambiente carregado. SMTP_USER: ${process.env.SMTP_USER}`);
-console.log(`Ambiente carregado. SMTP_PASS: ${process.env.SMTP_}`);
+console.log(`Ambiente carregado. SMTP_PASS: ${process.env.SMTP_PASS}`);
 
 // Transporter SMTP (Mailtrap)
 const transporter = nodemailer.createTransport({

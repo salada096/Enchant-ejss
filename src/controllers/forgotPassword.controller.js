@@ -1,7 +1,7 @@
 import { 
-  startPasswordReset, 
-  verifyResetCode, 
-  completePasswordReset 
+    startPasswordReset, 
+    verifyResetCode, 
+    completePasswordReset 
 } from '../services/forgotPassword.service.js';
 
 async function handleRequestReset(req, res){

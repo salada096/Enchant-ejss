@@ -8,17 +8,33 @@ const __dirname = path.dirname(__filename);
 const pageRouter = express.Router();
 
 pageRouter.get('/', (req, res) => {
-
     console.log(`⬆️   Rota / acessada.`);
     res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
-    
+});
+
+pageRouter.get('/quemsomos', (req, res) => {
+    console.log(`⬆️   Rota /quemsomos acessada.`);
+    res.sendFile(path.join(__dirname, '..', 'views', 'enchant', 'quemsomos1.html'));
+})
+
+pageRouter.get('/saibamais', (req, res) => {
+    console.log(`⬆️   Rota /saibamais acessada.`);
+    res.sendFile(path.join(__dirname, '..', 'views', 'enchant', 'saibamais1.html'));
+});
+
+pageRouter.get('/suporte', (req, res) => {
+    console.log(`⬆️   Rota /suporte acessada.`);
+    res.sendFile(path.join(__dirname, '..', 'views', 'enchant', 'suporte.html'));
+});
+
+pageRouter.get('/politica', (req, res) => {
+    console.log(`⬆️   Rota /politica acessada.`);
+    res.sendFile(path.join(__dirname, '..', 'views', 'enchant', 'privacidade1.html'));
 });
 
 pageRouter.get('/cadastro/doador', (req, res) => {
-
     console.log(`⬆️   Rota /cadastro/doador acessada.`);
     res.sendFile(path.join(__dirname, '..', 'views', 'comprador', 'cadastrodoador.html'));
-
 });
 
 pageRouter.get('/cadastro/donatario', (req, res) => {

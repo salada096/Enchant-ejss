@@ -25,7 +25,7 @@ async function login(req, res) {
                 id: user.id,
                 email: user.email
             },
-            redirectUrl: '/'
+            redirectTo: '/'
         });
 
     } catch (error) {
