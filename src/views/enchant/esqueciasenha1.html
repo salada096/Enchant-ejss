@@ -1,27 +1,21 @@
 <!doctype html>
-<html lang="pt-br">http://127.0.0.1:3001/src/views/index.html
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Enchant - Esqueceu a senha?</title>
+  <title>Enchant</title>
   <link rel="shortcut icon" href="https://i.ibb.co/7NybZ3W7/1.png" type="image/x-icon">
-  <link rel="stylesheet" href="../CSS/esqueciasenha1.css" />
-
-  <link rel="stylesheet" href="../../../public/styles/enchant/esqueciasenha1.css">
-  <script src="../../../public/scripts/enchant/esqueciasenha1.js"></script>
-
-  <script src="../../../public/scripts/layouts/enchant/headerenchant.js"></script>
-  <script src="../../../public/scripts/layouts/enchant/footerenchant.js"></script>
-  <link rel="stylesheet" href="../../../public/styles/global.css">
-  
-  <!-- NÃO PRECISA MAIS DESSAS LINHAS - O HEADER.JS VAI CARREGAR AUTOMATICAMENTE -->
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" /> -->
-  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/styles/esqueciasenha1.css" />
+  <link rel="stylesheet" href="/styles/enchant/esqueciasenha1.css">
+  <link rel="stylesheet" href="/styles/global.css">
+  <script src="/scripts/enchant/esqueciasenha1.js"></script>
+  <script src="/scripts/layouts/enchant/headerenchant.js"></script>
+  <script src="/scripts/layouts/enchant/footerenchant.js"></script>
 </head>
 
 <body>
-  <!-- AQUI VAI SER INSERIDO O HEADER AUTOMATICAMENTE -->
-  <div id="header-container"></div>
+
+  <header id="header-container"></header>
 
   <section div class="containersub">
     <h1 class="h1sub">Esqueceu a senha?</h1>
@@ -33,8 +27,8 @@
   </section>
   
   <section>
-    <form class="containersubsub" id="formSenha">
-      <input type="email" name="email-e1" id="email-e1" placeholder="xxxxxxx@xxxx.xxx.xx" required>
+    <form class="containersubsub" id="formSenha" action="/forgotPassword" method="POST">
+      <input type="email" name="email" id="email" placeholder="xxxxxxx@xxxx.xxx.xx" required>
       <button type="submit" class="btn-e1sub">Continuar</button>
     </form>
   </section>

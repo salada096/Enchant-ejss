@@ -1,8 +1,9 @@
-import pool from '../db/pool.js';
+import pool from '../db/pool.db.js';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 
 // Transporter SMTP (Gmail ou outro provedor via .env)
+
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT || 587),
@@ -16,7 +17,6 @@ const transporter = nodemailer.createTransport({
 function sixDigits() {
   return ('' + Math.floor(100000 + Math.random() * 900000));
 }
-
 
 async function ensureResetTable() {
   await pool.query(`
@@ -35,6 +35,7 @@ async function ensureResetTable() {
 export async function startPasswordReset(email) {
   
   const u = await pool.query('SELECT id, email FROM usuario WHERE email = $1', [email]);
+  
   if (u.rows.length === 0) {
   
     return { message: 'Se este e-mail existir, enviaremos instruções.' };
@@ -43,13 +44,25 @@ export async function startPasswordReset(email) {
   await ensureResetTable();
 
   const code = sixDigits();
-  const token = crypto.randomBytes(24).toString('hex');
-  const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+  console.log(`#️⃣   Código gerado: ${code}`);
 
-  // mark old entries used
-  await pool.query('UPDATE password_resets SET used = TRUE WHERE email = $1 AND used = FALSE', [email]);
+  const token = crypto.randomBytes(24).toString('hex');
+  console.log(`#️⃣   Token gerado: ${token}`);
+
+  const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+  console.log(`#️⃣   Data de expiração: ${expiresAt}`);
+
+  await pool.query(`
+    UPDATE password_resets 
+    SET used = TRUE WHERE 
+    email = $1 AND used = FALSE`, 
+    [email]
+  );
+
   await pool.query(
-    'INSERT INTO password_resets (email, code, token, expires_at, used) VALUES ($1, $2, $3, $4, FALSE)',
+    `INSERT INTO password_resets 
+    (email, code, token, expires_at, used) 
+    ($1, $2, $3, $4, FALSE)`,
     [email, code, token, expiresAt]
   );
 
@@ -68,9 +81,11 @@ export async function startPasswordReset(email) {
   });
 
   return { message: 'Enviamos um código para seu e-mail.', flowToken: token };
+
 }
 
 export async function verifyResetCode(email, code) {
+
   await ensureResetTable();
 
   const { rows } = await pool.query(
@@ -79,15 +94,21 @@ export async function verifyResetCode(email, code) {
   );
 
   if (rows.length === 0) {
+
     throw new Error('Código inválido.');
+
   }
   const row = rows[0];
+
   if (new Date(row.expires_at) < new Date()) {
+
     throw new Error('Código expirado.');
+
   }
 
 
   return { ok: true, resetToken: row.token };
+
 }
 
 export async function resendResetCode(email) {

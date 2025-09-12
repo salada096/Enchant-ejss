@@ -1,21 +1,42 @@
-import { startPasswordReset, verifyResetCode, completePasswordReset } from '../services/forgot.Password.services.js';
+import pool from "../db/pool.db.js";
+import path from "path";
+import { 
+  startPasswordReset, 
+  verifyResetCode, 
+  completePasswordReset 
+} from '../services/forgotPassword.service.js';
 
-// Controlador para a Rota 1: Solicitar o envio do código
-export const handleRequestReset = async (req, res) => {
+async function handleRequestReset(req, res){
+
+  console.log(`❗   Entrando na rota POST /forgotPassword`);
+  console.log(`📦   Dados recebidos: `, JSON.stringify(req.body, null, 2));
+
   try {
+
     const { email } = req.body;
+    
     if (!email) {
       return res.status(400).json({ message: 'O e-mail é obrigatório.' });
     }
+
     await startPasswordReset(email);
-    res.json({ success: true, message: 'Código enviado com sucesso.' });
+
+    res.status(201).json({
+        message: 'Código enviado com sucesso.',
+        redirectTo: '/esqueci/verificar'
+    });
+    
   } catch (error) {
     res.status(500).json({ success: false, message: error.message || 'Erro interno.' });
   }
+
 };
 
-// Controlador para a Rota 2: Verificar o código
-export const handleVerifyCode = async (req, res) => {
+async function handleVerifyCode(req, res){
+
+  console.log(`❗   Entrando na rota POST /verifyCode`);
+  console.log(`📦   Dados recebidos: `, JSON.stringify(req.body, null, 2));
+
     try {
         const { email, code } = req.body;
         if (!email || !code) {
@@ -26,10 +47,14 @@ export const handleVerifyCode = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
+
 };
 
-// Controlador para a Rota 3: Definir a nova senha
-export const handleCompleteReset = async (req, res) => {
+async function handleCompleteReset(req, res){
+
+  console.log(`❗   Entrando na rota POST /resetPassword`);
+  console.log(`📦   Dados recebidos: `, JSON.stringify(req.body, null, 2));
+
     try {
         const { token, newPassword } = req.body;
         if (!token || !newPassword) {
@@ -41,3 +66,5 @@ export const handleCompleteReset = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+
+export { handleRequestReset, handleVerifyCode, handleCompleteReset}

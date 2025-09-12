@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
+
   const form = document.querySelector('.containersubsub');
-  const emailInput = document.getElementById('email-e1');
+  const emailInput = document.getElementById('email');
 
   console.log('Formulário encontrado:', form); // Debug
   console.log('Campo email encontrado:', emailInput); // Debug
@@ -74,17 +75,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  form.addEventListener('submit', function (event) {
+  form.addEventListener('submit', async (event) => {
+
+    const formData = new FormData(form);
+
     event.preventDefault();
+
     console.log('Formulário submetido'); // Debug
 
-    const email = emailInput.value.trim();
+    const email = formData.get('email').trim();
+
     console.log('Email digitado:', email); // Debug
 
-    // Regex para validação de email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Verificar se campo está vazio
     if (!email) {
       console.log('Campo vazio'); // Debug
       mostrarMensagem('Por favor, insira um endereço de email.');
@@ -92,66 +96,46 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    // Validar formato do email
     if (!emailRegex.test(email)) {
+
       console.log('Email inválido'); // Debug
+
       mostrarMensagem('Por favor, insira um email válido. Exemplo: usuario@exemplo.com');
+
       emailInput.focus();
+      
       return;
     }
 
-    // Email válido
     console.log('Email válido, processando...'); // Debug
-    
-    // Versão 1: Redirect imediato (teste)
-    // irParaProximaPagina();
-    
-    // Versão 2: Com modal e depois redirect
-    mostrarMensagem('Email enviado com sucesso! Redirecionando...', 'sucesso');
-    
-    // Múltiplas tentativas de redirect
-    setTimeout(() => {
-      console.log('Tentativa 1 de redirect'); // Debug
-      irParaProximaPagina();
-    }, 9000);
-    
-    // Backup - se não funcionou em 1s, tenta novamente
-    setTimeout(() => {
-      console.log('Tentativa 2 de redirect'); // Debug
-      if (window.location.href.includes('esqueciasenha2.html')) {
-        console.log('Já redirecionado');
-      } else {
-        window.location.href = 'esqueciasenha2.html';
-      }
-    }, 2000);
-    
-    // Último recurso
-    setTimeout(() => {
-      console.log('Tentativa 3 de redirect'); // Debug
-      if (!window.location.href.includes('esqueciasenha2.html')) {
-        // Se ainda não redirecionou, força
-        window.open('esqueciasenha2.html', '_self');
-      }
-    }, 3000);
-  });
 
-  // Feedback visual em tempo real
-  emailInput.addEventListener('input', function() {
-    const email = emailInput.value.trim();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
-    // Remover classes anteriores
-    emailInput.classList.remove('is-valid', 'is-invalid');
-    
-    if (email) {
-      if (emailRegex.test(email)) {
-        emailInput.classList.add('is-valid');
-      } else {
-        emailInput.classList.add('is-invalid');
-      }
+    try {
+      const response = await fetch('/forgotPassword', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) throw new Error('Erro na requisição');
+
+      const data = await response.json();
+      console.log('📦 Dados recebidos:', data);
+      form.reset();
+
+      mostrarMensagem('Email enviado com sucesso! Redirecionando...', 'sucesso');
+
+      setTimeout(() => {
+        console.log('Tentativa 1 de redirect'); // Debug
+        if (data.redirectTo) {
+          window.location.href = data.redirectTo;
+        }
+      }, 9000);
+
+    } catch (error) {
+
+      console.error('❌ Erro na requisição:', error);
+      mostrarMensagem('Erro ao enviar o formulário. Tente novamente mais tarde.');
+
     }
   });
 
-  // Teste inicial
-  console.log('Script carregado e funcionando');
 });
