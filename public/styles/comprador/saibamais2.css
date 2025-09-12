@@ -1,4 +1,4 @@
- @import url("https://fonts.googleapis.com/css2?family=Passion+One&family=Lexend+Deca:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Passion+One&family=Lexend+Deca:wght@100..900&display=swap");
 
 
         * {
@@ -463,6 +463,8 @@
 
 
         .timeline-detail-item input {
+            position: relative;
+            z-index: 2;
             border: none;
             background: transparent;
             color: white;
@@ -647,8 +649,6 @@
     transition: background 0.3s;
     font-family: 'Lexend Deca', sans-serif;
     cursor: pointer;
-
-
     font-size: 14px;
         }
 
