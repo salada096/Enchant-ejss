@@ -585,10 +585,10 @@
         <footer>
             <div class="footer-container">
                 <div class="footer-left">
-                    <img src="../../../public/assets/imgs/enchant/logo-enchant.png" 
-                         alt="Logo Enchant" 
-                         class="footer-logo" 
-                         title="Logo-Enchant" />
+                    <img src="/assets/imgs/enchant/logo-enchant.png" 
+                            alt="Logo Enchant" 
+                            class="footer-logo" 
+                            title="Logo-Enchant" />
                     <p>
                         De forma alguma o ENCHANT foi criado com o intuito de desviar os
                         termos relacionados à política de privacidade do cadastrante. O site
@@ -601,22 +601,22 @@
                 <div class="footer-right">
                     <div class="footer-column">
                         <h3>MAIS INFORMAÇÕES</h3>
-                        <a href="/src/views/enchant/saibamais1.html" title="Conheça mais sobre o ENCHANT - clique">
+                        <a href="/saibamais" title="Conheça mais sobre o ENCHANT - clique">
                             Conheça mais sobre o ENCHANT
                         </a>
                     </div>
                     <div class="footer-column" title="PROTEÇÃO DE DADOS - clique">
                         <h3>PROTEÇÃO DE DADOS</h3>
-                        <a href="/src/views/enchant/privacidade1.html">Política de privacidade</a>
+                        <a href="/politica">Política de privacidade</a>
                     </div>
                     <div class="footer-column" title="ACOMPANHE NOSSAS REDES - clique">
                         <h3>ACOMPANHE NOSSAS REDES</h3>
                         <a href="https://www.instagram.com/enchant_pa?igsh=MXE5MTZqendmdDJheQ%3D%3D&utm_source=qr" 
-                           target="_blank">
+                            target="_blank">
                             Instagram - enchant_pa
                         </a>
                         <a href="https://www.linkedin.com/in/enchant-pa-4a5079358?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
-                           target="_blank">
+                            target="_blank">
                             LinkedIn - enchant_pa
                         </a>
                     </div>
