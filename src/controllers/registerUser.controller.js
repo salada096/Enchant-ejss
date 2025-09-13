@@ -117,7 +117,7 @@ async function registerUserDonatario(req, res) {
     } catch (error) {
 
         await pool.query('ROLLBACK');
-        console.error(`❌ Erro na transação: ${error} ❌`);
+        console.error(`❌   Erro na transação: ${error}   ❌`);
         throw error;
 
     };

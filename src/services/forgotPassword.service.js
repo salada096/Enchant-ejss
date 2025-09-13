@@ -3,10 +3,10 @@ import nodemailer from 'nodemailer';
 import 'dotenv/config';
 import crypto from 'crypto';
 
-console.log(`Ambiente carregado. SMTP_HOST: ${process.env.SMTP_HOST}`);
-console.log(`Ambiente carregado. SMTP_PORT: ${process.env.SMTP_PORT}`);
-console.log(`Ambiente carregado. SMTP_USER: ${process.env.SMTP_USER}`);
-console.log(`Ambiente carregado. SMTP_PASS: ${process.env.SMTP_PASS}`);
+console.log(`\n🔃   Ambiente carregado. SMTP_HOST: ${process.env.SMTP_HOST}`);
+console.log(`\n🔃   Ambiente carregado. SMTP_PORT: ${process.env.SMTP_PORT}`);
+console.log(`\n🔃   Ambiente carregado. SMTP_USER: ${process.env.SMTP_USER}`);
+console.log(`\n🔃   Ambiente carregado. SMTP_PASS: ${process.env.SMTP_PASS}`);
 
 // Transporter SMTP (Mailtrap)
 const transporter = nodemailer.createTransport({
@@ -39,31 +39,34 @@ async function ensureResetTable() {
 
 }
 
+// A sua função startPasswordReset completa
 async function startPasswordReset(email) {
   
-  console.log(`\n🔎 Email recebido para busca: ${email}`);
+  console.log(`\n🔎   Email recebido para busca: ${email}`);
   const sanitizedEmail = email.toLowerCase().trim();
 
-  console.log(`\n🔎 Email sanitizado para busca: ${sanitizedEmail}`);
+  console.log(`\n🔎   Email sanitizado para busca: ${sanitizedEmail}`);
 
   const u = await pool.query(`SELECT id, email FROM usuario WHERE email = $1`, [sanitizedEmail]);
 
-  console.log(`🔎 Resultado da busca (linhas encontradas): ${u.rows.length}\n`);
+  console.log(`\n🔎   Resultado da busca (linhas encontradas): ${u.rows.length}`);
 
+  // ❗ MUDANÇA AQUI: Mensagem de segurança mais genérica
   if (u.rows.length === 0) {
-    return { message: 'Se este e-mail existir, enviaremos instruções.' };
+    console.log(`\n❌   Nenhum e-mail encontrado.❌   `);
+    return { message: 'Nenhum e-mail encontrado.' };
   }
 
   await ensureResetTable();
 
   const code = sixDigits();
-  console.log(`#️⃣   Código gerado: ${code}`);
+  console.log(`\n#️⃣   Código gerado: ${code}`);
 
   const token = crypto.randomBytes(24).toString('hex');
-  console.log(`#️⃣   Token gerado: ${token}`);
+  console.log(`\n#️⃣   Token gerado: ${token}`);
 
   const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
-  console.log(`#️⃣   Data de expiração: ${expiresAt}`);
+  console.log(`\n#️⃣   Data de expiração: ${expiresAt}`);
 
   await pool.query(` UPDATE password_resets SET used = TRUE WHERE email = $1 AND used = FALSE`, [sanitizedEmail]);
 
@@ -87,36 +90,32 @@ async function startPasswordReset(email) {
 
 }
 
-export async function verifyResetCode(email, code) {
+async function verifyResetCode(token, code) { // <-- MUDANÇA 1: Recebe 'token', não 'email'
 
   await ensureResetTable();
 
+  // <-- MUDANÇA 2: A consulta agora busca pelo TOKEN, que é único para a tentativa.
   const { rows } = await pool.query(
-    'SELECT * FROM password_resets WHERE email = $1 AND code = $2 AND used = FALSE ORDER BY created_at DESC LIMIT 1',
-    [email, code]
+    `SELECT * FROM password_resets WHERE token = $1 AND code = $2 AND used = FALSE ORDER BY created_at DESC LIMIT 1`, 
+    [token, code] // <-- MUDANÇA 3: Usa os novos parâmetros na consulta
   );
 
   if (rows.length === 0) {
-
     throw new Error('Código inválido.');
-
   }
   const row = rows[0];
 
   if (new Date(row.expires_at) < new Date()) {
-
     throw new Error('Código expirado.');
-
   }
 
-
   return { ok: true, resetToken: row.token };
-
 }
 
 export async function resendResetCode(email) {
 
   return startPasswordReset(email);
+  
 }
 
 export async function completePasswordReset({ email, token, newPassword }) {
@@ -139,6 +138,6 @@ export async function completePasswordReset({ email, token, newPassword }) {
   await pool.query('UPDATE password_resets SET used = TRUE WHERE id = $1', [row.id]);
 
   return { message: 'Senha redefinida com sucesso!' };
-}
+};
 
-export { startPasswordReset }
+export { startPasswordReset, verifyResetCode };

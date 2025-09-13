@@ -61,19 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Função para ir para próxima página
-  function irParaProximaPagina() {
-    console.log('Redirecionando para esqueciasenha2.html...'); // Debug
-    
-    // Método mais compatível
-    try {
-      window.location.assign('esqueciasenha2.html');
-    } catch (error) {
-      console.error('Erro no redirect:', error);
-      // Fallback
-      window.location = 'esqueciasenha2.html';
-    }
-  }
 
   form.addEventListener('submit', async (event) => {
 
@@ -111,31 +98,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
     try {
       const response = await fetch('/forgotPassword', {
-        method: 'POST',
-        body: formData
+          method: 'POST',
+          body: formData
       });
 
-      if (!response.ok) throw new Error('Erro na requisição');
-
+      // É importante pegar a resposta JSON independentemente do status,
+      // pois o backend envia a mensagem de erro no corpo da resposta.
       const data = await response.json();
       console.log('📦 Dados recebidos:', data);
-      form.reset();
 
-      mostrarMensagem('Email enviado com sucesso! Redirecionando...', 'sucesso');
+      // Se a resposta NÃO for 'ok' (status 400, 500 etc), trata como erro.
+      if (!response.ok) {
+          // Mostra a mensagem de erro vinda do backend
+          mostrarMensagem(data.message || 'Ocorreu um erro no servidor.', 'Erro');
+          // Lança o erro para ser pego pelo bloco catch
+          throw new Error(data.message || 'Erro na requisição');
+      }
 
-      setTimeout(() => {
-        console.log('Redirecionando');
-        if (data.redirectTo) {
-          window.location.href = data.redirectTo;
-        }
-      }, 1000);
+      // Se a resposta foi 'ok' (status 200), verificamos o conteúdo.
+      if (data.flowToken) {
+          // E-mail encontrado, o backend enviou o token.
 
-    } catch (error) {
+          // AQUI ESTÁ A CORREÇÃO PRINCIPAL:
+          // Guardamos o token no sessionStorage para ser usado na próxima página.
+          sessionStorage.setItem('passwordResetToken', data.flowToken);
 
+          form.reset();
+          mostrarMensagem('Email enviado com sucesso! Você será redirecionado em breve.', 'sucesso');
+          
+          setTimeout(() => {
+              console.log('Redirecionando para:', data.redirectTo);
+              // MUDANÇA: Simplificamos o redirecionamento.
+              // A próxima página vai pegar o token do sessionStorage, não da URL.
+              window.location.href = data.redirectTo;
+          }, 1500);
+
+      } else {
+          // E-mail não encontrado, o backend enviou apenas uma mensagem.
+          mostrarMensagem(data.message, 'Erro');
+      }
+  } catch (error) {
       console.error('❌ Erro na requisição:', error);
-      mostrarMensagem('Erro ao enviar o formulário. Tente novamente mais tarde.');
-
-    }
+      // A mensagem de erro já foi exibida acima se o erro veio do backend.
+      // Esta mensagem abaixo aparecerá para erros de rede, por exemplo.
+      if (!document.querySelector('.alert-danger')) { // Evita mostrar duas mensagens
+          mostrarMensagem('Erro ao conectar com o servidor. Tente novamente.', 'Erro');
+      }
+  }
   });
 
 });

@@ -42,5 +42,5 @@ app.get('/test-db', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running in http://localhost:${PORT}`);
+    console.log(`\n✅   Server running in http://localhost:${PORT}   ✅`);
 });
