@@ -3,10 +3,10 @@ import path from "path";
 import { userRegisterPessoaFisica, userRegisterDonatario, userRegisterInstituicao, userRegisterOng } from "../services/registerUser.service.js";
 
 async function registerUserDoador(req, res) {
-    
-    console.log(`📦   Dados recebidos: ${JSON.stringify(req.body, null, 2)}`);
 
     try{
+
+        console.log(`📦   Dados recebidos: ${JSON.stringify(req.body, null, 2)}`);
 
         const { 
             nomeCompleto, 
@@ -68,18 +68,59 @@ async function registerUserDoador(req, res) {
 };
 
 async function registerUserDonatario(req, res) {
-    
-    console.log(`📦   Dados recebidos: ${JSON.stringify(req.body, null, 2)}`);
 
-    try{
+    try {
 
-        const {} = req.body;
+        console.log(`📦   Dados recebidos: ${JSON.stringify(req.body, null, 2)}`);
 
-    }catch (error){
-        console.error(`❌   Erro na transação: ${error}   ❌`);
+        const { 
+            nomeCompleto, 
+            email, 
+            senha, 
+            telefone, 
+            endereco, 
+            cpf, 
+            rg, 
+            cep, 
+            obvdon, 
+            estadoCivil, 
+            numerodepessoas, 
+            pessoas, 
+            ocupacao, 
+            termos 
+        } = req.body;
+
+        const files = req.files;
+
+        if (files) {
+            console.log('\n🖼️   Arquivos recebidos:');
+            console.log('\n👤   Foto de Perfil:', files['fileDon']);
+            console.log('\n🎬   Vídeo Esclarecedor:', files['videoDon']);
+        }
+
+        const residente_especial = pessoas ? true : false;
+
+        await pool.query('BEGIN');
+
+        console.log(`\n⌛   Iniciando o cadastro de Donatário   ⌛\n`);
+
+        const novoDonatario = await userRegisterDonatario({ nomeCompleto, email, senha, telefone, endereco, cpf, rg, cep, obvdon, estadoCivil, numerodepessoas, residente_especial, ocupacao });
+
+        await pool.query('COMMIT');
+        console.log(`\n✅   Cadastro de donatario realizado com sucesso   ✅\n`);
+
+        res.status(201).json({
+            message: `Cadastro realizado com sucesso`,
+            redirectTo: '/login'
+        });
+
+    } catch (error) {
+
+        await pool.query('ROLLBACK');
+        console.error(`❌ Erro na transação: ${error} ❌`);
         throw error;
-    };
 
+    };
 };
 
 export { registerUserDoador, registerUserDonatario };

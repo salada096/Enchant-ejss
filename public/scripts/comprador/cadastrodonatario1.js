@@ -22,29 +22,44 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     // Listeners para botões de navegação - CORRIGIDOS
-    document.getElementById('continuar1').addEventListener('click', validarEtapa1);
-    document.getElementById('continuar2').addEventListener('click', validarEtapa2);
-    document.getElementById('continuar3').addEventListener('click', validarEtapa3);
-    document.getElementById('enviar').addEventListener('click', validarEtapa4);
+    const btnContinuar1 = document.getElementById('continuar1');
+    const btnContinuar2 = document.getElementById('continuar2');
+    const btnContinuar3 = document.getElementById('continuar3');
+    const btnEnviar = document.getElementById('enviar');
+
+    if (btnContinuar1) btnContinuar1.addEventListener('click', validarEtapa1);
+    if (btnContinuar2) btnContinuar2.addEventListener('click', validarEtapa2);
+    if (btnContinuar3) btnContinuar3.addEventListener('click', validarEtapa3);
+    if (btnEnviar) btnEnviar.addEventListener('click', validarEtapa4);
     
     // Adicionar listeners para navegação pelos passos
     adicionarListenersPassos();
     
     // Botões voltar
-    document.getElementById('voltar1').addEventListener('click', function(e) {
-        e.preventDefault();
-        mudarEtapa(1, 0);
-    });
+    const btnVoltar1 = document.getElementById('voltar1');
+    const btnVoltar2 = document.getElementById('voltar2');
+    const btnVoltar3 = document.getElementById('voltar3');
+
+    if (btnVoltar1) {
+        btnVoltar1.addEventListener('click', function(e) {
+            e.preventDefault();
+            mudarEtapa(1, 0);
+        });
+    }
     
-    document.getElementById('voltar2').addEventListener('click', function(e) {
-        e.preventDefault();
-        mudarEtapa(2, 1);
-    });
+    if (btnVoltar2) {
+        btnVoltar2.addEventListener('click', function(e) {
+            e.preventDefault();
+            mudarEtapa(2, 1);
+        });
+    }
     
-    document.getElementById('voltar3').addEventListener('click', function(e) {
-        e.preventDefault();
-        mudarEtapa(3, 2);
-    });
+    if (btnVoltar3) {
+        btnVoltar3.addEventListener('click', function(e) {
+            e.preventDefault();
+            mudarEtapa(3, 2);
+        });
+    }
 
     // Mostrar/ocultar senha
     document.querySelectorAll('.mostrar-senha').forEach(toggle => {
@@ -208,10 +223,10 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         // Verificar se campos obrigatórios estão preenchidos
-        const nome = document.getElementById('nome-completo').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const senha = document.getElementById('senha').value;
-        const confirmaSenha = document.getElementById('confirma-senha').value;
+        const nome = document.getElementById('nome-completo')?.value?.trim();
+        const email = document.getElementById('email')?.value?.trim();
+        const senha = document.getElementById('senha')?.value;
+        const confirmaSenha = document.getElementById('confirma-senha')?.value;
         
         if (!nome) {
             mostrarModal('Por favor, preencha o nome completo.');
@@ -242,11 +257,11 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         // Verificar se campos obrigatórios estão preenchidos
-        const telefone = document.getElementById('telefone').value.trim();
-        const endereco = document.getElementById('endereco').value.trim();
-        const cpf = document.getElementById('cpf').value.trim();
-        const rg = document.getElementById('rg').value.trim();
-        const cep = document.getElementById('cep').value.trim();
+        const telefone = document.getElementById('telefone')?.value?.trim();
+        const endereco = document.getElementById('endereco')?.value?.trim();
+        const cpf = document.getElementById('cpf')?.value?.trim();
+        const rg = document.getElementById('rg')?.value?.trim();
+        const cep = document.getElementById('cep')?.value?.trim();
         
         if (!telefone || telefone.length < 14) {
             mostrarModal('Por favor, insira um número de telefone válido.');
@@ -283,16 +298,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const inputFoto = document.getElementById('ffoto');
         const inputVideo = document.getElementById('vvideo');
-        const observacoes = document.getElementById('campos').value.trim();
+        const observacoes = document.getElementById('campos')?.value?.trim();
         
         // Verificar se a foto foi selecionada
-        if (!inputFoto.files.length) {
+        if (!inputFoto?.files?.length) {
             mostrarModal('Por favor, selecione uma foto 3x4.');
             return;
         }
         
         // Verificar se o vídeo foi selecionado
-        if (!inputVideo.files.length) {
+        if (!inputVideo?.files?.length) {
             mostrarModal('Por favor, selecione um vídeo esclarecedor.');
             return;
         }
@@ -344,14 +359,135 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Validação da etapa 4 (final)
+    // Função para coletar todos os dados do formulário
+    // Função para coletar todos os dados do formulário - CORRIGIDA
+    function coletarDadosFormulario() {
+        const formData = new FormData();
+        
+        // Dados da etapa 1 - Informações pessoais
+        const nome = document.getElementById('nome-completo')?.value?.trim();
+        const email = document.getElementById('email')?.value?.trim();
+        const senha = document.getElementById('senha')?.value;
+        const confirmarSenha = document.getElementById('confirma-senha')?.value;
+        
+        if (nome) formData.append('nomeCompleto', nome); // Nome corrigido
+        if (email) formData.append('email', email);
+        if (senha) formData.append('senha', senha);
+        if (confirmarSenha) formData.append('confirmarSenha', confirmarSenha); // Adicionado
+        
+        // Dados da etapa 2 - Contato e documentos
+        const telefone = document.getElementById('telefone')?.value?.trim();
+        const endereco = document.getElementById('endereco')?.value?.trim();
+        const cpf = document.getElementById('cpf')?.value?.trim();
+        const rg = document.getElementById('rg')?.value?.trim();
+        const cep = document.getElementById('cep')?.value?.trim();
+        
+        if (telefone) formData.append('telefone', telefone);
+        if (endereco) formData.append('endereco', endereco);
+        if (cpf) formData.append('cpf', cpf);
+        if (rg) formData.append('rg', rg);
+        if (cep) formData.append('cep', cep);
+        
+        // Dados da etapa 3 - Arquivos e observações
+        const inputFoto = document.getElementById('ffoto');
+        const inputVideo = document.getElementById('vvideo');
+        const observacoes = document.getElementById('campos')?.value?.trim();
+        
+        // Nomes dos arquivos devem bater com o multer
+        if (inputFoto?.files?.[0]) {
+            formData.append('fileDon', inputFoto.files[0]); // Nome correto para multer
+        }
+        if (inputVideo?.files?.[0]) {
+            formData.append('videoDon', inputVideo.files[0]); // Nome correto para multer
+        }
+        if (observacoes) formData.append('obvdon', observacoes); // Nome corrigido
+        
+        // Dados da etapa 4 - Informações complementares
+        const estadoCivil = document.querySelector('input[name="estadoCivil"]:checked')?.value;
+        const numeroPessoas = document.getElementById('numerodepessoas')?.value?.trim();
+        const ocupacao = document.getElementById('ocupacao')?.value?.trim();
+        const termosAceitos = document.getElementById('termos')?.checked;
+        
+        // Coletar checkboxes de pessoas (idosos, crianças, deficientes)
+        const pessoasCheckboxes = document.querySelectorAll('input[name="pessoas"]:checked');
+        const pessoasSelecionadas = Array.from(pessoasCheckboxes).map(cb => cb.value);
+        
+        if (estadoCivil) formData.append('estadoCivil', estadoCivil); // Nome correto
+        if (numeroPessoas) formData.append('numerodepessoas', numeroPessoas); // Nome correto
+        if (ocupacao) formData.append('ocupacao', ocupacao);
+        if (pessoasSelecionadas.length > 0) {
+            formData.append('pessoas', pessoasSelecionadas.join(',')); // Array como string
+        }
+        formData.append('termos', termosAceitos ? '1' : '0');
+        
+        return formData;
+    }
+
+    // Função para enviar dados para o backend
+    async function enviarDadosBackend(formData) {
+        try {
+            // Mostrar indicador de carregamento
+            mostrarCarregamento(true);
+            
+            // Configurar a requisição
+            const response = await fetch('/cadastrar/donatario', {
+                method: 'POST',
+                body: formData
+            });
+            
+            // Verificar se a resposta foi bem-sucedida
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || `Erro HTTP: ${response.status}`);
+            }
+            
+            // Processar resposta de sucesso
+            const resultado = await response.json();
+            console.log('Dados enviados com sucesso:', resultado);
+            
+            // Mostrar mensagem de sucesso
+            mostrarModal('Cadastro realizado com sucesso! Você será redirecionado em alguns segundos.');
+            
+            // Redirecionar após 3 segundos
+            setTimeout(() => {
+                if (resultado.redirectTo) {
+                    window.location.href = resultado.redirectTo;
+                } else {
+                    window.location.href = '/login';
+                }
+            }, 1500);
+            
+        } catch (error) {
+            console.error('Erro ao enviar dados:', error);
+            mostrarModal('Erro ao processar seu cadastro: ' + error.message + '. Por favor, tente novamente.');
+        } finally {
+            // Ocultar indicador de carregamento
+            mostrarCarregamento(false);
+        }
+    }
+
+    // Função para mostrar/ocultar indicador de carregamento
+    function mostrarCarregamento(mostrar) {
+        const btnEnviar = document.getElementById('enviar');
+        if (btnEnviar) {
+            if (mostrar) {
+                btnEnviar.disabled = true;
+                btnEnviar.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Enviando...';
+            } else {
+                btnEnviar.disabled = false;
+                btnEnviar.innerHTML = 'Finalizar Cadastro';
+            }
+        }
+    }
+
+    // Validação da etapa 4 (final) - CORRIGIDA
     function validarEtapa4(e) {
         e.preventDefault();
         
-        const estadoCivil = document.querySelector('input[name="estado-civil"]:checked');
-        const numeroPessoas = document.getElementById('numerodepessoas').value.trim();
-        const ocupacao = document.getElementById('ocupacao').value.trim();
-        const termosAceitos = document.getElementById('termos').checked;
+        const estadoCivil = document.querySelector('input[name="estadoCivil"]:checked');
+        const numeroPessoas = document.getElementById('numerodepessoas')?.value?.trim();
+        const ocupacao = document.getElementById('ocupacao')?.value?.trim();
+        const termosAceitos = document.getElementById('termos')?.checked;
         
         if (!estadoCivil) {
             mostrarModal('Por favor, selecione seu estado civil.');
@@ -373,10 +509,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Finaliza o cadastro (normalmente enviaria para o servidor)
-        mostrarModal('Cadastro realizado com sucesso!');
-        // Aqui seria feito o envio dos dados para o servidor
-        // window.location.href = 'pagina-de-sucesso.html';
+        // Coletar todos os dados do formulário
+        const dadosFormulario = coletarDadosFormulario();
+        
+        // Enviar dados para o backend
+        enviarDadosBackend(dadosFormulario);
     }
 
     // Funções de validação de campos específicos
@@ -566,7 +703,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Validação dos requisitos de senha em tempo real
     function validarRequisitos() {
-        const senha = document.getElementById('senha').value;
+        const senha = document.getElementById('senha')?.value || '';
         
         // Validar requisitos individuais
         const oitoDigitos = senha.length >= 8;
@@ -593,6 +730,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function validarSenhaCompleta(senha) {
+        if (!senha) return false;
+        
         // Verifica todos os requisitos
         const oitoDigitos = senha.length >= 8;
         const doisNumeros = (senha.match(/[0-9]/g) || []).length >= 2;
@@ -692,10 +831,43 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Função adicional para debug de formulário
+    function debugFormulario() {
+        console.log('=== DEBUG FORMULÁRIO ===');
+        const formData = coletarDadosFormulario();
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}:`, value);
+        }
+    }
 
+    // Função para validar conectividade com o backend
+    async function testarConexaoBackend() {
+        try {
+            const response = await fetch('/api/health', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                console.log('✅ Conexão com backend estabelecida');
+                return true;
+            } else {
+                console.warn('⚠️ Backend respondeu com erro:', response.status);
+                return false;
+            }
+        } catch (error) {
+            console.error('❌ Erro de conexão com backend:', error);
+            return false;
+        }
+    }
 
     // Inicializar estado dos passos na primeira carga
     atualizarEstadoPassos(0); // Começa no primeiro passo
+
+    // Testar conexão com backend na inicialização
+    testarConexaoBackend();
 
     // Debug: Verificar se todos os elementos necessários existem
     console.log('=== DEBUG ELEMENTOS ===');
@@ -710,4 +882,7 @@ document.addEventListener('DOMContentLoaded', function() {
         voltar2: document.getElementById('voltar2') ? 'OK' : 'ERRO',
         voltar3: document.getElementById('voltar3') ? 'OK' : 'ERRO'
     });
+
+    window.debugFormulario = debugFormulario;
+    window.testarConexaoBackend = testarConexaoBackend;
 });

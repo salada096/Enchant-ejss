@@ -16,7 +16,12 @@ const upload = multer();
 
 userRouter.post('/cadastrar/doador', upload.none(), registerUserDoador);
 
-userRouter.post('/cadastrar/donatario', upload.none(), registerUserDonatario);
+userRouter.post('/cadastrar/donatario', upload.fields([
+  { name: 'fileDon', maxCount: 1 },
+  { name: 'videoDon', maxCount: 1 }
+]), (req, res, next) => {
+  registerUserDonatario(req, res);
+});
 
 userRouter.post('/login', upload.none(), login);
 
