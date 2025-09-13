@@ -4,249 +4,324 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Gestão</title>
-    <!-- Tailwind CSS CDN para estilização -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js para o gráfico de barras -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <!-- Leaflet para o mapa -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <!-- Flatpickr para o calendário e seletor de datas -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <!-- html2canvas e jspdf para gerar PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
+    <link rel="stylesheet" href="../../../public/styles/global.css">
+    <script src="../../../public/scripts/layouts/comprador/sidebar.js" defer></script>
+    <script src="../../../public/scripts/layouts/comprador/headercomprador.js" defer></script>
+    <script src="../../../public/scripts/layouts/comprador/footercomprador.js" defer></script>
+    <script src="../../../public/scripts/comprador/telainicialusuariodepois.js" defer></script>
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        /* ======== FONTES E ESTILOS GLOBAIS ======== */
+        @import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Lexend Deca', sans-serif;
+            background-color: #f3f4f6; /* bg-gray-100 */
         }
-        /* Cores personalizadas para o tema */
+        
+        /* ======== CORES CUSTOMIZADAS ======== */
         .text-brown-custom { color: #8B4513; }
         .bg-brown-custom { background-color: #8B4513; }
         .bg-orange-custom { background-color: #d4a574; }
         .border-brown-custom { border-color: #8B4513; }
-        .bg-gray-custom { background-color: #f5f5f5; }
 
-        /* Estilos do Flatpickr para combinar com o tema */
-        .flatpickr-calendar {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            font-family: 'Inter', sans-serif;
-            border: 1px solid #e0e0e0;
+        /* ======== LAYOUT PRINCIPAL ======== */
+        .dashboard-container {
+            max-width: 1280px; /* max-w-7xl */
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 1.5rem; /* px-6 */
         }
-        .flatpickr-day.selected, .flatpickr-day.donated-day {
-            background: #8B4513 !important;
-            border-color: #8B4513 !important;
-            color: white !important;
-            font-weight: bold;
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem; /* gap-6 */
+            margin-bottom: 1.5rem;
         }
-        .flatpickr-day.selected.startRange, .flatpickr-day.selected.endRange {
-            border-radius: 12px !important;
-        }
-        .flatpickr-day.today.selected {
-            background-color: #d4a574 !important;
-            border-color: #d4a574 !important;
-        }
-        .flatpickr-day.donated-day:hover {
-            background: #d4a574 !important;
-            border-color: #d4a574 !important;
-        }
-        #map {
-            width: 100%;
-            height: 100%;
-        }
-        .donated-day {
-            background-color: #8B4513 !important;
-            color: white !important;
-        }
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.8);
+        .main-content-area {
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
+            gap: 1.5rem; /* gap-6 */
+        }
+        .sideeebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem; /* gap-6 */
+        }
+
+        /* ======== COMPONENTES DE CARD ======== */
+        .card {
+            background-color: white;
+            padding: 1.5rem; /* p-6 */
+            border-radius: 1rem; /* rounded-2xl */
+            border: 1px solid #ddd; /* border-gray-200 */
+          
+        }
+        .card-sm-shadow {
+            background-color: white;
+            padding: 1.5rem; /* p-6 */
+            border-radius: 1rem; /* rounded-2xl */
+            margin: 1.5rem 0; /* my-6 */
+        }
+        .card-title {
+            font-weight: 600; /* font-semibold */
+            color: #1f2937; /* text-gray-800 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .card-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+
+        /* ======== CABEÇALHO E FILTROS ======== */
+        .header {
+            display: flex;
+            flex-direction: column; /* Padrão mobile */
+            gap: 1rem; /* gap-4 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .header-controls {
+            display: flex;
+            flex-direction: column; /* Padrão mobile */
+            align-items: center;
+            gap: 1rem; /* gap-4 */
+            
+            order: 2; /* Aparece abaixo do botão no mobile */
+        }
+        .filter-group {
+            display: flex;
+            font-weight: 600; /* font-semibold */
+        }
+        .filter-group span {
+            cursor: pointer;
+            padding: 0.5rem; /* p-2 */
+            border: 1px solid #d1d5db; /* border-gray-300 */
+        }
+        .filter-group span:first-child { border-radius: 0.5rem 0 0 0.5rem; }
+        .filter-group span:last-child { border-radius: 0 0.5rem 0.5rem 0; }
+        .filter-group .active {
+            background-color: #8B4513;
+            color: white;
+        }
+        .date-picker-trigger {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; /* gap-2 */
+            cursor: pointer;
+            padding: 0.5rem; /* p-2 */
+            border-radius: 0.5rem; /* rounded-lg */
+            border: 1px solid #d1d5db; /* border-gray-300 */
+            width: 100%;
+            justify-content: center;
+        }
+        .date-picker-trigger:hover { background-color: #f3f4f6; } /* hover:bg-gray-100 */
+        .date-display { font-size: 0.875rem; } /* text-sm */
+
+        /* ======== BOTÕES E LINKS ======== */
+        .btn-pdf {
+             background-color: rgba(226, 204, 174, 1);
+    padding: 8px 15px;
+    border-radius: 10px;
+    color:#000000;
+    border: none;
+    font-weight: 400;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;/* Aparece no topo no mobile */
+        }
+        .btn-pdf:hover {  
+            background-color: #caae8d;
+            color: #3d2106;
+   
+}
+        .btn-edit-profile {
+            background-color: #f3f4f6; /* bg-gray-100 */
+            color: #4b5563; /* text-gray-600 */
+            padding: 0.5rem 1rem; /* px-4 py-2 */
+            border-radius: 0.5rem; /* rounded-lg */
+            font-weight: 500; /* font-medium */
+        }
+
+        /* ======== NAVEGAÇÃO SECUNDÁRIA ======== */
+        .sub-nav {
+            background-color: white;
+            padding: 1rem; /* p-4 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            border-radius: 1rem; /* rounded-2xl */
+        }
+        .sub-nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem; /* gap-2 */
+            font-weight: 500; /* font-medium */
+        }
+        .sub-nav-links a {
+            padding: 0.25rem 0.75rem; /* px-3 py-1 */
+            border-radius: 9999px; /* rounded-full */
+        }
+        .sub-nav-links a.active {
+            background-color: #8B4513;
+            color: white;
+        }
+        .sub-nav-links a:not(.active):hover { background-color: #f3f4f6; }
+
+        /* ======== MODAL ======== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgb(75 85 99 / 0.5);
+            padding: 1rem;
             z-index: 1000;
+            display: none; /* Controlado por JS */
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 1.5rem; /* p-6 */
+            border-radius: 1rem; /* rounded-2xl */
+ 
+            width: 100%;
+            max-width: 24rem; /* max-w-sm */
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .modal-title { font-size: 1.25rem; font-weight: 700; }
+        .modal-close { font-size: 1.5rem; font-weight: 700; line-height: 1; }
+        
+        /* ======== ESTILOS RESPONSIVOS ======== */
+        @media (min-width: 640px) { /* sm */
+            .header-controls { flex-direction: row; justify-content: flex-end; }
+            .date-picker-trigger { width: auto; }
+        }
+        @media (min-width: 768px) { /* md */
+            .header { flex-direction: row; align-items: center; }
+            .btn-pdf { width: auto; }
+            .header-controls { order: 1; }
+            .cards-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        }
+        @media (min-width: 1024px) { /* lg */
+            .main-grid { grid-template-columns: 1fr 2fr; }
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body>
 
-    <!-- Loading overlay for PDF generation -->
-    <div id="loading-overlay" class="loading-overlay hidden">
+    <div id="loading-overlay" class="fixed inset-0 bg-white/80 z-[1000] flex-col items-center justify-center hidden">
         <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-brown-custom"></div>
         <p class="mt-4 text-brown-custom font-semibold">Gerando PDF...</p>
     </div>
 
-    <!-- Container principal -->
-    <div id="dashboard-content">
-        <!-- Header and Main Chart Section -->
-        <div class="bg-white p-6 shadow-sm rounded-2xl max-w-7xl mx-auto mt-6 mb-6">
-            <header class="flex justify-between items-center mb-4">
-                <!-- Botão "Gerar PDF" movido para a direita -->
-                <button id="generate-pdf-btn" class="bg-orange-custom text-white text-sm px-4 py-2 rounded-full font-medium hover:bg-brown-custom transition-colors">Gerar PDF</button>
-                <div class="flex items-center gap-4 text-gray-600 font-semibold">
-                    <!-- Filtros de período e seletor de data agrupados -->
-                    <div id="filter-container" class="flex items-center gap-0 text-gray-600 font-semibold">
-                        <span id="filter-day" class="cursor-pointer border border-gray-300 p-2 rounded-l-lg">Dia</span>
-                        <span id="filter-week" class="cursor-pointer border-y border-gray-300 p-2">Semana</span>
-                        <span id="filter-month" class="cursor-pointer border-y border-gray-300 p-2 text-white bg-brown-custom">Mês</span>
-                        <span id="filter-year" class="cursor-pointer border border-gray-300 p-2 rounded-r-lg">Ano</span>
-                    </div>
-                    <div id="date-picker-trigger" class="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-100 transition-colors border border-gray-300">
-                        <span id="start-date-display" class="text-sm">dd/mm/aaaa</span>
-                        <span>-</span>
-                        <span id="end-date-display" class="text-sm">dd/mm/aaaa</span>
-                        <input type="text" id="date-range-input" class="hidden">
+    <div id="dashboard-content" class="dashboard-container">
+        
+            <div class="card-sm-shadow">
+                <div class="header flex items-center justify-between">
+                    <button id="generate-pdf-btn" class="btn-pdf w-auto">Gerar PDF</button>
+                    <div class="header-controls flex items-center gap-2">
+                        <div id="filter-container" class="filter-group flex gap-2">
+                            <span id="filter-day" class="cursor-pointer border border-gray-300 p-2 rounded-l-lg">Dia</span>
+                            <span id="filter-week" class="cursor-pointer border-y border-gray-300 p-2">Semana</span>
+                            <span id="filter-month" class="cursor-pointer border-y border-gray-300 p-2 text-white bg-brown-custom">Mês</span>
+                            <span id="filter-year" class="cursor-pointer border border-gray-300 p-2 rounded-r-lg">Ano</span>
+                        </div>
+                        <div id="date-picker-trigger" class="date-picker-trigger flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-100 transition-colors border border-gray-300">
+                            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span id="start-date-display" class="date-display">dd/mm/aaaa</span>
+                            <span>-</span>
+                            <span id="end-date-display" class="date-display">dd/mm/aaaa</span>
+                            <input type="text" id="date-range-input" class="hidden">
+                        </div>
                     </div>
                 </div>
-            </header>
-            <!-- Gráfico de Doações -->
-            <div class="h-96">
-                <h5 class="font-semibold text-gray-800 mb-4">Doações por Mês</h5>
-                <canvas id="barChart" class="w-full h-full"></canvas>
+                <div class="h-96">
+                    <h5 class="card-title">Doações por Mês</h5>
+                    <canvas id="barChart"></canvas>
+                </div>
             </div>
-        </div>
         
-        <!-- Sub-header -->
-        <nav class="bg-white p-4 shadow-sm mb-6 max-w-7xl mx-auto rounded-2xl">
-            <div class="flex flex-wrap gap-4 text-gray-600 font-medium">
-                <a href="#" class="px-3 py-1 rounded-full bg-brown-custom text-white shadow">Relatórios</a>
-                <a href="#" class="px-3 py-1 rounded-full hover:bg-gray-100">Contratos</a>
-                <a href="#" class="px-3 py-1 rounded-full hover:bg-gray-100">Notas de escritório</a>
-                <a href="#" class="px-3 py-1 rounded-full hover:bg-gray-100">Documentos comprovativos</a>
-                <a href="#" class="px-3 py-1 rounded-full hover:bg-gray-100">Gestão financeira</a>
-                <a href="#" class="px-3 py-1 rounded-full hover:bg-gray-100">Parceiros</a>
+        <nav class="sub-nav">
+            <div class="sub-nav-links">
+                <a href="#" class="active">Relatórios</a>
+                <a href="#">Contratos</a>
+                <a href="#">Notas de escritório</a>
+                <a href="#">Documentos</a>
+                <a href="#">Gestão financeira</a>
+                <a href="#">Parceiros</a>
             </div>
         </nav>
         
-        <!-- Main Content Grid -->
-        <div class="p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-            
-            <!-- Left Column -->
-            <aside class="col-span-1 flex flex-col gap-6">
-                <!-- Mapa de Riscos -->
-                <div class="bg-white p-6 rounded-2xl shadow-lg">
-                    <h3 class="text-gray-800 font-semibold mb-4">Mapa de riscos</h3>
+        <div class="main-grid">
+            <aside class="sideeebar">
+                <div class="card">
+                    <h3 class="card-title">Mapa de riscos</h3>
                     <nav class="flex flex-col gap-2 text-gray-600">
-                        <a href="#" class="py-2 hover:text-brown-custom transition-colors">Pontos para a coleta</a>
-                        <a href="#" class="py-2 hover:text-brown-custom transition-colors">Onde eu faço a doação</a>
-                        <a href="#" class="py-2 hover:text-brown-custom transition-colors">Previsão de dívida</a>
-                        <a href="#" class="py-2 hover:text-brown-custom transition-colors">Nossos gastos</a>
-                        <a href="#" class="py-2 hover:text-brown-custom transition-colors">Nossa equipe</a>
-                        <a href="#" class="py-2 hover:text-brown-custom transition-colors">Nossos parceiros</a>
+                         <a href="#" class="py-2 hover:text-brown-custom">Pontos para a coleta</a>
+                         <a href="#" class="py-2 hover:text-brown-custom">Onde eu faço a doação</a>
+                         <a href="#" class="py-2 hover:text-brown-custom">Previsão de dívida</a>
+                         <a href="#" class="py-2 hover:text-brown-custom">Nossos gastos</a>
+                         <a href="#" class="py-2 hover:text-brown-custom">Nossa equipe</a>
+                         <a href="#" class="py-2 hover:text-brown-custom">Nossos parceiros</a>
                     </nav>
                 </div>
 
-                <!-- Calendário -->
-                <div class="bg-white p-6 rounded-2xl shadow-lg">
-                    <h3 class="text-gray-800 font-semibold mb-4">Agenda</h3>
-                    <input type="text" id="calendar" class="w-full text-center text-brown-custom font-semibold">
+                <div class="card">
+                    <h3 class="card-title">Agenda</h3>
+                    <input type="text" id="calendar">
                 </div>
-
             </aside>
 
-            <!-- Right Column -->
-            <main class="col-span-1 lg:col-span-2 flex flex-col gap-6">
-                <!-- Mapa de Rotas -->
-                <div class="bg-white p-6 rounded-2xl shadow-lg h-72">
-                    <h3 class="text-gray-800 font-semibold mb-4">Mapa de rotas</h3>
+            <main class="main-content-area">
+                <div class="card h-72">
+                    <h3 class="card-title">Mapa de rotas</h3>
                     <div id="map" class="w-full h-full rounded-xl"></div>
                 </div>
                 
-                <!-- Cards alinhados: User Info e Agenda -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Informações do Usuário -->
-                    <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-semibold">Nome do usuário</span>
-                                <span class="text-sm text-gray-500">Setembro 05/09/2025</span>
-                            </div>
-                            <!-- O botão "Excluir" foi removido. O botão "Editar perfil" agora é um link -->
-                            <div class="flex gap-2 mb-4">
-                                <a href="#" class="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg font-medium">✏️ Editar perfil</a>
-                            </div>
-                            <div class="bg-orange-custom text-white px-4 py-2 rounded-lg text-xs mb-2 text-center">Produto selecionado - Argentina</div>
-                            <div class="bg-brown-custom text-white px-4 py-2 rounded-lg text-xs text-center">Sistema programa</div>
+                <div class="cards-grid-2">
+                    <div class="card">
+                        <div class="card-row">
+                            <span class="font-semibold">Nome do usuário</span>
+                            <span class="text-sm text-gray-500">Setembro 13/09/2025</span>
                         </div>
+                        <div class="flex gap-2 mb-4">
+                            <a href="#" class="btn-edit-profile">✏️ Editar perfil</a>
+                        </div>
+                        <div class="bg-orange-custom text-white px-4 py-2 rounded-lg text-xs mb-2 text-center">Produto selecionado - Argentina</div>
+                        <div class="bg-brown-custom text-white px-4 py-2 rounded-lg text-xs text-center">Sistema programa</div>
                     </div>
                     
-                    <!-- Daily Schedule / Agenda -->
-                    <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-semibold">Hoje</span>
-                                <span class="text-sm text-gray-500" id="current-date"></span>
-                            </div>
-                            <div class="flex flex-col gap-2 overflow-y-auto max-h-48" id="pending-donations-list">
-                                <!-- Doações pendentes serão renderizadas aqui -->
-                            </div>
+                    <div class="card">
+                        <div class="card-row">
+                            <span class="font-semibold">Hoje</span>
+                            <span class="text-sm text-gray-500" id="current-date"></span>
                         </div>
+                        <div id="pending-donations-list" class="flex flex-col gap-2 overflow-y-auto max-h-48"></div>
                     </div>
                 </div>
                 
-                <!-- Cards alinhados: Pontos de Abrigo e Listas de Doações -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Pontos de Abrigo -->
-                    <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-between">
-                        <div>
-                            <h5 class="font-semibold text-gray-800 mb-4">Pontos de Abrigo</h5>
-                            <div class="flex flex-col gap-3">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-3">
-                                        <span class="w-2.5 h-2.5 bg-green-500 rounded-full"></span>
-                                        <span class="text-sm">Ponto de abrigo x</span>
-                                    </div>
-                                    <span class="text-xs text-gray-500">Aberto</span>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-3">
-                                        <span class="w-2.5 h-2.5 bg-gray-400 rounded-full"></span>
-                                        <span class="text-sm">Ponto de abrigo x</span>
-                                    </div>
-                                    <span class="text-xs text-gray-500">Fechado</span>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-3">
-                                        <span class="w-2.5 h-2.5 bg-green-500 rounded-full"></span>
-                                        <span class="text-sm">Ponto de abrigo x</span>
-                                    </div>
-                                    <span class="text-xs text-gray-500">Aberto</span>
-                                </div>
-                            </div>
+                <div class="cards-grid-2">
+                    <div class="card">
+                        <h5 class="card-title">Pontos de Abrigo</h5>
+                        <div id="pontos-abrigo-list" class="flex flex-col gap-2"></div>
                         </div>
-                    </div>
-                    
-                    <!-- Donation Lists -->
-                    <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-semibold text-gray-800">13 Doações - Alimentos</span>
-                                <div id="alimentos-count" class="w-2 h-2 bg-brown-custom rounded-full"></div>
-                            </div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-semibold text-gray-800">12 Doações - Produtos de Higiene</span>
-                                <div id="higiene-count" class="w-2 h-2 bg-brown-custom rounded-full"></div>
-                            </div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-semibold text-gray-800">9 Doações - Ração de animais</span>
-                                <div id="racao-count" class="w-2 h-2 bg-brown-custom rounded-full"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Porcentagem de Doação -->
-                <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-center items-center text-center">
+                 
+
+                <div class="card text-center items-center justify-center flex flex-col">
                     <div class="text-4xl text-brown-custom mb-2">👍</div>
                     <div>
                         <p class="text-sm text-gray-600">Percentual de doação no ano:</p>
@@ -257,429 +332,14 @@
         </div>
     </div>
 
-    <!-- Modal para detalhes da doação -->
-    <div id="donation-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center p-4 z-[1000]">
-        <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-sm">
-            <div class="flex justify-between items-center mb-4">
-                <h4 class="text-xl font-bold text-gray-800">Detalhes da Doação</h4>
-                <button id="close-modal" class="text-gray-500 hover:text-gray-800 text-2xl font-bold leading-none">&times;</button>
+    <div id="donation-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Detalhes da Doação</h4>
+                <button id="close-modal" class="modal-close">&times;</button>
             </div>
-            <div class="flex flex-col gap-4">
-                <div>
-                    <p class="text-sm text-gray-600">Data:</p>
-                    <h5 id="modal-date" class="text-md font-semibold text-brown-custom"></h5>
-                </div>
-                <div>
-                    <p class="text-sm text-gray-600">Quantidade:</p>
-                    <h5 id="modal-amount" class="text-lg font-bold text-gray-800"></h5>
-                </div>
-                <div>
-                    <p class="text-sm text-gray-600">Tipo de Doação:</p>
-                    <h5 id="modal-type" class="text-lg font-bold text-gray-800"></h5>
-                </div>
             </div>
-        </div>
     </div>
 
-    <script>
-        // Dados de doação confirmados
-        let confirmedDonations = {
-            "2025-09-08": { id: 1, amount: "100kg", type: "Roupas" },
-            "2025-09-15": { id: 2, amount: "50kg", type: "Alimentos" },
-            "2025-09-22": { id: 3, amount: "20kg", type: "Brinquedos" },
-            "2025-09-29": { id: 4, amount: "75kg", type: "Remédios" },
-            "2025-10-05": { id: 5, amount: "150kg", type: "Equipamentos" }
-        };
-
-        // Doações pendentes de confirmação
-        let pendingDonations = [
-            { id: 6, date: "2025-09-08", time: "10:00", amount: "30kg", type: "Alimentos", status: "Pendente" },
-            { id: 7, date: "2025-09-08", time: "14:30", amount: "15kg", type: "Produtos de Higiene", status: "Pendente" },
-        ];
-
-        // Mapeamento de tipos de doação para contagens
-        let donationCounts = {
-            "Alimentos": 13,
-            "Produtos de Higiene": 12,
-            "Ração de animais": 9,
-            "Roupas": 0,
-            "Brinquedos": 0,
-            "Remédios": 0,
-            "Equipamentos": 0
-        };
-        
-        // Mapeamento de meses para dados do gráfico
-        let chartDataByMonth = {
-            'Janeiro': 6, 'Fevereiro': 5, 'Março': 3, 'Abril': 2, 'Maio': 1, 'Junho': 3.5, 
-            'Julho': 5, 'Agosto': 4.8, 'Setembro': 3.5, 'Outubro': 2.5, 'Novembro': 4, 'Dezembro': 3
-        };
-
-        const donationDates = Object.keys(confirmedDonations);
-        const donationModal = document.getElementById('donation-modal');
-        const closeModalBtn = document.getElementById('close-modal');
-        const modalDate = document.getElementById('modal-date');
-        const modalAmount = document.getElementById('modal-amount');
-        const modalType = document.getElementById('modal-type');
-        const generatePdfBtn = document.getElementById('generate-pdf-btn');
-        const loadingOverlay = document.getElementById('loading-overlay');
-        const pendingDonationsList = document.getElementById('pending-donations-list');
-        
-        // Novo objeto global para armazenar os dados e o título atuais do gráfico
-        let currentChartData = {
-            labels: [],
-            data: [],
-            title: ''
-        };
-
-        // Adiciona a data atual na seção "Hoje"
-        document.getElementById('current-date').innerText = new Date().toLocaleDateString('pt-BR');
-
-        // Função para renderizar as doações pendentes
-        function renderPendingDonations() {
-            pendingDonationsList.innerHTML = ''; // Limpa a lista
-            if (pendingDonations.length === 0) {
-                pendingDonationsList.innerHTML = `<div class="p-2 text-center text-gray-500">Nenhuma doação pendente.</div>`;
-            } else {
-                pendingDonations.forEach(donation => {
-                    const donationItem = document.createElement('div');
-                    donationItem.className = 'flex items-center justify-between p-2 bg-gray-custom rounded-lg shadow-sm';
-                    donationItem.innerHTML = `
-                        <div>
-                            <p class="text-sm font-semibold">${donation.type}</p>
-                            <p class="text-xs text-gray-600">${donation.amount} - ${donation.time}</p>
-                        </div>
-                        <button class="bg-brown-custom text-white text-xs px-3 py-1 rounded-full hover:bg-orange-custom transition-colors" onclick="confirmDonation(${donation.id})">Confirmar</button>
-                    `;
-                    pendingDonationsList.appendChild(donationItem);
-                });
-            }
-        }
-        
-        // Função para atualizar as contagens de doação
-        function updateDonationCounts() {
-            for (const type in donationCounts) {
-                const element = document.getElementById(`${type.toLowerCase().replace(/ /g, '-').replace('ç','c').replace('ã','a')}-count`);
-                if (element) {
-                    element.parentElement.querySelector('span').innerText = `${donationCounts[type]} Doações - ${type}`;
-                }
-            }
-        }
-
-        // Função para atualizar o gráfico com novos dados
-        function updateChartWithNewData() {
-            const labels = Object.keys(chartDataByMonth);
-            const data = Object.values(chartDataByMonth);
-            myChart.data.labels = labels;
-            myChart.data.datasets[0].data = data;
-            myChart.options.scales.y.ticks.max = Math.max(...data) + 1;
-            myChart.update();
-            currentChartData.labels = labels;
-            currentChartData.data = data;
-            currentChartData.title = 'Doações por Mês';
-        }
-
-        // Função para confirmar uma doação
-        window.confirmDonation = (id) => {
-            const donationIndex = pendingDonations.findIndex(d => d.id === id);
-            if (donationIndex > -1) {
-                const donation = pendingDonations.splice(donationIndex, 1)[0];
-                confirmedDonations[donation.date] = donation;
-
-                // Atualiza a agenda (Flatpickr)
-                updateCalendar();
-
-                // Atualiza o gráfico (simulado)
-                const month = new Date(donation.date).toLocaleString('pt-BR', { month: 'long' });
-                chartDataByMonth[month] = (chartDataByMonth[month] || 0) + 1; // Incrementa a doação no mês
-                updateChartWithNewData();
-
-                // Atualiza a lista de tipos de doação
-                if (donationCounts[donation.type] !== undefined) {
-                    donationCounts[donation.type]++;
-                } else {
-                    donationCounts[donation.type] = 1;
-                }
-                updateDonationCounts();
-
-                // Re-renderiza a lista de pendentes
-                renderPendingDonations();
-            }
-        };
-
-        function updateCalendar() {
-            const newDonationDates = Object.keys(confirmedDonations);
-            flatpickr("#calendar", {
-                inline: true,
-                locale: "pt",
-                dateFormat: "d/m/Y",
-                enable: newDonationDates,
-                onDayCreate: (dObj, dStr, fp, dayElem) => {
-                    const date = new Date(dayElem.dateObj);
-                    const formattedDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
-                    
-                    if (newDonationDates.includes(formattedDate)) {
-                        dayElem.classList.add("donated-day");
-                        dayElem.onclick = (e) => {
-                            e.stopPropagation();
-                            showDonationDetails(formattedDate);
-                        };
-                    }
-                }
-            });
-        }
-        
-        // Configuração do Flatpickr para seleção de intervalo de datas
-        flatpickr("#date-range-input", {
-            mode: "range",
-            dateFormat: "d/m/Y",
-            locale: "pt",
-            onClose: (selectedDates, dateStr, instance) => {
-                if (selectedDates.length === 2) {
-                    const startDate = selectedDates[0];
-                    const endDate = selectedDates[1];
-                    document.getElementById('start-date-display').innerText = startDate.toLocaleDateString('pt-BR');
-                    document.getElementById('end-date-display').innerText = endDate.toLocaleDateString('pt-BR');
-                    updateChartData('range', { startDate, endDate });
-                    // Remove a classe de seleção dos filtros fixos
-                    document.querySelectorAll('#filter-container span').forEach(span => {
-                        span.classList.remove('text-brown-custom', 'border-b-2', 'border-brown-custom');
-                        span.classList.remove('bg-brown-custom', 'text-white');
-                        span.classList.add('border-gray-300');
-                    });
-                }
-            }
-        });
-        
-        document.getElementById('date-picker-trigger').addEventListener('click', () => {
-            document.getElementById('date-range-input')._flatpickr.open();
-        });
-
-        // Função para mostrar os detalhes da doação no modal
-        function showDonationDetails(date) {
-            const data = confirmedDonations[date];
-            if (data) {
-                modalDate.innerText = new Date(date).toLocaleDateString('pt-BR');
-                modalAmount.innerText = data.amount;
-                modalType.innerText = data.type;
-                donationModal.classList.remove('hidden');
-                donationModal.classList.add('flex');
-            }
-        }
-
-        // Função para fechar o modal
-        closeModalBtn.onclick = () => {
-            donationModal.classList.add('hidden');
-            donationModal.classList.remove('flex');
-        };
-
-        // Dados e configuração para o gráfico de barras
-        const ctx = document.getElementById('barChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: [],
-                datasets: [{
-                    data: [],
-                    backgroundColor: '#8B4513',
-                    borderWidth: 0,
-                    borderRadius: 5
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    x: {
-                        grid: { display: false },
-                        ticks: { font: { size: 10 } }
-                    },
-                    y: {
-                        grid: { color: '#e0e0e0' },
-                        ticks: { stepSize: 1, max: 7, font: { size: 10 } }
-                    }
-                }
-            }
-        });
-
-        // Referências para os elementos de data
-        const startDateDisplay = document.getElementById('start-date-display');
-        const endDateDisplay = document.getElementById('end-date-display');
-        
-        // Função para atualizar o gráfico com base no filtro ou intervalo de datas
-        function updateChartData(filter, dates = {}) {
-            let labels = [];
-            let data = [];
-            let title = '';
-
-            if (filter === 'range') {
-                // Lógica de filtro por intervalo de datas
-                title = `Doações de ${dates.startDate.toLocaleDateString('pt-BR')} a ${dates.endDate.toLocaleDateString('pt-BR')}`;
-                // Exemplo simplificado: gera dados aleatórios para o intervalo
-                const diffDays = Math.ceil(Math.abs(dates.endDate - dates.startDate) / (1000 * 60 * 60 * 24));
-                for(let i = 0; i < diffDays; i++) {
-                    const currentDate = new Date(dates.startDate);
-                    currentDate.setDate(dates.startDate.getDate() + i);
-                    labels.push(currentDate.toLocaleDateString('pt-BR'));
-                    data.push(Math.random() * 5 + 1); // Dados aleatórios
-                }
-            } else {
-                // Lógica dos filtros fixos (Dia, Semana, Mês, Ano)
-                switch(filter) {
-                    case 'day':
-                        labels = ['Manhã', 'Tarde', 'Noite'];
-                        data = [0.5, 1.2, 0.8];
-                        title = 'Doações por Dia';
-                        break;
-                    case 'week':
-                        labels = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
-                        data = [2, 1, 3, 2.5, 4, 1.5, 3];
-                        title = 'Doações por Semana';
-                        break;
-                    case 'month':
-                        labels = Object.keys(chartDataByMonth);
-                        data = Object.values(chartDataByMonth);
-                        title = 'Doações por Mês';
-                        break;
-                    case 'year':
-                        labels = ['2023', '2024', '2025'];
-                        data = [50, 70, 65];
-                        title = 'Doações por Ano';
-                        break;
-                }
-            }
-
-            myChart.data.labels = labels;
-            myChart.data.datasets[0].data = data;
-            myChart.options.scales.y.ticks.max = Math.max(...data) + 1; // Ajusta o máximo do eixo Y
-            myChart.update();
-
-            // Atualiza os dados do gráfico atual para a geração do PDF
-            currentChartData.labels = labels;
-            currentChartData.data = data;
-            currentChartData.title = title;
-        }
-
-        // Função para atualizar a exibição das datas com base no filtro
-        function updateDateDisplay(filter) {
-            const today = new Date();
-            const format = (date) => date.toLocaleDateString('pt-BR');
-            let start, end;
-
-            switch (filter) {
-                case 'day':
-                    start = today;
-                    end = today;
-                    break;
-                case 'week':
-                    start = new Date(today.setDate(today.getDate() - today.getDay()));
-                    end = new Date(today.setDate(today.getDate() - today.getDay() + 6));
-                    break;
-                case 'month':
-                    start = new Date(today.getFullYear(), today.getMonth(), 1);
-                    end = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-                    break;
-                case 'year':
-                    start = new Date(today.getFullYear(), 0, 1);
-                    end = new Date(today.getFullYear(), 11, 31);
-                    break;
-            }
-
-            startDateDisplay.innerText = format(start);
-            endDateDisplay.innerText = format(end);
-        }
-
-        // Adiciona event listeners aos filtros
-        document.getElementById('filter-container').addEventListener('click', (event) => {
-            const target = event.target;
-            if (target.id.startsWith('filter-')) {
-                document.querySelectorAll('#filter-container span').forEach(span => {
-                    span.classList.remove('text-white', 'bg-brown-custom');
-                    span.classList.add('bg-white', 'text-gray-600');
-                });
-                target.classList.remove('bg-white', 'text-gray-600');
-                target.classList.add('bg-brown-custom', 'text-white');
-                const filter = target.id.replace('filter-', '');
-                updateChartData(filter);
-                updateDateDisplay(filter);
-            }
-        });
-
-        // Função para gerar PDF do dashboard
-        generatePdfBtn.addEventListener('click', () => {
-            // Show loading overlay
-            loadingOverlay.classList.remove('hidden');
-
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            // Adicionando título (formato ABNT-like)
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(16);
-            doc.text("Relatório de Doações", 105, 20, null, null, 'center');
-            
-            // Subtítulo dinâmico
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(12);
-            doc.text(currentChartData.title, 105, 30, null, null, 'center');
-
-            // Data do relatório
-            doc.setFontSize(10);
-            doc.text("Data de Geração: " + new Date().toLocaleDateString('pt-BR'), 10, 40);
-            
-            // Resumo do desempenho
-            doc.setFontSize(12);
-            const totalDonations = currentChartData.data.reduce((sum, value) => sum + value, 0);
-            const summaryText = `Este relatório apresenta um resumo das doações recebidas no período. O total de doações registradas foi de ${totalDonations.toFixed(1)} unidades.`;
-            
-            const splitSummary = doc.splitTextToSize(summaryText, 190);
-            doc.text(splitSummary, 10, 50);
-
-            // Título para a tabela de dados
-            doc.setFontSize(12);
-            doc.text("Dados Detalhados:", 10, 80);
-
-            // Adicionando os dados do gráfico em formato de lista textual
-            let y = 90;
-            currentChartData.labels.forEach((label, index) => {
-                const value = currentChartData.data[index];
-                doc.text(`- ${label}: ${value} doações`, 15, y);
-                y += 7;
-            });
-            
-            doc.save("relatorio-doacoes.pdf");
-            
-            // Hide loading overlay
-            loadingOverlay.classList.add('hidden');
-        });
-
-        // Chamada inicial para definir o estado padrão
-        updateDateDisplay('month');
-        renderPendingDonations();
-        updateCalendar();
-        updateDonationCounts();
-        updateChartWithNewData('month');
-
-        // Configuração do mapa com Leaflet
-        const map = L.map('map').setView([-14.235, -51.9253], 4);
-        
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-
-        const locations = [
-            [-15.7801, -47.9292], // Brasília
-            [-23.5505, -46.6333], // São Paulo
-            [-22.9068, -43.1729], // Rio de Janeiro
-            [-12.9714, -38.5014], // Salvador
-            [-25.4284, -49.2733], // Curitiba
-        ];
-
-        locations.forEach(coord => {
-            L.marker(coord).addTo(map);
-        });
-    </script>
-</body>
+    </body>
 </html>
