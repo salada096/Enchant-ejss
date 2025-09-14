@@ -60,7 +60,7 @@
           background: linear-gradient(135deg, #F5F1EB 0%, #FFFFFF 100%);
           margin-top: -30px;
       }
-      
+
       .hero .container {
           display: grid;
           align-items: center;
@@ -110,7 +110,7 @@
         transform: translateY(-3px);
         color: #ffffff !important;
       }
-      
+
       /* === HERO MOCKUPS COMPOSITION === */
       .hero-mockup-area {
           position: relative;
@@ -174,7 +174,7 @@
           position: relative;
           overflow: hidden;
       }
-      
+
       .form-mockup-content {
           background-color: var(--mockup-bg) !important; color: var(--mockup-text);
       }
@@ -206,7 +206,7 @@
       .modal-content-local img.qr-code { width: 150px; height: 150px; margin: 15px 0; }
       .modal-content-local p { margin: 5px 0; color: #666; font-size: 12px; }
       .modal-content-local .close-modal-btn { padding: 8px 25px; border: none; border-radius: 5px; background-color: #E0E0E0; cursor: pointer; margin-top: 15px; font-size: 12px;}
-      
+
       @media (max-width: 991px) {
           .detailed-mockup-content { transform: scale(0.55); }
           .hero-mockup-area { margin-top: 40px; }
@@ -236,7 +236,7 @@
           --chart-blue-gray: #a0acb8;
           --risk-high: #ef4444;
           --risk-medium: #f97316;
-          
+
           /* Cores para o mockup de Abrigo */
           --abrigo-bg: #F8F6F2;
           --abrigo-container: #EFE5D7;
@@ -270,7 +270,7 @@
           position: relative; /* Necessário para o modal contido */
           overflow: hidden; /* Garante que o modal respeite as bordas */
       }
-      
+
       /* Estilos específicos para o mockup de Abrigo */
       .abrigo-mockup-content {
           background-color: var(--abrigo-bg) !important; color: var(--abrigo-text);
@@ -351,7 +351,7 @@
              transform: scale(0.4);
           }
       }
-      
+
 
         /* Hero Section */
         .hero {
@@ -462,8 +462,8 @@
             right: 0;
             height: 100px;
             background: var(--white);
-            border-radius: 0 0 50% 50%; 
-            transform: scaleX(2); 
+            border-radius: 0 0 50% 50%;
+            transform: scaleX(2);
         }
 
         .stats::after {
@@ -560,7 +560,41 @@
             padding: 140px 0;
             background: var(--off-white);
             position: relative;
+            overflow: hidden; /* Adicionado para conter os gradientes */
         }
+
+        /* ===== INÍCIO DAS ALTERAÇÕES: DECORAÇÃO COM GRADIENTE ===== */
+        .features::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            left: -150px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(218, 165, 32, 0.15), transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .features::after {
+            content: '';
+            position: absolute;
+            bottom: -200px;
+            right: -200px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(139, 69, 19, 0.1), transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        /* Garante que o conteúdo da seção fique por cima das decorações */
+        .features .container {
+            position: relative;
+            z-index: 1;
+        }
+        /* ===== FIM DAS ALTERAÇÕES ===== */
+
 
         .features .section-title {
             font-family: 'Passion One', sans-serif;
@@ -913,7 +947,7 @@
             background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
             border-radius: 15px 15px 5px 5px;
             padding: 20px;
-            box-shadow: 
+            box-shadow:
                 inset 0 2px 10px rgba(255,255,255,0.1),
                 0 20px 40px rgba(0,0,0,0.3);
             position: relative;
@@ -1005,7 +1039,7 @@
   /* --- Estilização da Seção 'FAQ' com Fundo --- */
 
 .faq {
-    background-image: 
+    background-image:
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), /* Camada escura para legibilidade */
         url('https://i.ibb.co/27ZDg47q/c8aa521d-sul-bahia-itabuna-9531-1.webp');
     background-size: cover;
@@ -1331,7 +1365,7 @@
     font-weight: 700;
     z-index: 2;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    top: 22px; 
+    top: 22px;
     right: -35px;
     transform: rotate(45deg);
 }
@@ -1416,7 +1450,7 @@
 }
 
       .hero .cta-button {
-        
+
         font-size: 1.1rem;
         font-weight: 600;
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
