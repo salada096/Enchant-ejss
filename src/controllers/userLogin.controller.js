@@ -1,7 +1,8 @@
 import { encontrarEmail } from '../services/userLogin.service.js';
 
 async function login(req, res) {
-    console.log("Dados recebidos:", req.body);
+
+    console.log("Dados recebidos:", JSON.stringify(req.body, null, 2));
     const { email, senha } = req.body;
 
     try {

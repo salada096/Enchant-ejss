@@ -47,8 +47,8 @@ async function handleRequestReset(req, res){
 
 async function handleVerifyCode(req, res){
 
-    console.log(`\n❗  Entrando na rota POST /verifyCode`);
-    console.log(`\n📦  Dados recebidos: `, JSON.stringify(req.body, null, 2));
+    console.log(`\n❗   Entrando na rota POST /verifyCode`);
+    console.log(`\n📦   Dados recebidos: `, JSON.stringify(req.body, null, 2));
 
     try {
         // <-- MUDANÇA 1: Pega 'token' e 'code' do corpo da requisição.
@@ -61,6 +61,7 @@ async function handleVerifyCode(req, res){
         // <-- MUDANÇA 3: Passa 'token' e 'code' para o service.
         const result = await verifyResetCode(token, code);
 
+        console.log(`✅   Código verificado com sucesso!   ✅`);
         res.status(200).json(result);
 
     } catch (error) {
@@ -69,22 +70,28 @@ async function handleVerifyCode(req, res){
     }
 };
 
-
 async function handleCompleteReset(req, res){
 
-    console.log(`\n❗   Entrando na rota POST /resetPassword`);
-    console.log(`\n📦   Dados recebidos: `, JSON.stringify(req.body, null, 2));
+    console.log(`\n❗   Entrando na rota POST /resetPassword`);
+    console.log(`\n📦   Dados recebidos: `, JSON.stringify(req.body, null, 2));
 
     try {
         const { token, newPassword } = req.body;
         if (!token || !newPassword) {
             return res.status(400).json({ message: 'O token e a nova senha são obrigatórios.' });
         }
-        const result = await completePasswordReset(token, newPassword);
+        
+        // Passamos um objeto para a função do service, como ela espera
+        const result = await completePasswordReset({ token, newPassword });
+        
+        // Se tudo deu certo, devolve a mensagem de sucesso
+        console.log(`✅   Senha alterada com sucesso!   ✅`);
         res.status(200).json(result);
+
     } catch (error) {
+        // Captura erros do service como "Token inválido" ou "Token expirado"
         res.status(400).json({ message: error.message });
     }
 };
 
-export { handleRequestReset, handleVerifyCode, handleCompleteReset}
+export { handleRequestReset, handleVerifyCode, handleCompleteReset };

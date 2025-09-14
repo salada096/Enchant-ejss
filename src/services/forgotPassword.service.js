@@ -118,26 +118,34 @@ export async function resendResetCode(email) {
   
 }
 
-export async function completePasswordReset({ email, token, newPassword }) {
+async function completePasswordReset({ token, newPassword }) {
   await ensureResetTable();
 
+  // 1. Valida o token
   const { rows } = await pool.query(
-    'SELECT * FROM password_resets WHERE email = $1 AND token = $2 AND used = FALSE ORDER BY created_at DESC LIMIT 1',
-    [email, token]
+    'SELECT * FROM password_resets WHERE token = $1 AND used = FALSE ORDER BY created_at DESC LIMIT 1',
+    [token]
   );
 
   if (rows.length === 0) {
-    throw new Error('Fluxo inválido ou expirado.');
+    throw new Error('Token de redefinição inválido ou já utilizado.');
   }
-  const row = rows[0];
-  if (new Date(row.expires_at) < new Date()) {
-    throw new Error('Fluxo expirado.');
+  const resetRequest = rows[0];
+  if (new Date(resetRequest.expires_at) < new Date()) {
+    throw new Error('O token de redefinição de senha expirou.');
   }
 
-  await pool.query('UPDATE usuario SET senha = $1 WHERE email = $2', [newPassword, email]);
-  await pool.query('UPDATE password_resets SET used = TRUE WHERE id = $1', [row.id]);
+  // 2. Atualiza a senha na tabela de usuários (salvando em texto puro)
+  // Usamos o email que estava salvo junto com o token
+  await pool.query('UPDATE usuario SET senha = $1 WHERE email = $2', [
+    newPassword, // <-- MUDANÇA: A senha é salva diretamente como veio
+    resetRequest.email,
+  ]);
+
+  // 3. Invalida o token para que não possa ser usado novamente
+  await pool.query('UPDATE password_resets SET used = TRUE WHERE id = $1', [resetRequest.id]);
 
   return { message: 'Senha redefinida com sucesso!' };
-};
+}
 
-export { startPasswordReset, verifyResetCode };
+export { startPasswordReset, verifyResetCode, completePasswordReset };
