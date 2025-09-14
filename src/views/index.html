@@ -15,197 +15,7 @@
   <script src="/public/scripts/layouts/enchant/footerenchant.js"></script>
   <link rel="stylesheet" href="/public/styles/global.css">
 
-  <style>
-      :root {
-          --bg-main: #f7f7ff;
-          --bg-card: #ffffff;
-          --bg-highlight-card: #f5f1ea;
-          --primary-color: #c0a080;
-          --text-dark: #333333;
-          --text-light: #888888;
-          --text-white: #ffffff;
-          --border-color: #e0e0e0;
-          --chart-orange: #d98c5f;
-          --chart-brown: #8c5a46;
-          --risk-high: #ef4444;
-          --risk-medium: #f97316;
-          --mockup-bg: #F8F6F2;
-          --mockup-container: #EFE5D7;
-          --mockup-button: #E0D8C5;
-          --mockup-text: #5D5D5D;
-          --mockup-dark-text: #3D3D3D;
-          --coleta-bg: #EADFCF;
-          --coleta-card-bg: #FFFBF5;
-      }
 
-      /* === HERO SECTION FINAL === */
-      .hero {
-          display: flex;
-          align-items: center;
-          min-height: 100vh;
-          padding: 120px 0 60px 0;
-          background: linear-gradient(135deg, #F5F1EB 0%, #FFFFFF 100%);
-      }
-      .hero .container {
-          display: grid;
-          align-items: center;
-          gap: 2rem;
-      }
-      @media (min-width: 992px) {
-          .hero .container {
-              grid-template-columns: 1fr 1.1fr;
-          }
-          .hero-text {
-              text-align: left;
-          }
-      }
-      .hero-text {
-          text-align: center;
-          z-index: 2;
-      }
-      .hero-text h1 {
-        font-family: 'Passion One', sans-serif;
-        font-size: clamp(3rem, 6vw, 4.5rem);
-        font-weight: 700;
-        line-height: 1.1;
-        margin-bottom: 1rem;
-        color: var(--text-dark);
-      }
-      .hero-text p {
-          font-size: clamp(1rem, 2.5vw, 1.15rem);
-          margin-bottom: 2rem;
-          max-width: 500px;
-          margin-left: auto;
-          margin-right: auto;
-      }
-      @media (min-width: 992px) {
-        .hero-text p {
-            margin-left: 0;
-        }
-      }
-      .hero .cta-button {
-        padding: 14px 35px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-      }
-      .hero .cta-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-      }
-      
-      /* === HERO MOCKUPS COMPOSITION === */
-      .hero-mockup-area {
-          position: relative;
-          min-height: 500px;
-      }
-      @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-      }
-      .svg-mockup, .problem-bubble {
-          position: absolute;
-          animation: float 8s ease-in-out infinite;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-          border-radius: 12px;
-      }
-      .svg-mockup:hover, .problem-bubble:hover {
-          transform: scale(1.05);
-          z-index: 10;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      }
-
-      .problem-bubble {
-          background: var(--bg-card);
-          box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-          padding: 15px;
-          border: 1px solid var(--border-color);
-          width: 240px;
-          font-size: 14px;
-          color: var(--text-light);
-          font-style: italic;
-      }
-      .problem-1 { top: 5%; left: 0; animation-delay: -1s; }
-      .problem-2 { bottom: 10%; left: 20%; animation-delay: -3s; }
-      .problem-3 { top: 65%; right: -20px; animation-delay: -5s;}
-
-      #mockup-dashboard { width: 350px; top: 10%; right: 0; animation-delay: -2s;}
-      #mockup-mapa { width: 300px; bottom: 0; right: 5%; animation-delay: -5s; }
-      #mockup-transparencia { width: 280px; top: 50%; left: -20px; animation-delay: -4s; }
-      #mockup-historico { width: 250px; bottom: 20%; left: 25%; animation-delay: -6s; }
-
-      /* === DETAILED MOCKUPS (FEATURES) === */
-      .feature-visual {
-          padding: 0;
-      }
-      .detailed-mockup-wrapper {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 0;
-      }
-      .detailed-mockup-content {
-          width: 700px;
-          transform: scale(0.6);
-          transform-origin: center;
-          background: var(--bg-main);
-          padding: 25px;
-          border-radius: 12px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-          border: 1px solid var(--border-color);
-          font-family: 'Poppins', sans-serif;
-          position: relative;
-          overflow: hidden;
-      }
-      
-      .form-mockup-content {
-          background-color: var(--mockup-bg) !important; color: var(--mockup-text);
-      }
-      .form-mockup-content h1 {
-          font-size: 28px; font-weight: 600; color: var(--mockup-dark-text); margin-bottom: 25px; text-align: center;
-      }
-      .form-mockup-content .form-container, .form-mockup-content .add-form-container {
-          background-color: var(--mockup-container); padding: 25px; border-radius: 12px; display: flex; gap: 25px; align-items: flex-start; margin-top: 20px;
-      }
-      .form-mockup-content .photo-uploader, .form-mockup-content .image-uploader {
-          width: 150px; height: 150px; background-color: #F8F6F2; border: 1px solid var(--border-color); border-radius: 8px; display: flex; justify-content: center; align-items: center; text-align: center; color: #888; font-size: 14px; flex-shrink: 0;
-      }
-      .form-mockup-content .form-fields { flex-grow: 1; }
-      .form-mockup-content .form-fields label { display: block; margin-bottom: 8px; font-size: 15px; font-weight: 500; color: var(--mockup-dark-text); }
-      .form-mockup-content .form-fields input, .form-mockup-content .form-fields textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; background-color: #FFFFFF; }
-      .form-mockup-content .add-button, .form-mockup-content .button-wrapper button { padding: 12px 30px; border: none; background-color: var(--mockup-button); border-radius: 8px; font-weight: 500; color: var(--mockup-dark-text); font-size: 15px; }
-      .form-mockup-content input:disabled, .form-mockup-content textarea:disabled, .form-mockup-content button:disabled { background-color: #ececec !important; cursor: not-allowed !important; opacity: 0.7; }
-      .form-mockup-content .collection-point-card { background-color: var(--coleta-card-bg); padding: 20px; border-radius: 8px; display: flex; gap: 20px; align-items: flex-start; border: 1px solid var(--coleta-bg); margin-top: 30px;}
-      .form-mockup-content .collection-point-card img { width: 100px; height: 100px; border-radius: 5px; object-fit: cover; }
-      .form-mockup-content .card-details { flex-grow: 1; }
-      .form-mockup-content .card-details p { margin: 0 0 8px 0; font-size: 14px; }
-      .form-mockup-content .card-actions { display: flex; flex-direction: column; gap: 10px; }
-      .form-mockup-content .card-actions button { padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; background-color: #D9D9D9; }
-
-      .modal-overlay-local { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 10; border-radius: 12px; }
-      .modal-content-local { background-color: #fff; padding: 20px; border-radius: 10px; text-align: center; width: 280px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); position: relative; }
-      .modal-content-local .close-btn { position: absolute; top: 5px; right: 10px; font-size: 20px; font-weight: bold; cursor: pointer; color: #888; }
-      .modal-content-local h2 { margin-top: 0; font-size: 18px; }
-      .modal-content-local img.qr-code { width: 150px; height: 150px; margin: 15px 0; }
-      .modal-content-local p { margin: 5px 0; color: #666; font-size: 12px; }
-      .modal-content-local .close-modal-btn { padding: 8px 25px; border: none; border-radius: 5px; background-color: #E0E0E0; cursor: pointer; margin-top: 15px; font-size: 12px;}
-      
-      @media (max-width: 991px) {
-          .detailed-mockup-content { transform: scale(0.55); }
-          .hero-mockup-area { margin-top: 40px; }
-          .svg-mockup, .problem-bubble { transform: scale(0.8); }
-      }
-      @media (max-width: 767px) {
-          .detailed-mockup-content { transform: scale(0.5); }
-          .hero-mockup-area { min-height: 400px; transform: scale(0.8); margin-top: -20px;}
-          .problem-3 { display: none; } /* Oculta a terceira frase em telas pequenas */
-      }
-      @media (max-width: 480px) {
-          .detailed-mockup-content { transform: scale(0.4); }
-          .hero-mockup-area { min-height: 350px; transform: scale(0.7); margin-top: -50px;}
-      }
-  </style>
 
 </head>
 <body>
@@ -270,7 +80,7 @@
                     </defs>
                     <g clip-path="url(#mapClip)" filter="url(#shadow3)">
                         <rect x="0" y="0" width="300" height="190" rx="12" fill="white"/>
-                        <image href="https://i.ibb.co/yYyqC1p/Captura-de-tela-2025-09-12-085301.jpg" x="0" y="0" width="300" height="190" preserveAspectRatio="xMidYMid slice"/>
+                        <image href="https://i.ibb.co/Q7ndrDWR/Captura-de-tela-2025-09-12-085301.png" x="0" y="0" width="300" height="190" preserveAspectRatio="xMidYMid slice"/>
                         <rect x="15" y="15" width="130" height="50" rx="8" fill="white" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));"/>
                         <text x="25" y="35" font-size="10" font-weight="bold" fill="#333">Alertas Ativos: 2</text>
                         <text x="25" y="50" font-size="9" fill="#555">Clique para ver detalhes</text>
@@ -465,7 +275,7 @@
                                     <div class="detailed-mockup-content">
                                         <h2 style="font-size: 24px; font-weight: 600; text-align: center; color: var(--text-dark); margin-bottom: 20px;">Mapa Interativo de Risco</h2>
                                         <div style="position: relative; background: var(--bg-card); padding: 10px; border-radius: 12px; border: 1px solid var(--border-color);">
-                                            <img src="https://i.ibb.co/yYyqC1p/Captura-de-tela-2025-09-12-085301.jpg" alt="Mapa de Risco" style="width: 100%; height: auto; display: block; border-radius: 8px;">
+                                            <img src="https://i.ibb.co/Q7ndrDWR/Captura-de-tela-2025-09-12-085301.png" alt="Mapa de Risco" style="width: 100%; height: auto; display: block; border-radius: 8px;">
                                             <div style="position: absolute; top: 20px; left: 20px; background: var(--bg-card); padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); width: 220px;">
                                                 <h3 style="font-size: 16px; margin-bottom: 15px;">Controle do Mapa</h3>
                                                 <input type="text" placeholder="Buscar endereço..." style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 15px; font-size: 12px;">
