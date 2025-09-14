@@ -1285,6 +1285,11 @@ body {
   box-shadow: 0 20px 40px rgba(139, 90, 60, 0.15);
 }
 
+.material-symbols-outlined{
+    color: var(--cream);
+    font-size: 40px;
+}
+
 .benefit-icon {
   width: 80px;
   height: 80px;
@@ -1535,7 +1540,7 @@ body {
 .faq {
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     /* Camada escura para legibilidade */
-      url("https://i.ibb.co/27ZDg47q/c8aa521d-sul-bahia-itabuna-9531-1.webp");
+      url("https://i.ibb.co/fzWCBP1x/Enchente-20240517.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed; /* Opcional: cria um efeito parallax */
@@ -1595,24 +1600,43 @@ body {
   color: rgb(255, 255, 255);
 }
 
+.hero .cta-button {
+  padding: 14px 35px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border-radius: 10px;
+}
+.hero .cta-button:hover {
+  transform: translateY(-3px);
+  color: #ffffff !important;
+}
+
+
+
 .faq-button {
-  background: white;
-  color: var(--primary-brown);
-  padding: 15px 30px;
+  background: var(--primary-brown);
+  color: white;
+  padding: 14px 35px;
   border: none;
-  border-radius: 50px;
+  border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  color: white;
 }
 
 .faq-button:hover {
+   background: var(--light-brown);
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(255, 255, 255);
+  box-shadow: 0 10px 30px rgba(139, 90, 60, 0.3);
 }
 
 .accordion {
-  background: var(--primary-brown);
+  background: #ffffff;
   border-radius: 15px;
   overflow: hidden;
 }
@@ -1628,7 +1652,7 @@ body {
   transition: all 0.3s ease;
   position: relative;
   font-size: 0.95rem;
-  color: white;
+  color: var(--primary-brown);
 }
 
 .accordion-header:hover {
@@ -1663,7 +1687,7 @@ body {
 
 .accordion-content p {
   font-size: 0.9rem;
-  color: white;
+  color: var(--primary-brown);
 }
 
 /* Animations */
