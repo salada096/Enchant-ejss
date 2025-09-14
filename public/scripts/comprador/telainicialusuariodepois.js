@@ -30,7 +30,9 @@ let chartDataByMonth = {
     'Julho': 5, 'Agosto': 4.8, 'Setembro': 3.5, 'Outubro': 2.5, 'Novembro': 4, 'Dezembro': 3
 };
 
-const donationDates = Object.keys(confirmedDonations);
+// Variável global para armazenar a instância do Flatpickr
+let calendarInstance = null;
+
 const donationModal = document.getElementById('donation-modal');
 const closeModalBtn = document.getElementById('close-modal');
 const modalDate = document.getElementById('modal-date');
@@ -64,7 +66,7 @@ function renderPendingDonations() {
                     <p class="text-sm font-semibold">${donation.type}</p>
                     <p class="text-xs text-gray-600">${donation.amount} - ${donation.time}</p>
                 </div>
-                <button class="bg-brown-custom text-white text-xs px-3 py-1 rounded-full hover:bg-orange-custom transition-colors" onclick="confirmDonation(${donation.id})">Confirmar</button>
+            <button class="btn-pdf" onclick="confirmDonation(${donation.id})">Confirmar</button>
             `;
             pendingDonationsList.appendChild(donationItem);
         });
@@ -122,26 +124,61 @@ window.confirmDonation = (id) => {
     }
 };
 
+// Função corrigida para inicializar/atualizar o calendário
 function updateCalendar() {
-    const newDonationDates = Object.keys(confirmedDonations);
-    flatpickr("#calendar", {
+    const calendarElement = document.getElementById('calendar');
+    
+    // Destrói a instância existente se houver
+    if (calendarInstance) {
+        calendarInstance.destroy();
+        calendarInstance = null;
+    }
+
+    const donationDates = Object.keys(confirmedDonations);
+    const enabledDates = donationDates.map(d => new Date(d));
+
+    // Cria nova instância do Flatpickr
+    calendarInstance = flatpickr(calendarElement, {
         inline: true,
         locale: "pt",
         dateFormat: "d/m/Y",
-        enable: newDonationDates,
-        onDayCreate: (dObj, dStr, fp, dayElem) => {
-            const date = new Date(dayElem.dateObj);
-            const formattedDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+        defaultDate: new Date("2025-09-08"),
+        enable: enabledDates,
+        onDayCreate: function(dObj, dStr, fp, dayElem) {
+            const date = dayElem.dateObj;
+            const formattedDate = date.getFullYear() + "-" + 
+                                String(date.getMonth() + 1).padStart(2, '0') + "-" + 
+                                String(date.getDate()).padStart(2, '0');
 
-            if (newDonationDates.includes(formattedDate)) {
+            if (donationDates.includes(formattedDate)) {
                 dayElem.classList.add("donated-day");
-                dayElem.onclick = (e) => {
-                    e.stopPropagation();
-                    showDonationDetails(formattedDate);
-                };
+                dayElem.style.cursor = 'pointer';
+                dayElem.style.backgroundColor = '#8B4513';
+                dayElem.style.color = 'white';
+                dayElem.style.fontWeight = 'bold';
+                dayElem.style.borderRadius = '4px';
+                
+                // Remove listeners anteriores para evitar duplicação
+                dayElem.removeEventListener('click', handleDayClick);
+                // Adiciona novo listener
+                dayElem.addEventListener('click', handleDayClick);
+                
+                // Armazena a data no elemento para referência
+                dayElem.setAttribute('data-donation-date', formattedDate);
             }
         }
     });
+}
+
+// Função separada para lidar com cliques nos dias
+function handleDayClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const donationDate = event.target.getAttribute('data-donation-date');
+    if (donationDate && confirmedDonations[donationDate]) {
+        showDonationDetails(donationDate);
+    }
 }
 
 // Configuração do Flatpickr para seleção de intervalo de datas
@@ -170,22 +207,41 @@ document.getElementById('date-picker-trigger').addEventListener('click', () => {
     document.getElementById('date-range-input')._flatpickr.open();
 });
 
-// Função para mostrar os detalhes da doação no modal
+// Função corrigida para mostrar os detalhes da doação no modal
 function showDonationDetails(date) {
-    const data = confirmedDonations[date];
-    if (data) {
-        modalDate.innerText = new Date(date).toLocaleDateString('pt-BR');
-        modalAmount.innerText = data.amount;
-        modalType.innerText = data.type;
-        donationModal.classList.remove('hidden');
-        donationModal.classList.add('flex');
+    const donation = confirmedDonations[date];
+    if (donation) {
+        // Formatar a data para exibição em português
+        const dateObj = new Date(date + 'T00:00:00');
+        const formattedDate = dateObj.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+
+        modalDate.innerText = formattedDate;
+        modalAmount.innerText = donation.amount;
+        modalType.innerText = donation.type;
+
+        // Mostra o modal
+        donationModal.classList.add('show');
+
+        console.log('Modal aberto para doação:', donation); // Para debug
+    } else {
+        console.log('Nenhuma doação encontrada para a data:', date); // Para debug
     }
 }
 
 // Função para fechar o modal
 closeModalBtn.onclick = () => {
-    donationModal.classList.add('hidden');
-    donationModal.classList.remove('flex');
+    donationModal.classList.remove('show');
+};
+
+// Fechar modal ao clicar fora dele
+donationModal.onclick = (e) => {
+    if (e.target === donationModal) {
+        donationModal.classList.remove('show');
+    }
 };
 
 // Dados e configuração para o gráfico de barras
@@ -286,8 +342,8 @@ function updateDateDisplay(filter) {
 
     switch (filter) {
         case 'day':
-            start = today;
-            end = today;
+            start = new Date(today);
+            end = new Date(today);
             break;
         case 'week':
             start = new Date(today.setDate(today.getDate() - today.getDay()));
@@ -371,32 +427,6 @@ generatePdfBtn.addEventListener('click', () => {
     loadingOverlay.classList.add('hidden');
 });
 
-// Chamada inicial para definir o estado padrão
-updateDateDisplay('month');
-renderPendingDonations();
-updateCalendar();
-updateDonationCounts();
-updateChartWithNewData('month');
-
-// Configuração do mapa com Leaflet
-const map = L.map('map').setView([-14.235, -51.9253], 4);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-}).addTo(map);
-
-const locations = [
-    [-15.7801, -47.9292], // Brasília
-    [-23.5505, -46.6333], // São Paulo
-    [-22.9068, -43.1729], // Rio de Janeiro
-    [-12.9714, -38.5014], // Salvador
-    [-25.4284, -49.2733], // Curitiba
-];
-
-locations.forEach(coord => {
-    L.marker(coord).addTo(map);
-});
-
 // Sample shelter points data
 const shelterPoints = [
     { name: "Abrigo Central", openingHours: "08:00", closingHours: "18:00" },
@@ -418,20 +448,52 @@ function isShelterOpen(opening, closing) {
 // Function to render shelter points
 function renderShelterPoints() {
     const list = document.getElementById('pontos-abrigo-list');
-    list.innerHTML = '';
-    shelterPoints.forEach(point => {
-        const isOpen = isShelterOpen(point.openingHours, point.closingHours);
-        const status = isOpen ? 'Aberto' : 'Fechado';
-        const statusClass = isOpen ? 'text-green-600' : 'text-red-600';
-        const item = document.createElement('div');
-        item.className = 'flex items-center justify-between p-2 bg-gray-50 rounded-lg';
-        item.innerHTML = `
-            <span class="font-medium">${point.name}</span>
-            <span class="text-sm ${statusClass}">${status}</span>
-        `;
-        list.appendChild(item);
-    });
+    if (list) {
+        list.innerHTML = '';
+        shelterPoints.forEach(point => {
+            const isOpen = isShelterOpen(point.openingHours, point.closingHours);
+            const status = isOpen ? 'Aberto' : 'Fechado';
+            const statusClass = isOpen ? 'text-green-600' : 'text-red-600';
+            const item = document.createElement('div');
+            item.className = 'flex items-center justify-between p-2 bg-gray-50 rounded-lg';
+            item.innerHTML = `
+                <span class="font-medium">${point.name}</span>
+                <span class="text-sm ${statusClass}">${status}</span>
+            `;
+            list.appendChild(item);
+        });
+    }
 }
 
-// Call the function to render shelter points
-renderShelterPoints();
+// Inicialização quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', function() {
+    // Chamadas iniciais para definir o estado padrão
+    updateDateDisplay('month');
+    renderPendingDonations();
+    updateCalendar();
+    updateDonationCounts();
+    updateChartWithNewData();
+    renderShelterPoints();
+
+    // Configuração do mapa com Leaflet
+    const mapElement = document.getElementById('map');
+    if (mapElement) {
+        const map = L.map('map').setView([-14.235, -51.9253], 4);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        const locations = [
+            [-15.7801, -47.9292], // Brasília
+            [-23.5505, -46.6333], // São Paulo
+            [-22.9068, -43.1729], // Rio de Janeiro
+            [-12.9714, -38.5014], // Salvador
+            [-25.4284, -49.2733], // Curitiba
+        ];
+
+        locations.forEach(coord => {
+            L.marker(coord).addTo(map);
+        });
+    }
+});
