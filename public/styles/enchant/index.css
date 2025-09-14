@@ -298,7 +298,7 @@
       .coleta-mockup-content { background-color: var(--coleta-bg) !important; }
       .coleta-mockup-content h1 { text-align: center; color: #444; margin-bottom: 30px; font-size: 28px; }
       .coleta-mockup-content .form-container { background-color: #fff; padding: 20px; border-radius: 8px; display: flex; gap: 20px; }
-      .coleta-mockup-content .photo-uploader { width: 150px; height: 150px; border: 2px dashed #ccc; display: flex; align-items: center; justify-content: center; text-align: center; color: #aaa; flex-shrink: 0; }
+      .coleta-mockup-content .photo-uploader { width: 150px; height: 150px; border: 2px dashed #ccc; display: flex; align-items: center; justify-content: center; text-align: center; color: #aaa; font-size: 14px; flex-shrink: 0; }
       .coleta-mockup-content .form-fields { flex-grow: 1; }
       .coleta-mockup-content .form-fields label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
       .coleta-mockup-content .form-fields input, .coleta-mockup-content .form-fields textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
@@ -787,57 +787,6 @@
             background: linear-gradient(135deg, var(--cream) 0%, #F8F5F0 100%);
         }
 
-        .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .plan-card {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-        }
-
-        .plan-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--light-brown);
-        }
-
-        .plan-card.featured {
-            border-color: var(--primary-brown);
-            transform: scale(1.05);
-        }
-
-        .plan-name {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--primary-brown);
-        }
-
-        .plan-price {
-            font-family: 'Passion One', sans-serif;
-            font-size: 2.2rem;
-            color: var(--primary-brown);
-            margin-bottom: 20px;
-        }
-
-        .plan-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-
-        .plan-features li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 0.95rem;
-        }
 
         /* Free Platform Request Section */
         .free-request {
@@ -1344,4 +1293,196 @@
 }
 .hero-mockup-area .svg-mockup {
     z-index: 1;
+}
+
+/* === PLANOS DE PREÇOS (MARROM E LARANJA) === */
+.pricing-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.plan-card {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.plan-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(84, 53, 44, 0.15);
+}
+
+.popular-badge {
+    position: absolute;
+    width: 160px;
+    text-align: center;
+    background-color: #5D4037;
+    color: #FFF3E0;
+    padding: 8px 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    z-index: 2;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    top: 22px; 
+    right: -35px;
+    transform: rotate(45deg);
+}
+
+.plan-header {
+    color: #FFF3E0;
+    padding: 2rem;
+}
+.plan-basic .plan-header {
+    background: linear-gradient(45deg, #FB8C00, #795548);
+}
+.popular .plan-header {
+    background: linear-gradient(45deg, #FF7043, #F4511E);
+}
+.plan-premium .plan-header {
+    background: linear-gradient(45deg, #5D4037, #F4511E);
+}
+
+.plan-header h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.plan-header p {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.plan-body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.plan-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #4E342E;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.plan-price span {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #777;
+}
+
+.plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.plan-features li {
+    display: flex;
+    align-items: start;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.plan-features li.not-included {
+    color: #aaa;
+    text-decoration: line-through;
+}
+
+.plan-features li svg {
+    width: 22px;
+    height: 22px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.plan-cta {
+    margin-top: 2.5rem;
+}
+
+      .hero .cta-button {
+        
+        font-size: 1.1rem;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+      .hero .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        color: var(--off-white);
+      }
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 14px 35px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.btn-basic {
+    background-color: transparent;
+    border-color: #795548;
+    color: #795548;
+}
+.btn-basic:hover {
+    background-color: #8B5A3C;
+    color: #FFFFFF;
+}
+
+.btn-popular {
+    background-color: #FF7043;
+    border-color: #FF7043;
+    color: #fff;
+    transform: scale(1.02);
+}
+.btn-popular:hover {
+    background-color: #F4511E;
+    color: #fff;
+}
+
+.btn-premium {
+   background-color: transparent;
+    border-color: #795548;
+    color: #795548;
+}
+.btn-premium:hover {
+    background-color: #8B5A3C;
+    color: #FFFFFF;
+}
+
+@media (max-width: 480px) {
+    .pricing-container {
+        gap: 1rem;
+    }
+    .plan-price {
+        font-size: 2.5rem;
+    }
+    .plan-header h2 {
+        font-size: 1.4rem;
+    }
 }

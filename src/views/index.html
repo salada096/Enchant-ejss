@@ -186,7 +186,7 @@
                                                     </div>
                                                     <div style="background: var(--bg-highlight-card); padding: 15px; border-radius: 12px;">
                                                         <div style="font-size: 14px; color: var(--text-light);">Doadores Ativos</div>
-                                                        <div style="font-size: 28px; font-weight: 600; color: var(--text-dark);">32</div>
+                                                        <div style="font-size: 28px, font-weight: 600; color: var(--text-dark);">32</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,7 +224,7 @@
                                                     <svg width="120" height="120" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="#f0f0f0" stroke-width="12"/><circle cx="60" cy="60" r="54" fill="none" stroke="var(--chart-brown)" stroke-width="12" stroke-dasharray="339.29" stroke-dashoffset="118.75" transform="rotate(-90 60 60)"/></svg>
                                                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
                                                         <div style="font-size: 14px; color: var(--text-light)">Total</div>
-                                                        <div style="font-size: 20px; font-weight: 600;">R$475k</div>
+                                                        <div style="font-size: 20px, font-weight: 600;">R$475k</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -239,7 +239,7 @@
                                                     <div style="background: #f0f0f0; border-radius: 5px; height: 10px; margin-bottom: 15px;"><div style="width: 75%; background: var(--chart-brown); height: 10px; border-radius: 5px;"></div></div>
                                                 </div>
                                                 <div>
-                                                    <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 5px;"><span>Infraestrutura</span><span>55%</span></div>
+                                                    <div style="display: flex; justify-content: space-between; font-size: 14px, margin-bottom: 5px;"><span>Infraestrutura</span><span>55%</span></div>
                                                     <div style="background: #f0f0f0; border-radius: 5px; height: 10px;"><div style="width: 55%; background: var(--chart-brown); height: 10px; border-radius: 5px;"></div></div>
                                                 </div>
                                             </div>
@@ -419,44 +419,71 @@
     <section class="plans" id="plans">
         <div class="container">
             <h2 class="section-title fade-in">Escolha seu Plano</h2>
-            <div class="plans-grid">
-                <div class="plan-card fade-in">
-                    <h3 class="plan-name">Básico</h3>
-                    <div class="plan-price">Grátis</div>
-                    <ul class="plan-features">
-                        <li>Dashboard básico</li>
-                        <li>Até 10 doações/mês</li>
-                        <li>Relatórios simples</li>
-                        <li>Suporte via email</li>
-                    </ul>
-                    <button class="cta-button">Começar Agora</button>
+            <div class="pricing-container">
+
+                <div class="plan-card plan-basic">
+                    <div class="plan-header">
+                        <h2>Plano Básico</h2>
+                        <p>Ideal para ONGs que estão começando.</p>
+                    </div>
+                    <div class="plan-body">
+                        <div class="plan-price">R$ 129,90<span>/mês</span></div>
+                        <ul class="plan-features">
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Mapa interativo</li>
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Relatórios de doações (limitados)</li>
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Gestão de tipos de doações</li>
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Suporte básico</li>
+                            <li class="not-included"><svg viewBox="0 0 24 24"><path fill="#aaa" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>Ajuda médica avançada</li>
+                            <li class="not-included"><svg viewBox="0 0 24 24"><path fill="#aaa" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>Jogos interativos</li>
+                        </ul>
+                        <div class="plan-cta">
+                            <a href="#" class="btn btn-basic">Escolher Plano</a>
+                        </div>
+                    </div>
                 </div>
-               
-                <div class="plan-card featured fade-in">
-                    <h3 class="plan-name">Profissional</h3>
-                    <div class="plan-price">R$ 49<span style="font-size: 1rem;">/mês</span></div>
-                    <ul class="plan-features">
-                        <li>Dashboard completo</li>
-                        <li>Doações ilimitadas</li>
-                        <li>Relatórios avançados</li>
-                        <li>Mapa interativo</li>
-                        <li>Suporte prioritário</li>
-                    </ul>
-                    <button class="cta-button">Mais Popular</button>
+
+                <div class="plan-card popular">
+                    <div class="popular-badge">Mais Popular</div>
+                    <div class="plan-header">
+                        <h2>Plano Intermediário</h2>
+                        <p>Para ONGs em crescimento, com mais ferramentas.</p>
+                    </div>
+                    <div class="plan-body">
+                        <div class="plan-price">R$ 319,90<span>/mês</span></div>
+                        <ul class="plan-features">
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Tudo do Plano Básico</li>
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Ajuda médica disponível</li>
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Relatórios com mais detalhes</li>
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Dashboard com recursos intermediários</li>
+                            <li class="not-included"><svg viewBox="0 0 24 24"><path fill="#aaa" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>Jogos interativos</li>
+                        </ul>
+                        <div class="plan-cta">
+                            <a href="#" class="btn btn-popular">Assinar Agora</a>
+                        </div>
+                    </div>
                 </div>
-               
-                <div class="plan-card fade-in">
-                    <h3 class="plan-name">Empresarial</h3>
-                    <div class="plan-price">R$ 149<span style="font-size: 1rem;">/mês</span></div>
-                    <ul class="plan-features">
-                        <li>Recursos profissionais</li>
-                        <li>API personalizada</li>
-                        <li>Branding customizado</li>
-                        <li>Analítica avançada</li>
-                        <li>Suporte 24/7</li>
-                    </ul>
-                    <button class="cta-button">Contatar Vendas</button>
+
+                <div class="plan-card plan-premium">
+                    <div class="plan-header">
+                        <h2>Plano Premium</h2>
+                        <p>Máximo de autonomia e organização.</p>
+                    </div>
+                    <div class="plan-body">
+                        <div class="plan-price">R$ 399,90<span>/mês</span></div>
+                        <ul class="plan-features">
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Tudo do Plano Intermediário</li>
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Dashboard com insights personalizados</li>
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Personalização total do site</li>
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Suporte prioritário</li>
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Acesso antecipado a novas funções</li>
+                            <li><svg viewBox="0 0 24 24"><path fill="var(--color-icon-check)" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>Jogos interativos</li>
+                        </ul>
+                        <div class="plan-cta">
+                            <a href="#" class="btn btn-premium">Escolher Plano</a>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </section>
