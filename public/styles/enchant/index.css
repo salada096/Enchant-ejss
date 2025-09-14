@@ -58,7 +58,9 @@
           min-height: 100vh;
           padding: 120px 0 60px 0;
           background: linear-gradient(135deg, #F5F1EB 0%, #FFFFFF 100%);
+          margin-top: -30px;
       }
+      
       .hero .container {
           display: grid;
           align-items: center;
