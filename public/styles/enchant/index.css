@@ -102,10 +102,12 @@
         font-weight: 600;
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         transition: all 0.3s ease;
+        text-decoration: none;
       }
       .hero .cta-button:hover {
         transform: translateY(-3px);
         box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        color: var(--off-white);
       }
       
       /* === HERO MOCKUPS COMPOSITION === */
@@ -495,7 +497,7 @@
             margin-top: 50px;
             position: relative;
             z-index: 10;
-            overflow-x: auto;
+            overflow-x: hidden;
             padding: 20px 0;
             justify-content: center;
             flex-wrap: wrap;
