@@ -29,6 +29,137 @@
             padding: 0 20px;
         }
 
+         :root {
+          --bg-main: #f7f7f7;
+          --bg-card: #ffffff;
+          --bg-highlight-card: #f5f1ea;
+          --primary-color: #c0a080;
+          --text-dark: #333333;
+          --text-light: #888888;
+          --text-white: #ffffff;
+          --border-color: #e0e0e0;
+          --chart-orange: #d98c5f;
+          --chart-brown: #8c5a46;
+          --chart-blue-gray: #a0acb8;
+          --risk-high: #ef4444;
+          --risk-medium: #f97316;
+          
+          /* Cores para o mockup de Abrigo */
+          --abrigo-bg: #F8F6F2;
+          --abrigo-container: #EFE5D7;
+          --abrigo-button: #E0D8C5;
+          --abrigo-text: #5D5D5D;
+          --abrigo-dark-text: #3D3D3D;
+
+          /* Cores para o mockup de Coleta */
+          --coleta-bg: #EADFCF;
+          --coleta-card-bg: #FFFBF5;
+          --coleta-button: #D3C4B3;
+      }
+
+      /* Container para centralizar e escalar os mockups detalhados */
+      .detailed-mockup-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 0;
+      }
+      .detailed-mockup-content {
+          width: 700px; /* Largura base para os detalhes */
+          transform: scale(0.6); /* Reduz o tamanho sem distorcer */
+          transform-origin: center;
+          background: var(--bg-main);
+          padding: 25px;
+          border-radius: 12px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          border: 1px solid var(--border-color);
+          font-family: 'Poppins', sans-serif;
+          position: relative; /* Necessário para o modal contido */
+          overflow: hidden; /* Garante que o modal respeite as bordas */
+      }
+      
+      /* Estilos específicos para o mockup de Abrigo */
+      .abrigo-mockup-content {
+          background-color: var(--abrigo-bg) !important; color: var(--abrigo-text);
+      }
+      .abrigo-mockup-content h1 {
+          font-size: 28px; font-weight: 600; color: var(--abrigo-dark-text); margin-bottom: 25px; text-align: center;
+      }
+      .abrigo-mockup-content .add-form-container {
+          background-color: var(--abrigo-container); padding: 25px; border-radius: 12px; display: flex; gap: 25px; align-items: flex-start; margin-top: 20px;
+      }
+      .abrigo-mockup-content .image-uploader {
+          width: 150px; height: 150px; background-color: #F8F6F2; border: 1px solid var(--border-color); border-radius: 8px; display: flex; justify-content: center; align-items: center; text-align: center; color: #888; font-size: 14px; flex-shrink: 0;
+      }
+      .abrigo-mockup-content .form-fields { flex-grow: 1; }
+      .abrigo-mockup-content .form-fields label { display: block; margin-bottom: 8px; font-size: 15px; font-weight: 500; color: var(--abrigo-dark-text); }
+      .abrigo-mockup-content .form-fields input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; background-color: #FFFFFF; }
+      .abrigo-mockup-content .time-inputs { display: flex; gap: 20px; }
+      .abrigo-mockup-content .time-inputs > div { flex: 1; }
+      .abrigo-mockup-content .button-wrapper { text-align: right; margin-top: 25px; }
+      .abrigo-mockup-content .button-wrapper button { padding: 12px 30px; border: none; background-color: var(--abrigo-button); border-radius: 8px; font-weight: 500; color: var(--abrigo-dark-text); font-size: 15px; }
+      .abrigo-mockup-content input:disabled, .abrigo-mockup-content button:disabled { background-color: #ececec !important; cursor: not-allowed; }
+
+      /* Estilos específicos para o mockup de Coleta */
+      .coleta-mockup-content { background-color: var(--coleta-bg) !important; }
+      .coleta-mockup-content h1 { text-align: center; color: #444; margin-bottom: 30px; font-size: 28px; }
+      .coleta-mockup-content .form-container { background-color: #fff; padding: 20px; border-radius: 8px; display: flex; gap: 20px; }
+      .coleta-mockup-content .photo-uploader { width: 150px; height: 150px; border: 2px dashed #ccc; display: flex; align-items: center; justify-content: center; text-align: center; color: #aaa; flex-shrink: 0; }
+      .coleta-mockup-content .form-fields { flex-grow: 1; }
+      .coleta-mockup-content .form-fields label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+      .coleta-mockup-content .form-fields input, .coleta-mockup-content .form-fields textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+      .coleta-mockup-content .add-button { display: block; width: 100%; padding: 12px; margin-top: 10px; background-color: var(--coleta-button); border: none; border-radius: 5px; font-size: 16px; font-weight: bold; }
+      .coleta-mockup-content .collection-point-card { background-color: var(--coleta-card-bg); padding: 20px; border-radius: 8px; display: flex; gap: 20px; align-items: flex-start; border: 1px solid var(--coleta-bg); margin-top: 30px;}
+      .coleta-mockup-content .collection-point-card img { width: 100px; height: 100px; border-radius: 5px; object-fit: cover; }
+      .coleta-mockup-content .card-details { flex-grow: 1; }
+      .coleta-mockup-content .card-details p { margin: 0 0 8px 0; font-size: 14px; }
+      .coleta-mockup-content .card-actions { display: flex; flex-direction: column; gap: 10px; }
+      .coleta-mockup-content .card-actions button { padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; background-color: #D9D9D9; }
+      .coleta-mockup-content input:disabled, .coleta-mockup-content textarea:disabled, .coleta-mockup-content .add-button:disabled { background-color: #ececec !important; cursor: not-allowed !important; }
+
+      /* Estilos do Modal QR Code Contido */
+      .modal-overlay-local { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 10; }
+      .modal-content-local { background-color: #fff; padding: 30px; border-radius: 10px; text-align: center; width: 350px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); position: relative; }
+      .modal-content-local .close-btn { position: absolute; top: 10px; right: 15px; font-size: 24px; font-weight: bold; cursor: pointer; color: #888; }
+      .modal-content-local h2 { margin-top: 0; font-size: 22px; }
+      .modal-content-local img.qr-code { width: 180px; height: 180px; margin: 20px 0; }
+      .modal-content-local p { margin: 10px 0; color: #666; font-size: 14px; }
+      .modal-content-local .close-modal-btn { padding: 10px 30px; border: none; border-radius: 5px; background-color: #E0E0E0; cursor: pointer; margin-top: 20px; }
+
+      @media (max-width: 768px) {
+          .hero {
+              flex-direction: column;
+              padding-top: 80px;
+              text-align: center;
+          }
+          .hero-text h1 {
+              font-size: 2.2rem;
+          }
+          .mockup-container {
+              transform: scale(0.85);
+              margin-top: -20px;
+          }
+          .detailed-mockup-content {
+             transform: scale(0.5); /* Ajuste para telas menores */
+          }
+      }
+      @media (max-width: 480px) {
+          .hero-text h1 {
+              font-size: 1.8rem;
+          }
+          .hero-text p {
+              font-size: 0.9rem;
+          }
+          .mockup-container {
+              transform: scale(0.7);
+              margin-top: -50px;
+          }
+          .detailed-mockup-content {
+             transform: scale(0.4);
+          }
+      }
+      
+
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
