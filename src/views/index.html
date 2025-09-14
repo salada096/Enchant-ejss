@@ -4,20 +4,215 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enchant - Transformando Vidas através da Tecnologia</title>
-    <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400&family=Lexend+Deca:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700&family=Lexend+Deca:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/enchant/index.css">
-    <link rel="stylesheet" href="/styles/global.css">
-    <script src="/scripts/layouts/enchant/headerenchant.js"></script>
-    <script src="/scripts/layouts/enchant/footerenchant.js"></script>
+   
+  <link rel="stylesheet" href="/public/styles/enchant/index.css">
+
+  <script src="/public/scripts/layouts/enchant/headerenchant.js"></script>
+  <script src="/public/scripts/layouts/enchant/footerenchant.js"></script>
+  <link rel="stylesheet" href="/public/styles/global.css">
+
+  <style>
+      :root {
+          --bg-main: #f7f7ff;
+          --bg-card: #ffffff;
+          --bg-highlight-card: #f5f1ea;
+          --primary-color: #c0a080;
+          --text-dark: #333333;
+          --text-light: #888888;
+          --text-white: #ffffff;
+          --border-color: #e0e0e0;
+          --chart-orange: #d98c5f;
+          --chart-brown: #8c5a46;
+          --risk-high: #ef4444;
+          --risk-medium: #f97316;
+          --mockup-bg: #F8F6F2;
+          --mockup-container: #EFE5D7;
+          --mockup-button: #E0D8C5;
+          --mockup-text: #5D5D5D;
+          --mockup-dark-text: #3D3D3D;
+          --coleta-bg: #EADFCF;
+          --coleta-card-bg: #FFFBF5;
+      }
+
+      /* === HERO SECTION FINAL === */
+      .hero {
+          display: flex;
+          align-items: center;
+          min-height: 100vh;
+          padding: 120px 0 60px 0;
+          background: linear-gradient(135deg, #F5F1EB 0%, #FFFFFF 100%);
+      }
+      .hero .container {
+          display: grid;
+          align-items: center;
+          gap: 2rem;
+      }
+      @media (min-width: 992px) {
+          .hero .container {
+              grid-template-columns: 1fr 1.1fr;
+          }
+          .hero-text {
+              text-align: left;
+          }
+      }
+      .hero-text {
+          text-align: center;
+          z-index: 2;
+      }
+      .hero-text h1 {
+        font-family: 'Passion One', sans-serif;
+        font-size: clamp(3rem, 6vw, 4.5rem);
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+        color: var(--text-dark);
+      }
+      .hero-text p {
+          font-size: clamp(1rem, 2.5vw, 1.15rem);
+          margin-bottom: 2rem;
+          max-width: 500px;
+          margin-left: auto;
+          margin-right: auto;
+      }
+      @media (min-width: 992px) {
+        .hero-text p {
+            margin-left: 0;
+        }
+      }
+      .hero .cta-button {
+        padding: 14px 35px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+      }
+      .hero .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      }
+      
+      /* === HERO MOCKUPS COMPOSITION === */
+      .hero-mockup-area {
+          position: relative;
+          min-height: 500px;
+      }
+      @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+      }
+      .svg-mockup, .problem-bubble {
+          position: absolute;
+          animation: float 8s ease-in-out infinite;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          border-radius: 12px;
+      }
+      .svg-mockup:hover, .problem-bubble:hover {
+          transform: scale(1.05);
+          z-index: 10;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      }
+
+      .problem-bubble {
+          background: var(--bg-card);
+          box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+          padding: 15px;
+          border: 1px solid var(--border-color);
+          width: 240px;
+          font-size: 14px;
+          color: var(--text-light);
+          font-style: italic;
+      }
+      .problem-1 { top: 5%; left: 0; animation-delay: -1s; }
+      .problem-2 { bottom: 10%; left: 20%; animation-delay: -3s; }
+      .problem-3 { top: 65%; right: -20px; animation-delay: -5s;}
+
+      #mockup-dashboard { width: 350px; top: 10%; right: 0; animation-delay: -2s;}
+      #mockup-mapa { width: 300px; bottom: 0; right: 5%; animation-delay: -5s; }
+      #mockup-transparencia { width: 280px; top: 50%; left: -20px; animation-delay: -4s; }
+      #mockup-historico { width: 250px; bottom: 20%; left: 25%; animation-delay: -6s; }
+
+      /* === DETAILED MOCKUPS (FEATURES) === */
+      .feature-visual {
+          padding: 0;
+      }
+      .detailed-mockup-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 0;
+      }
+      .detailed-mockup-content {
+          width: 700px;
+          transform: scale(0.6);
+          transform-origin: center;
+          background: var(--bg-main);
+          padding: 25px;
+          border-radius: 12px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          border: 1px solid var(--border-color);
+          font-family: 'Poppins', sans-serif;
+          position: relative;
+          overflow: hidden;
+      }
+      
+      .form-mockup-content {
+          background-color: var(--mockup-bg) !important; color: var(--mockup-text);
+      }
+      .form-mockup-content h1 {
+          font-size: 28px; font-weight: 600; color: var(--mockup-dark-text); margin-bottom: 25px; text-align: center;
+      }
+      .form-mockup-content .form-container, .form-mockup-content .add-form-container {
+          background-color: var(--mockup-container); padding: 25px; border-radius: 12px; display: flex; gap: 25px; align-items: flex-start; margin-top: 20px;
+      }
+      .form-mockup-content .photo-uploader, .form-mockup-content .image-uploader {
+          width: 150px; height: 150px; background-color: #F8F6F2; border: 1px solid var(--border-color); border-radius: 8px; display: flex; justify-content: center; align-items: center; text-align: center; color: #888; font-size: 14px; flex-shrink: 0;
+      }
+      .form-mockup-content .form-fields { flex-grow: 1; }
+      .form-mockup-content .form-fields label { display: block; margin-bottom: 8px; font-size: 15px; font-weight: 500; color: var(--mockup-dark-text); }
+      .form-mockup-content .form-fields input, .form-mockup-content .form-fields textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; background-color: #FFFFFF; }
+      .form-mockup-content .add-button, .form-mockup-content .button-wrapper button { padding: 12px 30px; border: none; background-color: var(--mockup-button); border-radius: 8px; font-weight: 500; color: var(--mockup-dark-text); font-size: 15px; }
+      .form-mockup-content input:disabled, .form-mockup-content textarea:disabled, .form-mockup-content button:disabled { background-color: #ececec !important; cursor: not-allowed !important; opacity: 0.7; }
+      .form-mockup-content .collection-point-card { background-color: var(--coleta-card-bg); padding: 20px; border-radius: 8px; display: flex; gap: 20px; align-items: flex-start; border: 1px solid var(--coleta-bg); margin-top: 30px;}
+      .form-mockup-content .collection-point-card img { width: 100px; height: 100px; border-radius: 5px; object-fit: cover; }
+      .form-mockup-content .card-details { flex-grow: 1; }
+      .form-mockup-content .card-details p { margin: 0 0 8px 0; font-size: 14px; }
+      .form-mockup-content .card-actions { display: flex; flex-direction: column; gap: 10px; }
+      .form-mockup-content .card-actions button { padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; background-color: #D9D9D9; }
+
+      .modal-overlay-local { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 10; border-radius: 12px; }
+      .modal-content-local { background-color: #fff; padding: 20px; border-radius: 10px; text-align: center; width: 280px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); position: relative; }
+      .modal-content-local .close-btn { position: absolute; top: 5px; right: 10px; font-size: 20px; font-weight: bold; cursor: pointer; color: #888; }
+      .modal-content-local h2 { margin-top: 0; font-size: 18px; }
+      .modal-content-local img.qr-code { width: 150px; height: 150px; margin: 15px 0; }
+      .modal-content-local p { margin: 5px 0; color: #666; font-size: 12px; }
+      .modal-content-local .close-modal-btn { padding: 8px 25px; border: none; border-radius: 5px; background-color: #E0E0E0; cursor: pointer; margin-top: 15px; font-size: 12px;}
+      
+      @media (max-width: 991px) {
+          .detailed-mockup-content { transform: scale(0.55); }
+          .hero-mockup-area { margin-top: 40px; }
+          .svg-mockup, .problem-bubble { transform: scale(0.8); }
+      }
+      @media (max-width: 767px) {
+          .detailed-mockup-content { transform: scale(0.5); }
+          .hero-mockup-area { min-height: 400px; transform: scale(0.8); margin-top: -20px;}
+          .problem-3 { display: none; } /* Oculta a terceira frase em telas pequenas */
+      }
+      @media (max-width: 480px) {
+          .detailed-mockup-content { transform: scale(0.4); }
+          .hero-mockup-area { min-height: 350px; transform: scale(0.7); margin-top: -50px;}
+      }
+  </style>
+
 </head>
 <body>
 
 
     <section>
-        <div id="header-container"></div>
+       <div id="header-container"></div>
     </section>
 
 
@@ -25,130 +220,79 @@
 
    <section class="hero">
         <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Transforme vidas com tecnologia e impacto social</h1>
-                    <p>O Enchant é uma plataforma completa que une ferramentas intuitivas para doações online, transparência total e engajamento comunitário. Conecte-se, contribua e acompanhe o impacto real de suas ações.</p>
-                    <a href="#plans" class="cta-button">Quero Adquirir</a>
-                </div>
+            <div class="hero-text">
+                <h1>Transforme vidas com tecnologia e impacto social</h1>
+                <p>O Enchant é uma plataforma completa que une ferramentas intuitivas para doações online, transparência total e engajamento comunitário.</p>
+                <a href="#plans" class="cta-button">Quero Adquirir</a>
             </div>
-        </div>
+            <div class="hero-mockup-area">
+                
+                <div class="problem-bubble problem-1">"Tenho dificuldade em mostrar meus documentos..."</div>
+                <div class="problem-bubble problem-2">"Como sei se minha doação realmente chegou?"</div>
+                <div class="problem-bubble problem-3">"Onde posso doar com segurança?"</div>
 
+                <svg id="mockup-dashboard" class="svg-mockup" viewBox="0 0 350 220" xmlns="http://www.w3.org/2000/svg">
+                  <defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="4"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+                  <g filter="url(#shadow)">
+                    <rect x="0" y="0" width="350" height="220" rx="12" fill="#ffffff"/>
+                    <rect x="0" y="0" width="350" height="40" fill="#f5f1ea" style="border-radius: 12px 12px 0 0;"/>
+                    <circle cx="20" cy="20" r="6" fill="#f87171"/> <circle cx="40" cy="20" r="6" fill="#fbbd23"/> <circle cx="60" cy="20" r="6" fill="#34d399"/>
+                    <rect x="20" y="60" width="140" height="60" rx="8" fill="#f5f1ea"/>
+                    <text x="35" y="80" font-size="10" fill="#888">Doadores</text>
+                    <text x="35" y="100" font-size="18" font-weight="600" fill="#333">32</text>
+                    <rect x="180" y="60" width="150" height="60" rx="8" fill="#f5f1ea"/>
+                    <text x="195" y="80" font-size="10" fill="#888">Doações/Mês</text>
+                    <text x="195" y="100" font-size="18" font-weight="600" fill="#333">1.222 kg</text>
+                    <path d="M 30 190 C 80 150, 130 170, 180 160 S 280 130, 320 150" stroke="#d98c5f" stroke-width="3" fill="none" stroke-linecap="round"/>
+                  </g>
+                </svg>
 
+                <svg id="mockup-transparencia" class="svg-mockup" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+                   <defs><filter id="shadow2" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="4"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+                   <g filter="url(#shadow2)">
+                    <rect x="0" y="0" width="300" height="180" rx="12" fill="#ffffff"/>
+                    <rect x="0" y="0" width="300" height="35" fill="#f5f1ea" style="border-radius: 12px 12px 0 0;"/>
+                    <circle cx="18" cy="18" r="5" fill="#f87171"/> <circle cx="35" cy="18" r="5" fill="#fbbd23"/> <circle cx="52" cy="18" r="5" fill="#34d399"/>
+                    <text x="20" y="60" font-size="12" font-weight="500" fill="#333">Destinação de Recursos</text>
+                    <text x="20" y="80" font-size="10" fill="#888">Saúde</text>
+                    <rect x="20" y="90" width="260" height="8" rx="4" fill="#e0e0e0"/>
+                    <rect x="20" y="90" width="200" height="8" rx="4" fill="#8c5a46"/>
+                    <text x="20" y="120" font-size="10" fill="#888">Educação</text>
+                    <rect x="20" y="130" width="260" height="8" rx="4" fill="#e0e0e0"/>
+                    <rect x="20" y="130" width="180" height="8" rx="4" fill="#8c5a46"/>
+                  </g>
+                </svg>
 
+                <svg id="mockup-mapa" class="svg-mockup" viewBox="0 0 300 190" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <clipPath id="mapClip"><rect x="0" y="0" width="300" height="190" rx="12"/></clipPath>
+                        <filter id="shadow3" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/><feOffset in="blur" dx="2" dy="4" result="offsetBlur"/><feMerge><feMergeNode in="offsetBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    </defs>
+                    <g clip-path="url(#mapClip)" filter="url(#shadow3)">
+                        <rect x="0" y="0" width="300" height="190" rx="12" fill="white"/>
+                        <image href="https://i.ibb.co/yYyqC1p/Captura-de-tela-2025-09-12-085301.jpg" x="0" y="0" width="300" height="190" preserveAspectRatio="xMidYMid slice"/>
+                        <rect x="15" y="15" width="130" height="50" rx="8" fill="white" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));"/>
+                        <text x="25" y="35" font-size="10" font-weight="bold" fill="#333">Alertas Ativos: 2</text>
+                        <text x="25" y="50" font-size="9" fill="#555">Clique para ver detalhes</text>
+                    </g>
+                </svg>
 
+                <svg id="mockup-historico" class="svg-mockup" viewBox="0 0 250 180" xmlns="http://www.w3.org/2000/svg">
+                    <defs><filter id="shadow5" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="4"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+                    <g filter="url(#shadow5)">
+                        <rect x="0" y="0" width="250" height="180" rx="12" fill="#ffffff"/>
+                        <text x="20" y="30" font-size="12" font-weight="600" fill="#333">Histórico de Doações</text>
+                        <rect x="20" y="50" width="60" height="20" rx="10" fill="#EFE5D7"/>
+                        <text x="35" y="64" font-size="9" fill="#5D5D5D">Roupas</text>
+                        <rect x="90" y="50" width="70" height="20" rx="10" fill="#EFE5D7"/>
+                        <text x="100" y="64" font-size="9" fill="#5D5D5D">Semestral</text>
+                        <rect x="20" y="85" width="210" height="30" rx="5" fill="#f5f1ea"/>
+                        <text x="30" y="104" font-size="9" fill="#5D5D5D">12/09/23 - Roupas</text>
+                        <rect x="20" y="125" width="210" height="30" rx="5" fill="#f5f1ea"/>
+                        <text x="30" y="144" font-size="9" fill="#5D5D5D">10/08/23 - Alimentos</text>
+                    </g>
+                </svg>
 
-
-
-
-        <div class="mockup-container">
-            <div class="mockup mockup-1">
-                <div style="background: #8B5A3C; color: white; padding: 6px 10px; border-radius: 6px 6px 0 0; font-size: 11px; font-weight: bold;">Histórico de doações</div>
-                <div style="background: #F5F1EB; padding: 8px; border-radius: 0 0 6px 6px;">
-                    <div style="display: flex; gap: 6px; margin-bottom: 8px; font-size: 9px;">
-                        <div style="background: #B8956A; color: white; padding: 2px 5px; border-radius: 3px;">Semestral</div>
-                        <div style="background: #D2691E; color: white; padding: 2px 5px; border-radius: 3px;">Roupas</div>
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 3px;">
-                        <div style="background: white; height: 16px; border-radius: 3px; display: flex; align-items: center; padding: 0 6px; font-size: 8px;">12/09/23 - Semestral - Roupas</div>
-                        <div style="background: white; height: 16px; border-radius: 3px; display: flex; align-items: center; padding: 0 6px; font-size: 8px;">12/09/23 - Semestral - Roupas</div>
-                        <div style="background: white; height: 16px; border-radius: 3px; display: flex; align-items: center; padding: 0 6px; font-size: 8px;">12/09/23 - Semestral - Roupas</div>
-                    </div>
-                </div>
-            </div>
-            <div class="mockup mockup-2">
-                <div style="background: #D2691E; color: white; padding: 5px 8px; border-radius: 6px 6px 0 0; font-size: 10px; font-weight: bold;">Mapa Interativo</div>
-                <div style="background: #E8F5E8; padding: 6px; height: 70px; border-radius: 0 0 6px 6px; position: relative;">
-                    <div style="position: absolute; top: 12px; left: 12px; width: 6px; height: 6px; background: #8B5A3C; border-radius: 50%; border: 1px solid white; box-shadow: 0 0 0 1px #8B5A3C;"></div>
-                    <div style="position: absolute; top: 28px; right: 15px; width: 6px; height: 6px; background: #D2691E; border-radius: 50%; border: 1px solid white; box-shadow: 0 0 0 1px #D2691E;"></div>
-                    <div style="position: absolute; bottom: 15px; left: 20px; width: 6px; height: 6px; background: #B8956A; border-radius: 50%; border: 1px solid white; box-shadow: 0 0 0 1px #B8956A;"></div>
-                    <div style="position: absolute; bottom: 8px; right: 25px; background: white; padding: 1px 4px; border-radius: 3px; font-size: 7px; color: #8B5A3C; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">Brasília</div>
-                </div>
-            </div>
-
-
-            <div class="mockup mockup-3">
-                <div style="background: #8B5A3C; color: white; padding: 4px 6px; border-radius: 5px 5px 0 0; font-size: 9px; font-weight: bold;">Transparência</div>
-                <div style="background: #F8F5F0; padding: 6px; border-radius: 0 0 5px 5px;">
-                    <div style="display: flex; gap: 5px; margin-bottom: 5px;">
-                        <div style="flex: 1;">
-                            <div style="width: 20px; height: 20px; border: 2px solid #8B5A3C; border-top: 2px solid #D2691E; border-radius: 50%; margin: 0 auto 2px;"></div>
-                            <div style="font-size: 6px; text-align: center; color: #8B5A3C; font-weight: bold;">51%</div>
-                        </div>
-                        <div style="flex: 1;">
-                            <div style="width: 18px; height: 18px; border: 2px solid #B8956A; border-top: 2px solid #D2691E; border-radius: 50%; margin: 0 auto 2px;"></div>
-                            <div style="font-size: 5px; text-align: center; color: #8B5A3C;">25%</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 1px;">
-                        <div style="background: #8B5A3C; height: 4px; border-radius: 1px; width: 80%;"></div>
-                        <div style="background: #B8956A; height: 4px; border-radius: 1px; width: 60%;"></div>
-                        <div style="background: #D2691E; height: 4px; border-radius: 1px; width: 40%;"></div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="mockup mockup-4">
-                <div style="background: #8B5A3C; color: white; padding: 6px 10px; border-radius: 6px 6px 0 0; font-size: 10px; font-weight: bold; text-align: center;">Faça sua doação</div>
-                <div style="background: #F5F1EB; padding: 10px; border-radius: 0 0 6px 6px;">
-                    <div style="text-align: center; margin-bottom: 10px;">
-                        <div style="display: inline-flex; gap: 6px;">
-                            <div style="width: 24px; height: 24px; background: #8B5A3C; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">📦</div>
-                            <div style="width: 24px; height: 24px; background: #B8956A; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">⏰</div>
-                        </div>
-                    </div>
-                    <div style="background: #D2691E; color: white; padding: 6px; border-radius: 6px; text-align: center; font-size: 9px; font-weight: bold;">Produtos de higiene</div>
-                    <div style="margin: 6px 0;">
-                        <div style="font-size: 7px; color: #8B5A3C; margin-bottom: 2px;">Quantidade:</div>
-                        <div style="background: white; height: 16px; border-radius: 3px; border: 1px solid #ddd;"></div>
-                    </div>
-                    <div style="display: flex; gap: 3px; margin-top: 8px;">
-                        <div style="background: #B8956A; color: white; padding: 3px 6px; border-radius: 8px; font-size: 7px; cursor: pointer;">Enviar</div>
-                        <div style="background: #D2691E; color: white; padding: 3px 6px; border-radius: 8px; font-size: 7px; cursor: pointer;">Agendar</div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="mockup mockup-6">
-                <div style="background: #8B5A3C; color: white; padding: 4px 6px; border-radius: 4px 4px 0 0; font-size: 8px; font-weight: bold;">Pontos de coleta</div>
-                <div style="background: #F5F1EB; padding: 5px; border-radius: 0 0 4px 4px;">
-                    <div style="background: white; padding: 3px; border-radius: 3px; margin-bottom: 3px; font-size: 6px; border-left: 2px solid #8B5A3C;">
-                        <div style="font-weight: bold; color: #8B5A3C;">Centro de saúde</div>
-                        <div style="color: #666; font-size: 5px;">08:00 - 16:00</div>
-                    </div>
-                    <div style="background: white; padding: 3px; border-radius: 3px; font-size: 6px;">
-                        <div style="color: #8B5A3C; font-weight: bold;">Seg - Sex</div>
-                    </div>
-                    <div style="text-align: right; margin-top: 4px;">
-                        <div style="background: #D2691E; color: white; padding: 1px 4px; border-radius: 6px; font-size: 5px; display: inline-block;">Ver mais</div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="mockup mockup-7">
-                <div style="background: #8B5A3C; color: white; padding: 3px 5px; border-radius: 3px 3px 0 0; font-size: 7px; font-weight: bold; text-align: center;">QR Code</div>
-                <div style="background: white; padding: 6px; border-radius: 0 0 3px 3px; text-align: center;">
-                    <svg width="50" height="50" style="border: 1px solid #ddd;">
-                        <rect width="50" height="50" fill="white"/>
-                        <rect x="2" y="2" width="12" height="12" fill="none" stroke="black" stroke-width="1"/>
-                        <rect x="5" y="5" width="6" height="6" fill="black"/>
-                        <rect x="36" y="2" width="12" height="12" fill="none" stroke="black" stroke-width="1"/>
-                        <rect x="39" y="5" width="6" height="6" fill="black"/>
-                        <rect x="2" y="36" width="12" height="12" fill="none" stroke="black" stroke-width="1"/>
-                        <rect x="5" y="39" width="6" height="6" fill="black"/>
-                        <rect x="18" y="18" width="3" height="3" fill="black"/>
-                        <rect x="24" y="18" width="3" height="3" fill="black"/>
-                        <rect x="30" y="18" width="3" height="3" fill="black"/>
-                        <rect x="21" y="21" width="3" height="3" fill="black"/>
-                        <rect x="27" y="21" width="3" height="3" fill="black"/>
-                        <rect x="18" y="24" width="3" height="3" fill="black"/>
-                        <rect x="30" y="24" width="3" height="3" fill="black"/>
-                    </svg>
-                    <div style="font-size: 5px; color: #8B5A3C; margin-top: 3px;">Escaneie para doar</div>
-                </div>
             </div>
         </div>
     </section>
@@ -321,7 +465,7 @@
                                     <div class="detailed-mockup-content">
                                         <h2 style="font-size: 24px; font-weight: 600; text-align: center; color: var(--text-dark); margin-bottom: 20px;">Mapa Interativo de Risco</h2>
                                         <div style="position: relative; background: var(--bg-card); padding: 10px; border-radius: 12px; border: 1px solid var(--border-color);">
-                                            <img src="https://i.ibb.co/Q7ndrDWR/Captura-de-tela-2025-09-12-085301.png" alt="Mapa de Risco" style="width: 100%; height: auto; display: block; border-radius: 8px;">
+                                            <img src="https://i.ibb.co/yYyqC1p/Captura-de-tela-2025-09-12-085301.jpg" alt="Mapa de Risco" style="width: 100%; height: auto; display: block; border-radius: 8px;">
                                             <div style="position: absolute; top: 20px; left: 20px; background: var(--bg-card); padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); width: 220px;">
                                                 <h3 style="font-size: 16px; margin-bottom: 15px;">Controle do Mapa</h3>
                                                 <input type="text" placeholder="Buscar endereço..." style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 15px; font-size: 12px;">
@@ -356,27 +500,27 @@
                             </div>
                             <div class="feature-visual" style="padding: 0;">
                                 <div class="detailed-mockup-wrapper">
-                                    <div class="detailed-mockup-content abrigo-mockup-content">
+                                    <div class="detailed-mockup-content form-mockup-content abrigo-mockup-content">
                                         <h1>Pontos de Abrigo</h1>
                                         <div class="add-form-container">
-                                            <div class="image-uploader">Clique para adicionar foto</div>
+                                            <div class="image-uploader">Adicionar foto</div>
                                             <div class="form-fields">
                                                 <label for="nome-local-2">Nome do Local:</label>
                                                 <input type="text" id="nome-local-2" placeholder="Digite o nome do local..." disabled>
                                                 <div class="time-inputs">
                                                     <div>
-                                                        <label for="horario-abre">Horário em que abre:</label>
+                                                        <label for="horario-abre">Horário de abertura:</label>
                                                         <input type="text" id="horario-abre" placeholder="--:--" disabled>
                                                     </div>
                                                     <div>
-                                                        <label for="horario-fecha">Horário em que fecha:</label>
+                                                        <label for="horario-fecha">Horário de fechamento:</label>
                                                         <input type="text" id="horario-fecha" placeholder="--:--" disabled>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="button-wrapper">
-                                            <button disabled>Adicionar Item</button>
+                                        <div class="button-wrapper" style="text-align: center; margin-top: 1rem;">
+                                            <button disabled>Adicionar Abrigo</button>
                                         </div>
                                     </div>
                                 </div>
@@ -392,20 +536,10 @@
                                 <h3>Pontos de Coleta</h3>
                                 <p>Organize e monitore pontos de coleta de doações, facilitando a logística de distribuição de recursos com rastreamento.</p>
                             </div>
-                            <div class="feature-visual" style="padding: 0;">
+                            <div class="feature-visual" style="padding: 0; position: relative;">
                                 <div class="detailed-mockup-wrapper">
-                                    <div class="detailed-mockup-content coleta-mockup-content">
+                                    <div class="detailed-mockup-content form-mockup-content coleta-mockup-content">
                                         <h1>Pontos de Coleta</h1>
-                                        <div class="form-container">
-                                            <div class="photo-uploader">Adicionar foto</div>
-                                            <div class="form-fields">
-                                                <label for="nome">Nome do Local:</label>
-                                                <input type="text" id="nome" placeholder="Digite o nome do local..." disabled>
-                                                <label for="endereco">Endereço:</label>
-                                                <textarea id="endereco" rows="2" placeholder="ex: Estrada do Coqueiro Grande..." disabled></textarea>
-                                                <button class="add-button" disabled>Adicionar Item</button>
-                                            </div>
-                                        </div>
                                         <div class="collection-point-card">
                                             <img src="https://via.placeholder.com/120" alt="Foto do local">
                                             <div class="card-details">
@@ -617,12 +751,11 @@
         });
 
 
-        // Feature timeline animation (keeps existing behaviour, adds stagger)
+        // Feature timeline animation
         const timelineObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
                     setTimeout(() => {
-                        // seu JS usa "visible" — manteve-se isso
                         entry.target.classList.add('visible');
                     }, index * 200);
                 }
@@ -633,58 +766,7 @@
         document.querySelectorAll('.feature-item').forEach(item => {
             timelineObserver.observe(item);
         });
-
-
-       
-
-
-        // Add floating animation to mockups
-        const mockups = document.querySelectorAll('.mockup');
-        mockups.forEach((mockup, index) => {
-            mockup.style.animationDelay = `${index * 1.2}s`;
-        });
-
-
-        // Parallax effect for hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const mockupContainer = document.querySelector('.mockup-container');
-           
-            if (mockupContainer && scrolled < window.innerHeight) {
-                mockupContainer.style.transform = `translateY(${scrolled * 0.2}px)`;
-            }
-        });
-
-
-        // Add hover effects to plan cards
-        document.querySelectorAll('.plan-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-15px) scale(1.02)';
-            });
-           
-            card.addEventListener('mouseleave', function() {
-                if (!this.classList.contains('featured')) {
-                    this.style.transform = 'translateY(0) scale(1)';
-                } else {
-                    this.style.transform = 'translateY(0) scale(1.05)';
-                }
-            });
-        });
-
-
-        // Add subtle hover effects to mockups
-        document.querySelectorAll('.mockup').forEach(mockup => {
-            mockup.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.05)';
-                this.style.zIndex = '10';
-            });
-           
-            mockup.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
-                this.style.zIndex = '1';
-            });
-        });
-
+        
         // --- Lógica do Modal ---
         const modal = document.getElementById('qrModal');
         function openModal() {
