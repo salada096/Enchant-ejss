@@ -35,7 +35,7 @@ let itemCounters = {
                         estatutoImage.innerHTML = `
                             <div style="color: #693B11; text-align: center;">
                                 <i class="bi bi-file-earmark-pdf" style="font-size: 24px; margin-bottom: 5px;"></i>
-                                <div style="font-size: 12px;">${file.name}</div>
+                                <div style="font-size: 16px;">${file.name}</div>
                             </div>
                         `;
                     }
@@ -53,8 +53,8 @@ let itemCounters = {
             itemDiv.setAttribute('data-index', index);
             itemDiv.innerHTML = `
                 <div class="input-section" id="saiba-input-${index}">
-                    <input type="text" class="input-field" placeholder="Adicione o título..." id="saiba-titulo-${index}">
-                    <textarea class="input-field textarea-field" placeholder="Adicione o texto..." id="saiba-texto-${index}"></textarea>
+                    <input type="text" class="input-field" placeholder="Adicione o título..."  style="font-size: 14px;" id="saiba-titulo-${index}">
+                    <textarea class="input-field textarea-field" placeholder="Adicione o texto..." style="font-size: 14px;" id="saiba-texto-${index}"></textarea>
                     <div class="file-controls">
                         <label class="file-btn" for="saiba-file-${index}">Escolher ficheiro</label>
                         <input type="file" id="saiba-file-${index}" style="display: none;" accept="image/*">
@@ -180,12 +180,12 @@ let itemCounters = {
                     itemDiv.innerHTML = `
                         <div class="relatorio-grid">
                             <div class="relatorio-image-placeholder" id="relatorio-image-${rel.index}" onclick="document.getElementById('relatorio-file-${rel.index}').click()">
-                                ${rel.fileData ? (rel.fileType === 'image' ? `<img src="${rel.fileData}" class="small-standard-image">` : `<div style='color:#693B11;text-align:center;'><i class='bi bi-file-earmark-pdf' style='font-size:24px;'></i><div style='font-size:12px;'>${rel.fileName}</div></div>`) : '<div class="add-icon" style="margin-bottom: 10px;">+</div><div style="font-size: 14px;">Relatório<br>Social</div>'}
+                                ${rel.fileData ? (rel.fileType === 'image' ? `<img src="${rel.fileData}" class="small-standard-image">` : `<div style='color:#693B11;text-align:center;'><i class='bi bi-file-earmark-pdf' style='font-size:24px;'></i><div style='font-size:24px;'>${rel.fileName}</div></div>`) : '<div class="add-icon" style="margin-bottom: 10px;">+</div><div style="font-size: 16px;">Relatório<br>Social</div>'}
                                 <input type="file" id="relatorio-file-${rel.index}" style="display: none;" accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                             </div>
                             <div class="relatorio-content">
-                                <input type="text" class="input-field" placeholder="Adicione o título | Relatório Social 2025" id="relatorio-title-${rel.index}" style="font-size: 18px; font-weight: 600; color: #693B11; margin-bottom: 15px;" value="${rel.title || ''}">
-                                <textarea class="input-field" placeholder="Aqui você pode inserir marcos históricos, referências e informações sobre este ano..." id="relatorio-desc-${rel.index}" style="min-height: 80px; color: #666;">${rel.desc || ''}</textarea>
+                                <input type="text" class="input-field" placeholder="Adicione o título | Relatório Social 2025" id="relatorio-title-${rel.index}" style="font-size: 14px; font-weight: 400; color: #693B11; margin-bottom: 15px;" value="${rel.title || ''}">
+                                <textarea class="input-field" placeholder="Aqui você pode inserir marcos históricos, referências e informações sobre este ano..." id="relatorio-desc-${rel.index}" style="min-height: 80px; color: #666; font-size:14px;">${rel.desc || ''}</textarea>
                                 <div class="image-size-hint">Tamanho recomendado: 200x150px</div>
                                 <div style="margin-top: 15px;">
                                     <button class="btn-save" onclick="saveRelatorioContent(${rel.index})">Salvar</button>
@@ -225,11 +225,11 @@ let itemCounters = {
                         </div>
                         <div class="relatorio-grid">
                             <div class="relatorio-image-placeholder" id="relatorio-image-${rel.index}">
-                                ${rel.fileData ? (rel.fileType === 'image' ? `<img src="${rel.fileData}" class="small-standard-image">` : `<div style='color:#693B11;text-align:center;'><i class='bi bi-file-earmark-pdf' style='font-size:24px;'></i><div style='font-size:12px;'>${rel.fileName}</div></div>`) : '<div class="add-icon" style="margin-bottom: 10px;">+</div><div style="font-size: 14px;">Relatório<br>Social</div>'}
+                                ${rel.fileData ? (rel.fileType === 'image' ? `<img src="${rel.fileData}" class="small-standard-image">` : `<div style='color:#693B11;text-align:center;'><i class='bi bi-file-earmark-pdf' style='font-size:24px;'></i><div style='font-size:16px;'>${rel.fileName}</div></div>`) : '<div class="add-icon" style="margin-bottom: 10px;">+</div><div style="font-size: 14px;">Relatório<br>Social</div>'}
                             </div>
                             <div class="relatorio-content">
-                                <h4 style="color: #693B11; margin-bottom: 15px; font-size: 18px;">${rel.title}</h4>
-                                <p style="color: #666; font-size: 14px; line-height: 1.6;">${rel.desc}</p>
+                                <h4 style="color: #693B11; margin-bottom: 15px; font-size: 24px;">${rel.title}</h4>
+                                <p style="color: #666; font-size: 16px; line-height: 1.6;">${rel.desc}</p>
                             </div>
                         </div>
                     `;
@@ -279,8 +279,8 @@ let itemCounters = {
                     <input type="file" id="certificado-file-${index}" style="display: none;" accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                 </div>
                 <div class="card-description">
-                    <input type="text" class="input-field" placeholder="Adicione o nome do certificado ou premiação" id="certificado-title-${index}" style="font-size: 14px; font-weight: 600; color: #693B11; margin-bottom: 8px; border: none; background: transparent;">
-                    <textarea class="input-field" placeholder="Aqui você pode adicionar o nome da organização que forneceu o título e/ou falar sobre a conquista..." id="certificado-desc-${index}" style="font-size: 12px; color: #888; line-height: 1.4; border: 1px dashed #ddd; min-height: 60px;"></textarea>
+                    <input type="text" class="input-field" placeholder="Adicione o nome do certificado ou premiação" id="certificado-title-${index}" style="font-size: 14px; font-weight: 400; color: #693B11; margin-bottom: 8px; border: none; background: transparent;">
+                    <textarea class="input-field" placeholder="Aqui você pode adicionar o nome da organização que forneceu o título e/ou falar sobre a conquista..." id="certificado-desc-${index}" style="font-size: 14px; color: #888; line-height: 1.4; border: 1px dashed #ddd; min-height: 60px;"></textarea>
                     <div class="image-size-hint">Tamanho recomendado: 300x200px</div>
                     <div style="margin-top: 10px;">
                         <button class="btn-save" onclick="saveCertificadoContent(${index})">Salvar</button>
@@ -337,8 +337,8 @@ let itemCounters = {
                     ${imageHtml}
                 </div>
                 <div class="card-description">
-                    <h4 style="color: #693B11; font-size: 14px; font-weight: 600; margin-bottom: 8px;">${title}</h4>
-                    <p style="color: #888; font-size: 12px; line-height: 1.4;">${desc}</p>
+                    <h4 style="color: #693B11; font-size: 24px; font-weight: 400; margin-bottom: 8px;">${title}</h4>
+                    <p style="color: #888; font-size: 16px; line-height: 1.4;">${desc}</p>
                 </div>
             `;
         }
@@ -355,7 +355,7 @@ let itemCounters = {
                     <input type="file" id="certificado-file-${index}" style="display: none;" accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                 </div>
                 <div class="card-description">
-                    <input type="text" class="input-field" value="${currentTitle}" id="certificado-title-${index}" style="font-size: 14px; font-weight: 600; color: #693B11; margin-bottom: 8px; border: none; background: transparent;">
+                    <input type="text" class="input-field" value="${currentTitle}" id="certificado-title-${index}" style="font-size: 24px; font-weight: 600; color: #693B11; margin-bottom: 8px; border: none; background: transparent;">
                     <textarea class="input-field" id="certificado-desc-${index}" style="font-size: 12px; color: #888; line-height: 1.4; border: 1px dashed #ddd; min-height: 60px;">${currentDesc}</textarea>
                     <div class="image-size-hint">Tamanho recomendado: 300x200px</div>
                     <div style="margin-top: 10px;">
