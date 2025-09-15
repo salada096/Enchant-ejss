@@ -477,7 +477,7 @@ body {
   --bg-card: #ffffff;
   --bg-highlight-card: #f5f1ea;
   --primary-color: #c0a080;
-  --text-dark: #333333;
+  --text-dark: #000000;
   --text-light: #888888;
   --text-white: #ffffff;
   --border-color: #e0e0e0;
@@ -964,7 +964,7 @@ body {
   font-family: "Passion One", sans-serif;
   font-size: 2.5rem;
   text-align: center;
-  color: var(--primary-brown);
+  color: #693B11;
   margin-bottom: 60px;
 }
 
@@ -1005,15 +1005,16 @@ body {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 .stat-card-new.highlight {
-  background: var(--accent-orange);
-  border-color: #ff8c42;
+  background: var(--cream);
+  border: 3px solid var(--light-brown);
+  color:rgb(105, 59, 17);;
 }
 
 .stat-period {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   opacity: 0.9;
   margin-bottom: 10px;
-  font-weight: 300;
+  font-weight: 400;
 }
 .stat-main-number {
   font-family: "Passion One", sans-serif;
@@ -1022,6 +1023,15 @@ body {
   line-height: 0.9;
   margin: 10px 0;
   color: white;
+}
+
+.stat-main-number2 {
+  font-family: "Passion One", sans-serif;
+  font-size: 3.5rem;
+  font-weight: 400;
+  line-height: 0.9;
+  margin: 10px 0;
+  color: rgb(105, 59, 17);;
 }
 .stat-unit {
   font-size: 1.2rem;
@@ -1040,14 +1050,14 @@ body {
   margin-top: 10px;
 }
 .stat-label-small {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   margin-bottom: 5px;
-  font-weight: 300;
+  font-weight: 400;
 }
 .stat-plus {
   font-family: "Passion One", sans-serif;
   font-size: 2rem;
-  color: var(--accent-orange);
+  color: white;
   margin-bottom: -10px;
 }
 
@@ -1081,7 +1091,7 @@ body {
   --white: #ffffff;
   --off-white: #fafafa;
   --text-dark: #2c1810;
-  --text-medium: #5d4037;
+  --text-medium: #000000;
   --accent: #ff6b35;
 
   padding: 140px 0;
@@ -1345,7 +1355,7 @@ body {
 .benefit-icon {
   width: 80px;
   height: 80px;
-  background: var(--primary-brown);
+  background: rgb(105, 59, 17);;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1359,7 +1369,7 @@ body {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 15px;
-  color: var(--primary-brown);
+  color: rgb(105, 59, 17);;
 }
 
 /* Plans Section */
@@ -2017,8 +2027,8 @@ body {
   position: absolute;
   width: 160px;
   text-align: center;
-  background-color: #5d4037;
-  color: #fff3e0;
+  background-color: var(--cream);
+  color: #693B11;
   padding: 8px 0;
   font-size: 0.8rem;
   font-weight: 700;
@@ -2034,13 +2044,19 @@ body {
   padding: 2rem;
 }
 .plan-basic .plan-header {
-  background: linear-gradient(45deg, #fb8c00, #795548);
+background: #99664c;
+
+
+
+
 }
 .popular .plan-header {
-  background: linear-gradient(45deg, #ff7043, #f4511e);
+background:#693B11;
+
 }
 .plan-premium .plan-header {
-  background: linear-gradient(45deg, #5d4037, #f4511e);
+background: #795548; 
+
 }
 
 .plan-header h2 {
@@ -2135,15 +2151,26 @@ body {
   color: #ffffff;
 }
 
+
+
 .btn-popular {
-  background-color: #ff7043;
-  border-color: #ff7043;
-  color: #fff;
-  transform: scale(1.02);
+  background: var(--primary-brown);
+  color: white;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600 !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
 }
 .btn-popular:hover {
-  background-color: #f4511e;
-  color: #fff;
+  background: var(--light-brown);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(139, 90, 60, 0.3);
+  color: white;
 }
 
 .btn-premium {
