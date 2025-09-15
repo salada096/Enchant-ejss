@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../../../public/styles/global.css">
+    <link rel="stylesheet" href="../../../public/styles/comprador/telainicialparaocomprador.css">
         <script src="../../../public/scripts/comprador/telainicialcomprador.js" defer></script>
     <script src="../../../public/scripts/layouts/enchant/headerenchant.js"></script>
     <script src="../../../public/scripts/layouts/comprador/footercomprador.js" defer></script>
@@ -17,9 +18,9 @@
 
         :root {
             --primary-color: #6C4B3A;
-            --secondary-color: #D4A97B;
-            --accent-color: #F0D8C4;
-            --quaternary-color: #4A352F;
+            --secondary-color: #E1A66E;
+            --accent-color: #855223;
+            --quaternary-color: #8A592C;
             --text-color-primary: #FFFFFF;
             --text-color-secondary: #743a1d;
         }
@@ -54,6 +55,23 @@
 
         .color-picker-container1.active {
             display: grid;
+        }
+
+        @media (max-width: 768px) {
+            .color-picker-container1 {
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: auto;
+                max-height: 50vh;
+                overflow-y: auto;
+                grid-template-columns: repeat(1, 1fr);
+                padding: 10px;
+                border-radius: 0;
+                box-shadow: none;
+            }
         }
 
         .col-span-2 {
@@ -119,7 +137,7 @@
             align-items: flex-end;
             perspective: 1000px;
             transform-style: preserve-3d;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
         
         .carousel-item1 {
@@ -139,26 +157,26 @@
             .carousel-container1 {
                 flex-direction: column;
                 align-items: center;
-                gap: 2rem;
+                gap: 1rem;
                 perspective: none;
                 transform-style: flat;
             }
             .carousel-item1 {
                 width: 250px;
-                min-height: 250px;
+                min-height: 200px;
                 transform: none !important;
                 transition: none;
             }
             .carousel-item1.active {
                 width: 300px;
-                min-height: 300px;
+                min-height: 250px;
             }
             .carousel-item1.angled-11, .carousel-item1.angled-21, .carousel-item1.angled-31, .carousel-item1.angled-41, .carousel-item1.angled-51 {
                 transform: none !important;
             }
             .carousel-item1:nth-last-child(2) {
                 width: 300px;
-                min-height: 300px;
+                min-height: 250px;
             }
         }
 
@@ -412,13 +430,15 @@
             background-position: center;
         }
 
+       
+
         .edit-mode-btn1 {
             position: fixed;
-            top: 1rem;
+            top: 4rem;
             right: 1rem;
             z-index: 1050;
             color: white;
-            font-size: 1.5rem; /* Adjusted font size */
+            font-size: 1.5rem;
             transition: transform 0.3s ease;
             cursor: pointer;
             background-color: rgba(0, 0, 0, 0.5);
@@ -479,21 +499,33 @@
 
     <input type="file" id="carousel-image-upload" accept="image/*" class="hidden1">
 
-    <header id="header-bg" class="editable1 header-bg1 relative text-white min-h-[500px] flex items-center p-8">
-        <div class="absolute inset-0 bg-black opacity-40"></div>
-        <div class="relative max-w-xl text-left md:ml-20">
-            <h2 id="main-title" class="editable1 title-font1 text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Ajude quem perdeu tudo, faça parte da reconstrução.</h2>
-            <p id="main-text" class="editable1 text-lg sm:text-xl mb-8">A nossa plataforma ajuda pessoas de todo o mundo a encontrar organizações confiáveis para contribuir com doações em dinheiro e suprimentos.</p>
-            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                <button class="bg-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-300">
-                    Comece a ajudar
-                </button>
-                
-            </div>
+<header id="header-bg" class="editable1 header-bg1 relative text-white min-h-[400px] lg:min-h-[500px] xl:min-h-[600px] 2xl:min-h-[700px] flex items-center p-8">
+    <div class="absolute inset-0 bg-black opacity-60"></div>
+    <div class="relative max-w-xl text-left md:ml-20 md:max-w-3xl lg:max-w-5xl">
+        <h2 id="main-title" class="editable1 title-font1 text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Ajude quem perdeu tudo, faça parte da reconstrução.</h2>
+        <p id="main-text" class="editable1 text-lg sm:text-xl mb-8">A nossa plataforma ajuda pessoas de todo o mundo a encontrar organizações confiáveis para contribuir com doações em dinheiro e suprimentos.</p>
+        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <button class="btn-primary">
+                Comece a ajudar
+            </button>
         </div>
-    </header>
+    </div>
+</header>
 
-    <section class="bg-[var(--secondary-color)] py-16 px-8 md:px-16 text-white">
+<style>
+@media (max-width: 768px) {
+    #header-bg {
+        min-height: 60vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        padding: 2rem !important;
+    }
+}
+</style>
+
+    <section class="bg-[var(--quaternary-color)] py-16 px-8 md:px-16 text-white">
         <div class="flex flex-wrap items-stretch justify-center gap-12 text-center max-w-7xl mx-auto">
             <div class="flex-1 min-w-[200px] flex flex-col items-center">
                 <div class="bg-[var(--text-color-primary)] rounded-full p-4 mx-auto w-24 h-24 flex items-center justify-center mb-4">
@@ -506,8 +538,8 @@
                         <path d="M8 16h.01" />
                     </svg>
                 </div>
-                <h3 id="info-title-1" class="editable1 font-bold text-lg mb-2 text-[var(--text-color-secondary)]">Cadastramento</h3>
-                <p id="info-text-1" class="editable1 text-sm text-[var(--text-color-secondary)]">A plataforma oferece um mecanismo de cadastramento de doações, o qual informa detalhes sobre o arrecadamento.</p>
+                <h3 id="info-title-1" class="editable1 font-bold text-lg mb-2 text-[var(--text-color-primary)]">Cadastramento</h3>
+                <p id="info-text-1" class="editable1 text-sm text-[var(--text-color-primary)]">A plataforma oferece um mecanismo de cadastramento de doações, o qual informa detalhes sobre o arrecadamento.</p>
             </div>
             <div class="flex-1 min-w-[200px] flex flex-col items-center">
                 <div class="bg-[var(--text-color-primary)] rounded-full p-4 mx-auto w-24 h-24 flex items-center justify-center mb-4">
@@ -517,8 +549,8 @@
                         <circle cx="20" cy="10" r="2"/>
                     </svg>
                 </div>
-                <h3 id="info-title-2" class="editable1 font-bold text-lg mb-2 text-[var(--text-color-secondary)]">Equipe médica</h3>
-                <p id="info-text-2" class="editable1 text-sm text-[var(--text-color-secondary)]">Temos uma área dedicada aos perigos e cuidados médicos, assim como os principais contatos em caso de uma emergência.</p>
+                <h3 id="info-title-2" class="editable1 font-bold text-lg mb-2 text-[var(--text-color-primary)]">Equipe médica</h3>
+                <p id="info-text-2" class="editable1 text-sm text-[var(--text-color-primary)]">Temos uma área dedicada aos perigos e cuidados médicos, assim como os principais contatos em caso de uma emergência.</p>
             </div>
             <div class="flex-1 min-w-[200px] flex flex-col items-center">
                 <div class="bg-[var(--text-color-primary)] rounded-full p-4 mx-auto w-24 h-24 flex items-center justify-center mb-4">
@@ -531,8 +563,8 @@
                         <circle cx="12" cy="12" r="3" />
                     </svg>
                 </div>
-                <h3 id="info-title-3" class="editable1 font-bold text-lg mb-2 text-[var(--text-color-secondary)]">Postos de coleta</h3>
-                <p id="info-text-3" class="editable1 text-sm text-[var(--text-color-secondary)]">Locais de coleta de doações organizados para fornecer informações claras e precisa para o usuário.</p>
+                <h3 id="info-title-3" class="editable1 font-bold text-lg mb-2 text-[var(--text-color-primary)]">Postos de coleta</h3>
+                <p id="info-text-3" class="editable1 text-sm text-[var(--text-color-primary)]">Locais de coleta de doações organizados para fornecer informações claras e precisa para o usuário.</p>
             </div>
             <div class="flex-1 min-w-[200px] flex flex-col items-center">
                 <div class="bg-[var(--text-color-primary)] rounded-full p-4 mx-auto w-24 h-24 flex items-center justify-center mb-4">
@@ -541,8 +573,8 @@
                         <path d="m21 21-4.3-4.3"/>
                     </svg>
                 </div>
-                <h3 id="info-title-4" class="editable1 font-bold text-lg mb-2 text-[var(--text-color-secondary)]">Rastreamento</h3>
-                <p id="info-text-4" class="editable1 text-sm text-[var(--text-color-secondary)]">O usuário poderá saber em tempo real, as parcerias, dados financeiros em relação a arrecadação das doações.</p>
+                <h3 id="info-title-4" class="editable1 font-bold text-lg mb-2 text-[var(--text-color-primary)]">Rastreamento</h3>
+                <p id="info-text-4" class="editable1 text-sm text-[var(--text-color-primary)]">O usuário poderá saber em tempo real, as parcerias, dados financeiros em relação a arrecadação das doações.</p>
             </div>
         </div>
     </section>
