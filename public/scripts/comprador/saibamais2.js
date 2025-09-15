@@ -540,38 +540,58 @@ let itemCounters = {
     });
         }
 
-        function createSavedTimelineCard(yearData) {
-            const contentContainer = document.getElementById('timeline-content-container');
+function createSavedTimelineCard(yearData) {
+    const contentContainer = document.getElementById('timeline-content-container');
+    
+    const cardDiv = document.createElement('div');
+    cardDiv.classList.add('timeline-content-grid');
+    cardDiv.setAttribute('data-year-id', yearData.id);
+    cardDiv.style.display = 'none';
+    
+    const infoItems = [];
+    if (yearData.marco) infoItems.push(`<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;"><i class="bi bi-award" style="color: #D4AF88;"></i> <span>${yearData.marco}</span></div>`);
+    if (yearData.projeto) infoItems.push(`<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;"><i class="bi bi-briefcase" style="color: #D4AF88;"></i> <span>${yearData.projeto}</span></div>`);
+    if (yearData.premio) infoItems.push(`<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;"><i class="bi bi-trophy" style="color: #D4AF88;"></i> <span>${yearData.premio}</span></div>`);
+    
+    cardDiv.innerHTML = `
+        <div class="timeline-content-card">
+            <div class="edit-controls">
+                <button class="action-btn btn-edit" onclick="editTimelineContent(${yearData.id})">Editar</button>
+                <button class="action-btn btn-delete" onclick="deleteTimelineYear(${yearData.id})">Deletar</button>
+            </div>
+            <div class="timeline-image" id="timeline-image-${yearData.id}">
+                ${yearData.image ? `<img src="${yearData.image}" class="small-standard-image">` : '<div style="color: #888; text-align: center;">Sem imagem</div>'}
+            </div>
+        </div>
+        
+        <div class="timeline-details">
+            <h4 style="color: white; margin-bottom: 20px; text-align: center;">${yearData.year}</h4>
             
-            const cardDiv = document.createElement('div');
-            cardDiv.classList.add('timeline-content-grid');
-            cardDiv.setAttribute('data-year-id', yearData.id);
-            cardDiv.style.display = 'none';
-            
-            const infoItems = [];
-            if (yearData.marco) infoItems.push(`<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;"><i class="bi bi-award" style="color: #D4AF88;"></i> <span>${yearData.marco}</span></div>`);
-            if (yearData.projeto) infoItems.push(`<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;"><i class="bi bi-briefcase" style="color: #D4AF88;"></i> <span>${yearData.projeto}</span></div>`);
-            if (yearData.premio) infoItems.push(`<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;"><i class="bi bi-trophy" style="color: #D4AF88;"></i> <span>${yearData.premio}</span></div>`);
-            
-            cardDiv.innerHTML = `
-                <div class="timeline-content-card">
-                    <div class="edit-controls">
-                        <button class="action-btn btn-edit" onclick="editTimelineContent(${yearData.id})">Editar</button>
-                        <button class="action-btn btn-delete" onclick="deleteTimelineYear(${yearData.id})">Deletar</button>
+            <!-- Legenda dos ícones -->
+            <div class="timeline-legend">
+                <h5>Legenda:</h5>
+                <div class="timeline-legend-items">
+                    <div class="timeline-legend-item">
+                        <i class="bi bi-award"></i>
+                        <span>Marco Importante</span>
                     </div>
-                    <div class="timeline-image" id="timeline-image-${yearData.id}">
-                        ${yearData.image ? `<img src="${yearData.image}" class="small-standard-image">` : '<div style="color: #888; text-align: center;">Sem imagem</div>'}
+                    <div class="timeline-legend-item">
+                        <i class="bi bi-briefcase"></i>
+                        <span>Projeto Importante</span>
+                    </div>
+                    <div class="timeline-legend-item">
+                        <i class="bi bi-trophy"></i>
+                        <span>Prêmio/Certificação</span>
                     </div>
                 </div>
-                
-                <div class="timeline-details">
-                    <h4 style="color: white; margin-bottom: 20px; text-align: center;">${yearData.year}</h4>
-                    ${infoItems.length > 0 ? infoItems.join('') : '<div style="color: rgba(255,255,255,0.7); text-align: center;">Nenhuma informação adicionada</div>'}
-                </div>
-            `;
+            </div>
             
-            contentContainer.appendChild(cardDiv);
-        }
+            ${infoItems.length > 0 ? infoItems.join('') : '<div style="color: rgba(255,255,255,0.7); text-align: center;">Nenhuma informação adicionada</div>'}
+        </div>
+    `;
+    
+    contentContainer.appendChild(cardDiv);
+}
 
         function showTimelineContent(yearId) {
             const allCards = document.querySelectorAll('[data-year-id]');
