@@ -24,9 +24,9 @@ body {
 }
 
 .container {
-  max-width: calc(100vw - 300px);
-  margin: 0 150px;
-  padding: 0 20px;
+ margin-left: 150px;
+ margin-right: 150px;
+
 }
 
 :root {
@@ -66,7 +66,7 @@ body {
 .hero .container {
   display: grid;
   align-items: center;
-  gap: 2rem;
+  gap: 12rem !important;
 }
 @media (min-width: 992px) {
   .hero .container {
@@ -77,7 +77,7 @@ body {
   }
 }
 .hero-text {
-  text-align: center;
+  text-align: left;
   z-index: 2;
 }
 .hero-text h1 {
@@ -85,6 +85,7 @@ body {
   font-size: clamp(3rem, 6vw, 4.5rem);
   font-weight: 700;
   line-height: 1.1;
+  text-align: left;
   margin-bottom: 1rem;
   color: var(--text-dark);
 }
@@ -159,7 +160,7 @@ body {
 }
 .problem-2 {
   bottom: 10%;
-  left: 20%;
+  right: 70%;
   animation-delay: -3s;
 }
 .problem-3 {
@@ -174,23 +175,42 @@ body {
   right: 0;
   animation-delay: -2s;
 }
+
+#mockup-dashboard:hover{
+  z-index: 4;
+}
+
 #mockup-mapa {
   width: 300px;
   bottom: 0;
   right: 5%;
   animation-delay: -5s;
 }
+
+#mockup-mapa:hover{
+  z-index: 4;
+}
+
 #mockup-transparencia {
   width: 280px;
   top: 50%;
   left: -20px;
   animation-delay: -4s;
 }
+
+#mockup-transparencia:hover{
+  z-index: 4;
+}
+
 #mockup-historico {
   width: 250px;
   bottom: 20%;
   left: 25%;
   animation-delay: -6s;
+}
+
+#mockup-historico:hover{
+  z-index: 4;
 }
 
 /* === DETAILED MOCKUPS (FEATURES) === */
@@ -1202,7 +1222,7 @@ body {
 
 .features .feature-visual {
   flex: 1;
-  background: linear-gradient(135deg, #f8f6f4 0%, #f0ede8 100%);
+  background: transparent !important;
   border-radius: 20px;
   min-height: 280px;
   display: flex;
@@ -1213,7 +1233,7 @@ body {
   font-size: 1.2rem;
   position: relative;
   overflow: hidden;
-  border: 2px solid rgba(139, 69, 19, 0.15);
+ 
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1225,12 +1245,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    45deg,
-    transparent 0%,
-    rgba(139, 69, 19, 0.05) 50%,
-    transparent 100%
-  );
+  background: transparent !important;
   opacity: 0;
   transition: opacity 0.4s ease;
 }
