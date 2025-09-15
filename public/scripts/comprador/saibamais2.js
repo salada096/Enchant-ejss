@@ -566,27 +566,26 @@ function createSavedTimelineCard(yearData) {
         
         <div class="timeline-details">
             <h4 style="color: white; margin-bottom: 20px; text-align: center;">${yearData.year}</h4>
-            
-            <!-- Legenda dos ícones -->
-            <div class="timeline-legend">
-                <h5>Legenda:</h5>
-                <div class="timeline-legend-items">
-                    <div class="timeline-legend-item">
-                        <i class="bi bi-award"></i>
-                        <span>Marco Importante</span>
-                    </div>
-                    <div class="timeline-legend-item">
-                        <i class="bi bi-briefcase"></i>
-                        <span>Projeto Importante</span>
-                    </div>
-                    <div class="timeline-legend-item">
-                        <i class="bi bi-trophy"></i>
-                        <span>Prêmio/Certificação</span>
-                    </div>
+            ${infoItems.length > 0 ? infoItems.join('') : '<div style="color: rgba(255,255,255,0.7); text-align: center;">Nenhuma informação adicionada</div>'}
+        </div>
+        
+        <!-- Legenda externa (fora do campo escuro) -->
+        <div class="timeline-external-legend">
+            <h5>Legenda:</h5>
+            <div class="timeline-external-legend-items">
+                <div class="timeline-external-legend-item">
+                    <i class="bi bi-award"></i>
+                    <span>Marco Importante</span>
+                </div>
+                <div class="timeline-external-legend-item">
+                    <i class="bi bi-briefcase"></i>
+                    <span>Projeto Importante</span>
+                </div>
+                <div class="timeline-external-legend-item">
+                    <i class="bi bi-trophy"></i>
+                    <span>Prêmio/Certificação</span>
                 </div>
             </div>
-            
-            ${infoItems.length > 0 ? infoItems.join('') : '<div style="color: rgba(255,255,255,0.7); text-align: center;">Nenhuma informação adicionada</div>'}
         </div>
     `;
     

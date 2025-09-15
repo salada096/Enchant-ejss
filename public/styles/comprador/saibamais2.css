@@ -9,6 +9,7 @@
 
 .sidebar-saibamais{
     margin-top: 40px;
+
 }
 
 html, body {
@@ -313,12 +314,7 @@ h2 {
     cursor: pointer;
 }
 
-.timeline-marker.active {
-    width: 15px;
-    height: 15px;
-    background-color: #693B11;
-    border-radius: 50%;
-}
+
 
 .timeline-marker.inactive {
     width: 12px;
@@ -1050,113 +1046,202 @@ h2 {
     }
 }
 
-/* Legenda da Timeline */
-.timeline-legend {
-    background-color: rgba(255,255,255,0.1) !important;
-    border-radius: 8px !important;
-    padding: 15px !important;
-    margin-bottom: 20px !important;
-    border: 1px solid rgba(255,255,255,0.2);
+
+
+
+/* Modificações para mover apenas a legenda da timeline para fora e embaixo */
+
+/* Manter o grid original da timeline */
+.timeline-content-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+    margin-top: 30px;
+    position: relative;
 }
 
-.timeline-legend h5 {
-    color: white !important;
-    margin-bottom: 10px !important;
+/* Manter o timeline-details original */
+.timeline-details {
+    background-color: #693B11;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Remover a legenda de dentro do timeline-details e posicioná-la fora */
+.timeline-details .timeline-legend {
+    display: none; /* Esconder a legenda que está dentro */
+}
+
+/* Criar uma nova legenda fora do timeline-details */
+.timeline-content-grid::after {
+    content: '';
+    grid-column: 1 / -1;
+    height: 0;
+    position: relative;
+}
+
+/* Nova legenda posicionada fora e embaixo */
+.timeline-external-legend {
+    grid-column: 1 / -1;
+    background-color: #f8f9fa !important;
+    border: 1px solid #E2CCAE !important;
+    border-radius: 8px !important;
+    padding: 20px !important;
+    margin-top: 20px !important;
+    margin-bottom: 0 !important;
+}
+
+.timeline-external-legend h5 {
+    color: #693B11 !important;
+    margin-bottom: 15px !important;
     text-align: center !important;
-    font-size: 14px !important;
+    font-size: 16px !important;
     font-weight: 600;
     font-family: "Lexend Deca", sans-serif;
 }
 
-.timeline-legend-items {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    font-size: 12px;
+.timeline-external-legend-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    font-size: 14px;
 }
 
-.timeline-legend-item {
+.timeline-external-legend-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 5px 8px;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
+    gap: 10px;
+    padding: 8px 12px;
+    background-color: white;
+    border: 1px solid #E2CCAE;
+    border-radius: 6px;
+    transition: all 0.2s ease;
 }
 
-.timeline-legend-item:hover {
-    background-color: rgba(255,255,255,0.05);
+.timeline-external-legend-item:hover {
+    background-color: #f0f0f0;
+    border-color: #D4AF88;
 }
 
-.timeline-legend-item i {
+.timeline-external-legend-item i {
     color: #D4AF88 !important;
-    width: 16px !important;
+    width: 18px !important;
     flex-shrink: 0;
+    font-size: 16px;
 }
 
-.timeline-legend-item span {
-    color: rgba(255,255,255,0.9) !important;
-    font-size: 12px;
+.timeline-external-legend-item span {
+    color: #693B11 !important;
+    font-size: 14px;
     line-height: 1.3;
+    font-weight: 500;
 }
 
-/* Responsividade da legenda */
+/* Responsividade da legenda externa */
+@media (max-width: 991px) {
+    .timeline-content-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .timeline-details {
+        order: -1;
+    }
+    
+    .timeline-external-legend-items {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}
+
 @media (max-width: 767px) {
-    .timeline-legend {
-        padding: 12px !important;
-        margin-bottom: 15px !important;
+    .timeline-external-legend {
+        padding: 15px !important;
+        margin-top: 15px !important;
     }
     
-    .timeline-legend h5 {
+    .timeline-external-legend h5 {
+        font-size: 14px !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .timeline-external-legend-items {
+        gap: 8px;
+        font-size: 13px;
+    }
+    
+    .timeline-external-legend-item {
+        gap: 8px;
+        padding: 6px 10px;
+    }
+    
+    .timeline-external-legend-item i {
+        width: 16px !important;
+        font-size: 14px;
+    }
+    
+    .timeline-external-legend-item span {
         font-size: 13px !important;
-        margin-bottom: 8px !important;
+    }
+}
+
+@media (max-width: 575px) {
+    .timeline-external-legend {
+        padding: 12px !important;
     }
     
-    .timeline-legend-items {
+    .timeline-external-legend h5 {
+        font-size: 13px !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .timeline-external-legend-items {
         gap: 6px;
-        font-size: 11px;
+        font-size: 12px;
     }
     
-    .timeline-legend-item {
+    .timeline-external-legend-item {
         gap: 6px;
-        padding: 4px 6px;
+        padding: 5px 8px;
     }
     
-    .timeline-legend-item i {
+    .timeline-external-legend-item i {
         width: 14px !important;
+        font-size: 13px;
     }
     
-    .timeline-legend-item span {
-        font-size: 11px !important;
+    .timeline-external-legend-item span {
+        font-size: 12px !important;
     }
 }
 
 @media (max-width: 400px) {
-    .timeline-legend {
+    .timeline-external-legend {
         padding: 10px !important;
-        margin-bottom: 12px !important;
     }
     
-    .timeline-legend h5 {
+    .timeline-external-legend h5 {
         font-size: 12px !important;
-        margin-bottom: 6px !important;
+        margin-bottom: 8px !important;
     }
     
-    .timeline-legend-items {
+    .timeline-external-legend-items {
         gap: 5px;
-        font-size: 10px;
+        font-size: 11px;
     }
     
-    .timeline-legend-item {
+    .timeline-external-legend-item {
         gap: 5px;
-        padding: 3px 5px;
+        padding: 4px 6px;
     }
     
-    .timeline-legend-item i {
+    .timeline-external-legend-item i {
         width: 12px !important;
+        font-size: 12px;
     }
     
-    .timeline-legend-item span {
-        font-size: 10px !important;
+    .timeline-external-legend-item span {
+        font-size: 11px !important;
     }
 }
