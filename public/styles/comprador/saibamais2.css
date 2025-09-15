@@ -239,7 +239,7 @@ h2 {
 }
 
 .card-filled {
-    background-color: #E2CCAE;
+    background-color: #CCCCCC;
     flex-direction: column;
     padding: 20px;
     text-align: center;
@@ -1244,4 +1244,72 @@ h2 {
     .timeline-external-legend-item span {
         font-size: 11px !important;
     }
+}
+
+
+
+
+
+
+/* Estilo para descrição dos certificados quando salvos (sem tracejado) */
+.card-description-saved {
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    min-height: 80px;
+    border: none; /* Remove completamente a borda */
+}
+
+.card-description-saved h4 {
+    color: #693B11;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.card-description-saved p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Manter o estilo original para modo de edição */
+.card-description {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    min-height: 80px;
+    border: 1px dashed #CCCCCC; /* Tracejado mantido apenas no modo de edição */
+}
+
+.card-description h4 {
+    color: #693B11;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.card-description p {
+    color: #888;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Estilos para inputs no modo de edição */
+.card-description input,
+.card-description textarea {
+    border: none;
+    background: transparent;
+    width: 100%;
+    min-width: 0;
+    outline: none;
+    resize: vertical;
+}
+
+.card-description input:focus,
+.card-description textarea:focus {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+    padding: 4px;
 }

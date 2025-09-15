@@ -312,79 +312,78 @@ let itemCounters = {
             });
         }
 
-        function saveCertificadoContent(index) {
-            const titleElement = document.getElementById(`certificado-title-${index}`);
-            const descElement = document.getElementById(`certificado-desc-${index}`);
-            
-            const title = titleElement.value.trim();
-            const desc = descElement.value.trim();
-            
-            if (!title) {
-                alert('Por favor, adicione um título.');
-                return;
+function saveCertificadoContent(index) {
+    const titleElement = document.getElementById(`certificado-title-${index}`);
+    const descElement = document.getElementById(`certificado-desc-${index}`);
+    
+    const title = titleElement.value.trim();
+    const desc = descElement.value.trim();
+    
+    if (!title) {
+        alert('Por favor, adicione um título.');
+        return;
+    }
+    
+    // Converter para visualização salva
+    const container = document.querySelector(`#certificados-container [data-index="${index}"]`);
+    const imageHtml = container.querySelector(`#certificado-image-${index}`).innerHTML;
+    
+    container.innerHTML = `
+        <div class="edit-controls">
+            <button class="action-btn btn-edit" onclick="editCertificado(${index})">Editar</button>
+            <button class="action-btn btn-delete" onclick="deleteCertificado(${index})">Deletar</button>
+        </div>
+        <div class="card-filled" id="certificado-image-${index}">
+            ${imageHtml}
+        </div>
+        <div class="card-description-saved">
+            <h4 style="color: #693B11; font-size: 24px; font-weight: 400; margin-bottom: 8px;">${title}</h4>
+            <p style="color: #666; font-size: 14px; line-height: 1.4;">${desc}</p>
+        </div>
+    `;
+}
+function editCertificado(index) {
+    const container = document.querySelector(`#certificados-container [data-index="${index}"]`);
+    const currentTitle = container.querySelector('h4') ? container.querySelector('h4').textContent : '';
+    const currentDesc = container.querySelector('p') ? container.querySelector('p').textContent : '';
+    const imageHtml = container.querySelector(`#certificado-image-${index}`).innerHTML;
+    
+    container.innerHTML = `
+        <div class="card-placeholder" id="certificado-image-${index}" onclick="document.getElementById('certificado-file-${index}').click()">
+            ${imageHtml}
+            <input type="file" id="certificado-file-${index}" style="display: none;" accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+        </div>
+        <div class="card-description">
+            <input type="text" class="input-field" value="${currentTitle}" id="certificado-title-${index}" style="font-size: 14px; font-weight: 400; color: #693B11; margin-bottom: 8px; border: none; background: transparent;" placeholder="Adicione o nome do certificado ou premiação">
+            <textarea class="input-field" id="certificado-desc-${index}" style="font-size: 14px; color: #666; line-height: 1.4; border: none; background: transparent; min-height: 60px;" placeholder="Aqui você pode adicionar o nome da organização que forneceu o título e/ou falar sobre a conquista...">${currentDesc}</textarea>
+            <div class="image-size-hint">Tamanho recomendado: 300x200px</div>
+            <div style="margin-top: 10px;">
+                <button class="btn-save" onclick="saveCertificadoContent(${index})">Salvar</button>
+            </div>
+        </div>
+    `;
+    
+    // Re-adicionar event listener
+    document.getElementById(`certificado-file-${index}`).addEventListener('change', function() {
+        if (this.files[0]) {
+            const imageContainer = document.getElementById(`certificado-image-${index}`);
+            const file = this.files[0];
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageContainer.innerHTML = `<img src="${e.target.result}" class="small-standard-image">`;
+                    imageContainer.classList.remove('card-placeholder');
+                    imageContainer.classList.add('card-filled');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imageContainer.innerHTML = `<div style='color:#693B11;text-align:center;'><i class='bi bi-file-earmark-pdf' style='font-size:24px;'></i><div style='font-size:12px;'>${file.name}</div></div>`;
+                imageContainer.classList.remove('card-placeholder');
+                imageContainer.classList.add('card-filled');
             }
-            
-            // Converter para visualização salva
-            const container = document.querySelector(`#certificados-container [data-index="${index}"]`);
-            const imageHtml = container.querySelector(`#certificado-image-${index}`).innerHTML;
-            
-            container.innerHTML = `
-                <div class="edit-controls">
-                    <button class="action-btn btn-edit" onclick="editCertificado(${index})">Editar</button>
-                    <button class="action-btn btn-delete" onclick="deleteCertificado(${index})">Deletar</button>
-                </div>
-                <div class="card-filled" id="certificado-image-${index}">
-                    ${imageHtml}
-                </div>
-                <div class="card-description">
-                    <h4 style="color: #693B11; font-size: 24px; font-weight: 400; margin-bottom: 8px;">${title}</h4>
-                    <p style="color: #888; font-size: 16px; line-height: 1.4;">${desc}</p>
-                </div>
-            `;
         }
-
-        function editCertificado(index) {
-            const container = document.querySelector(`#certificados-container [data-index="${index}"]`);
-            const currentTitle = container.querySelector('h4') ? container.querySelector('h4').textContent : '';
-            const currentDesc = container.querySelector('p') ? container.querySelector('p').textContent : '';
-            const imageHtml = container.querySelector(`#certificado-image-${index}`).innerHTML;
-            
-            container.innerHTML = `
-                <div class="card-placeholder" id="certificado-image-${index}" onclick="document.getElementById('certificado-file-${index}').click()">
-                    ${imageHtml}
-                    <input type="file" id="certificado-file-${index}" style="display: none;" accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-                </div>
-                <div class="card-description">
-                    <input type="text" class="input-field" value="${currentTitle}" id="certificado-title-${index}" style="font-size: 24px; font-weight: 600; color: #693B11; margin-bottom: 8px; border: none; background: transparent;">
-                    <textarea class="input-field" id="certificado-desc-${index}" style="font-size: 12px; color: #888; line-height: 1.4; border: 1px dashed #ddd; min-height: 60px;">${currentDesc}</textarea>
-                    <div class="image-size-hint">Tamanho recomendado: 300x200px</div>
-                    <div style="margin-top: 10px;">
-                        <button class="btn-save" onclick="saveCertificadoContent(${index})">Salvar</button>
-                    </div>
-                </div>
-            `;
-            
-            // Re-adicionar event listener
-            document.getElementById(`certificado-file-${index}`).addEventListener('change', function() {
-                if (this.files[0]) {
-                    const imageContainer = document.getElementById(`certificado-image-${index}`);
-                    const file = this.files[0];
-                    if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            imageContainer.innerHTML = `<img src="${e.target.result}" class="small-standard-image">`;
-                            imageContainer.classList.remove('card-placeholder');
-                            imageContainer.classList.add('card-filled');
-                        };
-                        reader.readAsDataURL(file);
-                    } else {
-                        imageContainer.innerHTML = `<div style='color:#693B11;text-align:center;'><i class='bi bi-file-earmark-pdf' style='font-size:24px;'></i><div style='font-size:12px;'>${file.name}</div></div>`;
-                        imageContainer.classList.remove('card-placeholder');
-                        imageContainer.classList.add('card-filled');
-                    }
-                }
-            });
-        }
+    });
+}
 
         // --- TIMELINE ---
         function initializeTimeline() {
