@@ -108,19 +108,22 @@ h1 {
 }
 
 .upload-button {
-  background-color: #e2ccae;
-  color: #693b11;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 22px;
+    border-radius: 10px;
+    background: #EDD9C7;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+    text-decoration: none;
+    transition: background 0.3s;
+    font-size: 14px;
+    border: none;
 }
 
 .upload-button:hover {
-  background-color: #d4b896;
+      background-color: #caae8d !important;
+    color: #3d2106 !important;
 }
 
 .file-input {
@@ -381,19 +384,22 @@ textarea.saved:hover {
 }
 
 .botao-salvar {
-  border: none;
-  background-color: #e2ccae;
-  color: #693b11;
-  font-weight: 700;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 22px;
+    border-radius: 10px;
+    background: #EDD9C7;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+    text-decoration: none;
+    transition: background 0.3s;
+    font-size: 14px;
+    border: none;
 }
 
 .botao-salvar:hover {
-  background-color: #d4b896;
+    background-color: #caae8d;
+    color: #3d2106;
 }
 
 .botao-salvar.has-changes {
