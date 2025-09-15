@@ -1,4 +1,4 @@
-  @import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap");
+   @import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap");
         @import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
 
         :root {
@@ -185,29 +185,29 @@
         }
         
         .carousel-item1.active {
-            width: 120px;
+            width: 280px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             transform: none !important;
         }
-
+        
         @media (min-width: 769px) {
             .carousel-item1.active {
-                width: 150px;
+                width: 320px;
             }
         }
         @media (min-width: 1024px) {
             .carousel-item1.active {
-                width: 180px;
+                width: 400px;
             }
         }
         @media (min-width: 1280px) {
             .carousel-item1.active {
-                width: 200px;
+                width: 450px;
             }
         }
         @media (min-width: 1536px) {
             .carousel-item1.active {
-                width: 200px;
+                width: 500px;
             }
         }
 

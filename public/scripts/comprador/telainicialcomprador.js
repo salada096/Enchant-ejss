@@ -261,6 +261,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Lógica para o dropdown de cadastro
+    const cadastroToggle = document.getElementById('cadastroToggle');
+    const cadastroDropdown = document.getElementById('cadastroDropdown');
+
+    if (cadastroToggle && cadastroDropdown) {
+        cadastroToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            cadastroDropdown.style.display = cadastroDropdown.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!cadastroToggle.contains(e.target) && !cadastroDropdown.contains(e.target)) {
+                cadastroDropdown.style.display = 'none';
+            }
+        });
+    }
+
     // Lazy loading para imagens do carrossel se necessário
     const observerOptions = {
         root: null,

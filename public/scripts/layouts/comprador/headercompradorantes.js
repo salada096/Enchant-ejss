@@ -137,6 +137,12 @@
                         transition: color 0.2s;
                     }
 
+                    .left-section {
+                        display: flex;
+                        align-items: center;
+                        margin-left: 20px;
+                    }
+
                     .right-section {
                         display: flex;
                         align-items: center;
@@ -211,8 +217,72 @@
                         font-size: 16px;
                     }
 
+                    .cadastro-section {
+                        position: relative;
+                    }
+
+                    .cadastro-button {
+                        background: none;
+                        border: none;
+                        color: var(--text-color);
+                        text-decoration: none;
+                        font-size: 14px;
+                        font-weight: 400;
+                        cursor: pointer;
+                        transition: color 0.2s;
+                        padding: 0;
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                    }
+
+                    .cadastro-button:hover {
+                        color: var(--accent-color);
+                    }
+
+                    .cadastro-button i {
+                        transition: transform 0.3s ease;
+                    }
+
+                    .cadastro-button.open i {
+                        transform: rotate(180deg);
+                    }
+
+                    .cadastro-dropdown {
+                        position: absolute;
+                        top: 120%;
+                        left: 0;
+                        background: var(--light-bg);
+                        border-radius: 8px;
+                        padding: 10px;
+                        min-width: 150px;
+                        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                        display: none;
+                        z-index: 1001;
+                    }
+
+                    .cadastro-dropdown.show {
+                        display: block;
+                    }
+
+                    .cadastro-dropdown-item {
+                        display: flex;
+                        align-items: center;
+                        padding: 8px 15px;
+                        text-decoration: none;
+                        color: var(--text-color);
+                        border-radius: 6px;
+                        transition: background-color 0.2s;
+                        font-size: 14px;
+                    }
+
+                    .cadastro-dropdown-item:hover {
+                        background-color: #e0e0e0;
+                        color: var(--text-color);
+                    }
+
                     @media (max-width: 1024px) {
-                        .desktop-nav, .right-section { display: none; }
+                        .desktop-nav, .left-section { display: none; }
                         .sidebar-toggle { display: block; }
                         
                         .header-content {
@@ -272,26 +342,29 @@
                             <button class="sidebar-toggle" id="sidebarToggle">
                                 <i class="bi bi-list"></i>
                             </button>
-                            <a href="/src/views/comprador/dashboard.html"><div class="logo-upload" id="logoUpload"></a>
-                                <div class="logo-preview" id="logoPreview">
-                                </div>
-                            </div>
-                            <div class="right-section">
-                                <nav class="desktop-nav">
-                                    <a href="/src/views/comprador/quemsomos2.html">Quem somos?</a>
-                                    <a href="/src/views/comprador/saibamais2.html">Saiba mais</a>
-                                </nav>
-                                <div class="profile-section">
-                                    <button class="profile-button" id="profileButton">
-                                        <img id="profilePhoto" class="profile-photo" src="" alt="Foto do Usuário">
-                                        <i id="profileIcon" class="bi bi-person-circle profile-icon"></i>
-                                        <span>Nome do Usuário</span>
-                                    </button>
-                                    <div class="profile-dropdown" id="profileDropdown">
-                                        <a class="dropdown-item" href="/src/views/comprador/perfilcomprador.html"><i class="bi bi-person"></i> Perfil</a>
-                                        <a class="dropdown-item" href="/src/views/comprador/telainicialparaocomprador.html"><i class="bi bi-box-arrow-right"></i> Sair</a>
+                            <a href="/src/views/comprador/dashboard.html">
+                                <div class="logo-upload" id="logoUpload">
+                                    <div class="logo-preview" id="logoPreview">
                                     </div>
                                 </div>
+                            </a>
+                            <div class="left-section">
+                                <nav class="desktop-nav">
+                                 <a href="/src/views/comprador/quemsomos2.html">Quem somos?</a>
+                                    <a href="/src/views/comprador/saibamais2.html">Saiba mais</a>
+                                    <a href="/src/views/comprador/entrarcomprador.html">Entrar</a>
+                                    <div class="cadastro-section">
+                                        <button class="cadastro-button" id="cadastroButton">
+                                            Cadastrar
+                                            <i class="bi bi-chevron-down"></i>
+                                        </button>
+                                        <div class="cadastro-dropdown" id="cadastroDropdown">
+                                            <a class="cadastro-dropdown-item" href="/src/views/comprador/cadastrodoador.html">Dador</a>
+                                            <a class="cadastro-dropdown-item" href="/src/views/comprador/cadastrodonatario1.html">Donatário</a>
+                                        </div>
+                                    </div>
+                                   
+                                </nav>
                             </div>
                         </div>
                     </header>
@@ -310,7 +383,9 @@
                         this.sidebarToggle = document.getElementById('sidebarToggle');
                         this.profileButton = document.getElementById('profileButton');
                         this.profileDropdown = document.getElementById('profileDropdown');
-                        
+                        this.cadastroButton = document.getElementById('cadastroButton');
+                        this.cadastroDropdown = document.getElementById('cadastroDropdown');
+
                         this.init();
                     }
 
@@ -326,13 +401,25 @@
                                 toggleSidebar();
                             }
                         });
-                        
+
                         this.profileButton.addEventListener('click', (e) => {
                             e.stopPropagation();
                             this.toggleProfileDropdown();
                         });
-                        
+
+                        this.cadastroButton.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            this.toggleCadastroDropdown();
+                        });
+
+                        // Initialize dropdown as hidden
+                        this.cadastroDropdown.style.display = 'none';
+
                         document.addEventListener('click', (e) => {
+                            if (!this.cadastroButton.contains(e.target) && !this.cadastroDropdown.contains(e.target)) {
+                                this.cadastroDropdown.style.display = 'none';
+                                this.cadastroButton.classList.remove('open');
+                            }
                             if (!this.profileButton.contains(e.target) && !this.profileDropdown.contains(e.target)) {
                                 this.profileDropdown.classList.remove('show');
                             }
@@ -341,6 +428,16 @@
 
                     toggleProfileDropdown() {
                         this.profileDropdown.classList.toggle('show');
+                    }
+
+                    toggleCadastroDropdown() {
+                        if (this.cadastroDropdown.style.display === 'block') {
+                            this.cadastroDropdown.style.display = 'none';
+                            this.cadastroButton.classList.remove('open');
+                        } else {
+                            this.cadastroDropdown.style.display = 'block';
+                            this.cadastroButton.classList.add('open');
+                        }
                     }
 
                     setupImageUploads() {
