@@ -653,6 +653,12 @@ h2 {
 
 /* Tablet - 768px a 991px */
 @media (max-width: 991px) {
+
+.sidebar-saibamais {
+    margin-top: 40px;
+    order: -1;
+}
+
     .main-container {
         margin: 0 30px;
         flex-direction: column;
@@ -751,6 +757,12 @@ h2 {
 
 /* Mobile grande - 576px a 767px */
 @media (max-width: 767px) {
+
+.sidebar-saibamais {
+    margin-top: 40px;
+    order: -1;
+}
+
     .main-container {
         margin: 0 20px;
     }

@@ -679,7 +679,7 @@ let itemCounters = {
                         estatutoImage.innerHTML = `
                             <div style="color: #693B11; text-align: center;">
                                 <i class="bi bi-file-earmark-pdf" style="font-size: 24px; margin-bottom: 5px;"></i>
-                                <div style="font-size: 12px;">${file.name}</div>
+                                <div style="font-size: 16px;">${file.name}</div>
                             </div>
                         `;
                     }
