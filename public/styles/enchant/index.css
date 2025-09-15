@@ -69,6 +69,13 @@ body {
   gap: 12rem !important;
 }
 @media (min-width: 992px) {
+
+.hero .container {
+  display: grid;
+  align-items: center;
+  gap: 1rem !important;
+}
+
   .hero .container {
     grid-template-columns: 1fr 1.1fr;
   }
@@ -100,6 +107,12 @@ body {
   .hero-text p {
     margin-left: 0;
   }
+
+  .hero .container {
+  display: grid;
+  align-items: center;
+  gap: 12rem !important;
+}
 }
 .hero .cta-button {
   padding: 14px 35px;
@@ -402,6 +415,12 @@ body {
 }
 
 @media (max-width: 991px) {
+
+  .hero .container {
+  display: grid;
+  align-items: center;
+  gap: 0 !important;
+} 
   .detailed-mockup-content {
     transform: scale(0.55);
   }
@@ -412,6 +431,24 @@ body {
   .problem-bubble {
     transform: scale(0.8);
   }
+
+.problem-1 {
+  top: 5%;
+  left: 0;
+  animation-delay: -1s;
+}
+.problem-2 {
+  bottom: 10%;
+  right: 70%;
+  animation-delay: -3s;
+}
+.problem-3 {
+  top: 65%;
+  right: -20px;
+  animation-delay: -5s;
+}
+
+
 }
 @media (max-width: 767px) {
   .detailed-mockup-content {
@@ -422,9 +459,7 @@ body {
     transform: scale(0.8);
     margin-top: -20px;
   }
-  .problem-3 {
-    display: none;
-  } /* Oculta a terceira frase em telas pequenas */
+
 }
 @media (max-width: 480px) {
   .detailed-mockup-content {
