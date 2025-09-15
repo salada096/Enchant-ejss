@@ -173,7 +173,7 @@ h2 {
 }
 
 .relatorio-image-placeholder {
-    background-color: #E2CCAE;
+    background-color: #CCCCCC;
     border-radius: 10px;
     min-height: 150px;
     display: flex;
@@ -453,7 +453,7 @@ h2 {
 }
 
 .estatuto-image {
-    background-color: #E2CCAE;
+    background-color: #CCCCCC;
     border-radius: 10px;
     min-height: 120px;
     display: flex;
