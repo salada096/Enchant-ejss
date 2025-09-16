@@ -129,6 +129,12 @@
                         margin-right: 2rem;
                     }
 
+                    @media (max-width: 1024px) {
+                        .desktop-nav {
+                            display: none;
+                        }
+                    }
+
                     .desktop-nav a {
                         color: var(--text-color);
                         text-decoration: none;
@@ -281,16 +287,51 @@
                         color: var(--text-color);
                     }
 
+                    .btn-brown,
+                    #doeagora {
+                        background-color: rgba(226, 204, 174, 1);
+                        border-color: rgba(226, 204, 174, 1);
+                        color: #4E3629;
+                        font-weight: 700;
+                        font-family: "Lexend Deca";
+                        border: 1px solid rgba(226, 204, 174, 1);
+                        border-radius: 4px;
+                        padding: 8px 16px;
+                        cursor: pointer;
+                        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+                    }
+
+                    #doeagora {
+                        font-size: 16px;
+                        width: 9rem;
+                        margin-right: 2rem;
+                    }
+
+                    #doeagora:hover {
+                        background-color: #caae8d;
+                        color: #3d2106;
+                        text-decoration: none;
+                        border-color: #d8b48bce;
+                    }
+
+                    #doeagora:focus {
+                        outline: none;
+                        box-shadow: 0 0 0 2px rgba(226, 204, 174, 0.5);
+                    }
+                    .mobile-menu-container {
+                        display: none;
+                    }
+
                     @media (max-width: 1024px) {
-                        .desktop-nav, .left-section { display: none; }
+                        .desktop-nav, .left-section, .right-section { display: none; }
                         .sidebar-toggle { display: block; }
-                        
+
                         .header-content {
                             position: relative;
                             padding: 0 0.5rem;
                             justify-content: flex-start;
                         }
-                        
+
                         .logo-upload {
                             position: absolute;
                             left: 50%;
@@ -299,8 +340,48 @@
                             width: 180px;
                             margin-right: 0;
                         }
-                        
+
                         .main-header { height: 50px; }
+
+                        .mobile-menu-container {
+                            display: flex;
+                            flex-direction: column;
+                            position: absolute;
+                            top: 100%;
+                            left: 0;
+                            right: 0;
+                            background-color: var(--white);
+                            z-index: 1000;
+                        }
+
+                        .mobile-menu-container .left-section,
+                        .mobile-menu-container .right-section {
+                            display: block;
+                            width: 100%;
+                            padding: 10px;
+                        }
+
+                        .mobile-menu-container .desktop-nav {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                            align-items: flex-start;
+                        }
+
+                        .mobile-menu-container .desktop-nav a {
+                            display: block;
+                            padding: 10px 0;
+                            width: 100%;
+                        }
+
+                        .mobile-menu-container .cadastro-section {
+                            display: block;
+                            width: 100%;
+                        }
+
+                        .mobile-menu-container .right-section {
+                            text-align: left;
+                        }
                     }
 
                     @media (max-width: 768px) {
@@ -350,7 +431,7 @@
                             </a>
                             <div class="left-section">
                                 <nav class="desktop-nav">
-                                 <a href="/src/views/comprador/quemsomos2.html">Quem somos?</a>
+                                    <a href="/src/views/comprador/quemsomos2.html">Quem somos?</a>
                                     <a href="/src/views/comprador/saibamais2.html">Saiba mais</a>
                                     <a href="/src/views/comprador/entrarcomprador.html">Entrar</a>
                                     <div class="cadastro-section">
@@ -363,28 +444,66 @@
                                             <a class="cadastro-dropdown-item" href="/src/views/comprador/cadastrodonatario1.html">Donatário</a>
                                         </div>
                                     </div>
-                                   
                                 </nav>
+                            </div>
+                            <div class="right-section">
+                                <a href="../index.html">
+                                    <button class="btn btn-brown" type="button" id="doeagora">
+                                        Doe agora
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="mobile-menu-container" id="mobileMenuContainer">
+                                <div class="left-section">
+                                    <nav class="desktop-nav">
+                                        <a href="/src/views/comprador/quemsomos2.html">Quem somos?</a>
+                                        <a href="/src/views/comprador/saibamais2.html">Saiba mais</a>
+                                        <a href="/src/views/comprador/entrarcomprador.html">Entrar</a>
+                                        <div class="cadastro-section">
+                                            <button class="cadastro-button" id="cadastroButtonMobile">
+                                                Cadastrar
+                                                <i class="bi bi-chevron-down"></i>
+                                            </button>
+                                            <div class="cadastro-dropdown" id="cadastroDropdownMobile">
+                                                <a class="cadastro-dropdown-item" href="/src/views/comprador/cadastrodoador.html">Dador</a>
+                                                <a class="cadastro-dropdown-item" href="/src/views/comprador/cadastrodonatario1.html">Donatário</a>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                </div>
+                                <div class="right-section">
+                                    <a href="../index.html">
+                                        <button class="btn btn-brown" type="button" id="doeagoraMobile">
+                                            Doe agora
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </header>
                 `;
 
-                const headerContainer = document.createElement('div');
-                headerContainer.id = 'trapp-header-container';
-                headerContainer.innerHTML = headerHTML;
-                
-                document.body.insertBefore(headerContainer, document.body.firstChild);
+                const headerContainer = document.getElementById('header-container');
+                if (headerContainer) {
+                    headerContainer.innerHTML = headerHTML;
+                } else {
+                    const newContainer = document.createElement('div');
+                    newContainer.innerHTML = headerHTML;
+                    document.body.insertBefore(newContainer, document.body.firstChild);
+                }
             }
 
             initializeHeaderScripts() {
                 class HeaderNavigation {
                     constructor() {
                         this.sidebarToggle = document.getElementById('sidebarToggle');
+                        this.mobileMenuContainer = document.getElementById('mobileMenuContainer');
                         this.profileButton = document.getElementById('profileButton');
                         this.profileDropdown = document.getElementById('profileDropdown');
                         this.cadastroButton = document.getElementById('cadastroButton');
                         this.cadastroDropdown = document.getElementById('cadastroDropdown');
+                        this.cadastroButtonMobile = document.getElementById('cadastroButtonMobile');
+                        this.cadastroDropdownMobile = document.getElementById('cadastroDropdownMobile');
 
                         this.init();
                     }
@@ -396,31 +515,47 @@
                     }
 
                     bindEvents() {
-                        this.sidebarToggle.addEventListener('click', () => {
-                            if (typeof toggleSidebar === 'function') {
-                                toggleSidebar();
-                            }
-                        });
+                        if (this.sidebarToggle && this.mobileMenuContainer) {
+                            this.sidebarToggle.addEventListener('click', () => {
+                                if (this.mobileMenuContainer.style.display === 'block') {
+                                    this.mobileMenuContainer.style.display = 'none';
+                                } else {
+                                    this.mobileMenuContainer.style.display = 'block';
+                                }
+                            });
+                        }
 
-                        this.profileButton.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            this.toggleProfileDropdown();
-                        });
+                        if (this.profileButton) {
+                            this.profileButton.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                this.toggleProfileDropdown();
+                            });
+                        }
 
-                        this.cadastroButton.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            this.toggleCadastroDropdown();
-                        });
+                        if (this.cadastroButton) {
+                            this.cadastroButton.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                this.toggleCadastroDropdown();
+                            });
+                        }
 
-                        // Initialize dropdown as hidden
-                        this.cadastroDropdown.style.display = 'none';
+                        if (this.cadastroButtonMobile) {
+                            this.cadastroButtonMobile.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                this.toggleCadastroDropdownMobile();
+                            });
+                        }
 
                         document.addEventListener('click', (e) => {
-                            if (!this.cadastroButton.contains(e.target) && !this.cadastroDropdown.contains(e.target)) {
-                                this.cadastroDropdown.style.display = 'none';
-                                this.cadastroButton.classList.remove('open');
+                            if (this.cadastroButton && this.cadastroDropdown && !this.cadastroButton.contains(e.target) && !this.cadastroDropdown.contains(e.target)) {
+                                this.cadastroDropdown.classList.remove('show');
+                                if (this.cadastroButton) this.cadastroButton.classList.remove('open');
                             }
-                            if (!this.profileButton.contains(e.target) && !this.profileDropdown.contains(e.target)) {
+                            if (this.cadastroButtonMobile && this.cadastroDropdownMobile && !this.cadastroButtonMobile.contains(e.target) && !this.cadastroDropdownMobile.contains(e.target)) {
+                                this.cadastroDropdownMobile.classList.remove('show');
+                                if (this.cadastroButtonMobile) this.cadastroButtonMobile.classList.remove('open');
+                            }
+                            if (this.profileButton && this.profileDropdown && !this.profileButton.contains(e.target) && !this.profileDropdown.contains(e.target)) {
                                 this.profileDropdown.classList.remove('show');
                             }
                         });
@@ -431,12 +566,24 @@
                     }
 
                     toggleCadastroDropdown() {
-                        if (this.cadastroDropdown.style.display === 'block') {
-                            this.cadastroDropdown.style.display = 'none';
+                        const isOpen = this.cadastroDropdown.classList.contains('show');
+                        if (isOpen) {
+                            this.cadastroDropdown.classList.remove('show');
                             this.cadastroButton.classList.remove('open');
                         } else {
-                            this.cadastroDropdown.style.display = 'block';
+                            this.cadastroDropdown.classList.add('show');
                             this.cadastroButton.classList.add('open');
+                        }
+                    }
+
+                    toggleCadastroDropdownMobile() {
+                        const isOpen = this.cadastroDropdownMobile.classList.contains('show');
+                        if (isOpen) {
+                            this.cadastroDropdownMobile.classList.remove('show');
+                            this.cadastroButtonMobile.classList.remove('open');
+                        } else {
+                            this.cadastroDropdownMobile.classList.add('show');
+                            this.cadastroButtonMobile.classList.add('open');
                         }
                     }
 
