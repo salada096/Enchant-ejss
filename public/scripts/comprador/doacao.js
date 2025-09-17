@@ -131,8 +131,8 @@ class SimpleDonationManager {
                 padding: 12px 20px;
                 border-radius: 8px;
                 color: white;
-                font-weight: bold;
                 font-family: 'Lexend Deca', sans-serif;
+              
             }
 
             .feedback-success,
@@ -143,6 +143,7 @@ class SimpleDonationManager {
                 box-shadow:
                 -6px 0 0 rgba(92, 46, 28, 1),
                 10px 5px 20px rgba(0, 0, 0, 0.15);
+                font-size: 14px;
             }
 
             @media (max-width: 768px) {

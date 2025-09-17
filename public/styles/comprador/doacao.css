@@ -160,13 +160,9 @@ main {
   min-height: 570px;
   height: auto;
   margin: 0 auto;
-  background: linear-gradient(to bottom, #dfd1c2f8, #e9e0d9, #f0ebe4);
-  box-shadow: 
-    -8px 8px 30px rgba(155, 125, 85, 0.096),
-    8px -8px 30px rgba(155, 125, 85, 0.096);
-  border: #8f3c1688 solid 1px;
+  background-color: transparent;
+  border: #5c2f1a solid 2px;
   border-radius: 0.5rem;
-  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 /* Imagens nos cards */
@@ -181,7 +177,8 @@ main {
   height: auto;
   aspect-ratio: 4/3; /* Mantém proporção */
   object-fit: cover;
-  border: #965f328a solid 10px;
+  border: #ac8d71 solid 15px;
+  border-radius: 5px;
 }
 
 .imagem {

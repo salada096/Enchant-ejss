@@ -68,7 +68,7 @@
                         display: none;
                     }
 
-                    .logo-upload {
+                    .logo-da-ong {
                         position: relative;
                         background-color: #D3D3D3;
                         border: none;
@@ -79,15 +79,21 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        transition: var(--transition);
                         margin-right: auto;
+                        color: #D3D3D3;
+                    }
+                    
+                    #inicio{
+                       color: #D3D3D3;
+                       justify-content: center;
+                       align-items: center;
                     }
 
-                    .logo-upload input {
+                    .logo-da-ong input {
                         display: none;
                     }
 
-                    .logo-upload i {
+                    .logo-da-ong i {
                         font-size: 1.5rem;
                         color: var(--text-color);
                     }
@@ -221,7 +227,7 @@
                             justify-content: flex-start;
                         }
                         
-                        .logo-upload {
+                        .logo-da-ong {
                             position: absolute;
                             left: 50%;
                             top: 50%;
@@ -234,7 +240,7 @@
                     }
 
                     @media (max-width: 768px) {
-                        .logo-upload { width: 130px; }
+                        .logo-da-ong { width: 130px; }
                         .profile-dropdown { right: -50px; margin-top: 10px; }
                     }
 
@@ -272,8 +278,8 @@
                             <button class="sidebar-toggle" id="sidebarToggle">
                                 <i class="bi bi-list"></i>
                             </button>
-                            <a href="/src/views/comprador/dashboard.html"><div class="logo-upload" id="logoUpload"></a>
-                                <div class="logo-preview" id="logoPreview">
+                            <a href="/src/views/comprador/dashboard.html" id="inicio"><div class="logo-da-ong" id="logoUpload">Inicio-do-site-dashboard</a>
+                                <div class="logo-da-ong">
                                 </div>
                             </div>
                             <div class="right-section">
