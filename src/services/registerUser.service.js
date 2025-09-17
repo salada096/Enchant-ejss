@@ -1,4 +1,5 @@
 import pool from '../db/pool.db.js';
+import slugify from 'slugify';
 
 async function userRegisterPessoaFisica( { nomeCompleto, email, tipo_doador, senha, pessoaCpf, pessoaRg, pessoaTelefone } ) {
     
@@ -43,11 +44,17 @@ async function userRegisterPessoaFisica( { nomeCompleto, email, tipo_doador, sen
 
 async function userRegisterInstituicao( { nomeCompleto, email, tipo_doador, senha, instituicaoTipo, instituicaoCnpj, instituicaoTelefone, instituicaoCep, instituicaoBairro } ) {
     
+    const slug = slugify(nomeCompleto, {
+            lower: true,
+            strict: true,
+            remove: /[*+~.()'"!:@]/g
+    });
+
     try{
     
         const usuarioResult = await pool.query(
             `INSERT INTO usuario (nome, email, senha, documento_numero, documento_tipo, tipo_usuario) 
-            VALUES ($1, $2, $3, $4, 'CNPJ', 'instituicao')
+            VALUES ($1, $2, $3, $4, $5, 'CNPJ', 'instituicao')
             RETURNING id`,
             [nomeCompleto, email, senha, instituicaoCnpj]
         );
@@ -56,9 +63,9 @@ async function userRegisterInstituicao( { nomeCompleto, email, tipo_doador, senh
         console.log(`Usuário criado com sucesso. ID: ${usuarioId}`);
 
         await pool.query(
-            `INSERT INTO usuario_instituicao (usuario_id, tipo_instituicao) 
-            VALUES ($1, $2)`,
-            [usuarioId, instituicaoTipo]
+            `INSERT INTO usuario_instituicao (usuario_id, tipo_instituicao, slug) 
+            VALUES ($1, $2, $3)`,
+            [usuarioId, instituicaoTipo, slug]
         );
 
         await pool.query(
@@ -84,6 +91,12 @@ async function userRegisterInstituicao( { nomeCompleto, email, tipo_doador, senh
 
 async function userRegisterOng( { nomeCompleto, email, tipo_doador, senha, ongCnpj, ongTelefone, ongAno } ) {
     
+    const slug = slugify(nomeCompleto, {
+            lower: true,
+            strict: true,
+            remove: /[*+~.()'"!:@]/g
+    });
+
     try{
 
         const usuarioResult = await pool.query(
@@ -97,9 +110,9 @@ async function userRegisterOng( { nomeCompleto, email, tipo_doador, senha, ongCn
         console.log(`Usuário criado com sucesso. ID: ${usuarioId}`);
 
         await pool.query(
-            `INSERT INTO usuario_ong (usuario_id, data_fundacao, certificado_ong) 
-            VALUES ($1, $2, 'TRUE')`,
-            [usuarioId, ongAno]
+            `INSERT INTO usuario_ong (usuario_id, data_fundacao, certificado_ong, slug) 
+            VALUES ($1, $2, 'TRUE', $3)`,
+            [usuarioId, ongAno, slug]
         );
 
         await pool.query(
