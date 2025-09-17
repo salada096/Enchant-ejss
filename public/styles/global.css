@@ -45,6 +45,12 @@
 
     /* ==================CORPO-DE-TEXTO==================*/
 
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     body{
 
         font-family: var(--Fonte-geral);
@@ -135,10 +141,38 @@
        color: var(--cor-texto-botao);
        font-size: 14px;
        cursor: pointer;
+       font-size: var(--Fonte-geral);
     }
 
-   #btn:hover {
+   .btn:hover {
        background-color: var(--cor-hover-botao);
        color: var(--cor-texto-botao);
     }
+
+
+    /* ==================AVISO==================*/
+
+    .feedback-toast {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 9999;
+                padding: 12px 20px;
+                border-radius: 8px;
+                color: white;
+                font-family: 'Lexend Deca', sans-serif; 
+            }
+
+    .feedback-success,
+    .feedback-warning,
+    .feedback-danger {
+                background: #ffffffff;
+                color: #291705ff;
+                box-shadow:
+                -6px 0 0 rgba(92, 46, 28, 1),
+                10px 5px 20px rgba(0, 0, 0, 0.15);
+                font-size: 14px;
+            }
+
+
 
