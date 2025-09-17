@@ -18,6 +18,7 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    overflow-x: hidden;
 }
 
 main {
@@ -404,7 +405,24 @@ i {
     }
     .dashboard-container{
         flex-wrap: wrap;
+        justify-items: center;
+        align-items: center;
     }
+
+    .map-container {
+        flex-wrap: wrap;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .filter-panel{
+        margin: 0;
+    }
+
+    #mapa { 
+        width: 50%;
+    }
+
     .card h3 {
         font-size: 1.3rem;
     }

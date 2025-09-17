@@ -123,29 +123,6 @@ class SimpleDonationManager {
                 position: relative;
             }
 
-            .feedback-toast {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                z-index: 9999;
-                padding: 12px 20px;
-                border-radius: 8px;
-                color: white;
-                font-family: 'Lexend Deca', sans-serif;
-              
-            }
-
-            .feedback-success,
-            .feedback-warning,
-            .feedback-danger {
-                background: #ffffffff;
-                color: #291705ff;
-                box-shadow:
-                -6px 0 0 rgba(92, 46, 28, 1),
-                10px 5px 20px rgba(0, 0, 0, 0.15);
-                font-size: 14px;
-            }
-
             @media (max-width: 768px) {
                 .category-edit-controls {
                     top: 5px;
