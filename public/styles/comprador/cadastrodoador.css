@@ -412,55 +412,6 @@ a {
     background-color: #ffffff9a;
 }
 
-.modal-content {
-    border-radius: 5px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
-
-.modal-header {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.modal-title {
-    color: rgba(97, 53, 12, 1);
-    font-size: 1.5rem;
-   
-}
-
-.modal-body {
-    padding: 1.5rem;
-    color: black;
-    font-family: 'Lexend Deca', sans-serif;
-}  
-
-.modal-body ul {
-    text-align: left;
-    color: #d9534f;
-    margin-top: 1rem;
-    padding-left: 1.5rem;
-}
-
-.modal-footer {
-    padding: 1rem;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-.modal .btn-primary {
-    background-color: rgba(226, 204, 174, 1);
-    color: #4e3629;
-    border: none;
-    border-radius: 10px;
-    border: 1px solid rgba(226, 204, 174, 1);
-}
-
-.modal .btn-primary:hover {
-    background-color: #caae8d;
-    color: #3d2106;
-    transition: transform 0.2s ease;
-}
-
 .certificados-area {
     margin-top: 20px;
     transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out, margin-top 0.5s ease;
