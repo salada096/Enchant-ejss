@@ -2197,7 +2197,6 @@ background: #795548;
 }
 .btn-popular:hover {
   background: var(--light-brown);
-  box-shadow: 0 10px 30px rgba(139, 90, 60, 0.3);
   font-weight: 400 !important;
   color: #3d2106 !important;
 }
