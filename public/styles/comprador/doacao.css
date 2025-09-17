@@ -218,6 +218,31 @@ main {
   color: #3d2106;
 }
 
+/* Novos estilos para os botões do modal de confirmação */
+.modal .btn-primary {
+    background-color: rgba(226, 204, 174, 1);
+    color: #4e3629;
+    border: none;
+    border-radius: 10px;
+    border: none;
+}
+
+.modal .btn-primary:hover {
+    background-color: #caae8d;
+    color: #3d2106;
+}
+
+.modal .btn-secondary {
+    background-color: transparent; 
+    color: #3d2106; 
+    border: 1px solid #3d2106; 
+    border-radius: 10px;
+}
+
+.modal .btn-secondary:hover {
+    background: #bd8e6338;
+}
+
 /* Textos nos cards */
 .texto-doacao {
   width: 90%;
