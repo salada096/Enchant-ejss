@@ -70,6 +70,10 @@ body {
 }
 @media (min-width: 992px) {
 
+  .benefits{
+     grid-template-columns: repeat(4, 1fr) !important;
+  }
+
 .hero .container {
   display: grid;
   align-items: center;
@@ -123,9 +127,9 @@ body {
   text-decoration: none;
   border-radius: 10px;
 }
-.hero .cta-button:hover {
+.hero:hover {
   transform: translateY(-3px);
-  color: #ffffff !important;
+  color: #ffffff ;
 }
 
 /* === HERO MOCKUPS COMPOSITION === */
@@ -830,24 +834,29 @@ body {
   max-width: 600px;
 }
 
+
+
+
+
 .cta-button {
-  background: var(--primary-brown);
-  color: white;
-  padding: 15px 40px;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-block;
+    display: inline-block;
+    font-weight: 400 !important;
+    margin-top: 10px;
+    padding: 10px 22px !important;
+    border-radius: 10px;
+    background: #EDD9C7;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+    text-decoration: none;
+    transition: background 0.3s;
+    font-size: 14px !important;
 }
 
 .cta-button:hover {
-  background: var(--light-brown);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(139, 90, 60, 0.3);
+    background-color: #caae8d;
+    color: #3d2106 !important;
+    font-weight: 400 !important;
+    transform: none !important;
 }
 
 .mockup-container {
@@ -1676,25 +1685,25 @@ body {
   color: #ffffff !important;
 }
 
-
-
 .faq-button {
-  background: var(--primary-brown);
-  color: white;
-  padding: 14px 35px;
-  border: none;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  color: white;
+    display: inline-block;
+    font-weight: 400 !important;
+    margin-top: 10px;
+    padding: 10px 22px !important;
+    border-radius: 10px !important;
+    background: #EDD9C7;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+    text-decoration: none;
+    transition: background 0.3s;
+    font-size: 14px !important;
 }
 
 .faq-button:hover {
-   background: var(--light-brown);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(139, 90, 60, 0.3);
+      background-color: #caae8d;
+    color: #3d2106 !important;
+    font-weight: 400 !important;
+    transform: none !important;
 }
 
 .accordion {
@@ -2141,14 +2150,26 @@ background: #795548;
   cursor: pointer;
 }
 
+
+
 .btn-basic {
-  background-color: transparent;
-  border-color: #795548;
-  color: #795548;
+    display: inline-block;
+    font-weight: 400 !important;
+    margin-top: 10px;
+    padding: 10px 22px !important;
+    border-radius: 10px !important;
+    background: #EDD9C7;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+    text-decoration: none;
+    transition: background 0.3s;
+    font-size: 14px !important;
 }
 .btn-basic:hover {
-  background-color: #8b5a3c;
-  color: #ffffff;
+      background-color: #caae8d;
+    color: #3d2106 !important;
+    font-weight: 400 !important;
+    transform: none !important;
 }
 
 
@@ -2158,7 +2179,7 @@ background: #795548;
   color: white;
   padding: 15px 40px;
   border: none;
-  border-radius: 10px;
+  border-radius: 10px !important;
   font-size: 1rem;
   font-weight: 600 !important;
   cursor: pointer;
@@ -2168,19 +2189,31 @@ background: #795548;
 }
 .btn-popular:hover {
   background: var(--light-brown);
-  transform: translateY(-2px);
   box-shadow: 0 10px 30px rgba(139, 90, 60, 0.3);
   color: white;
 }
 
+
+
+
 .btn-premium {
-  background-color: transparent;
-  border-color: #795548;
-  color: #795548;
+    display: inline-block;
+    font-weight: 400 !important;
+    margin-top: 10px;
+    padding: 10px 22px !important;
+    border-radius: 10px !important;
+    background: #EDD9C7;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+    text-decoration: none;
+    transition: background 0.3s;
+    font-size: 14px !important;
 }
 .btn-premium:hover {
-  background-color: #8b5a3c;
-  color: #ffffff;
+    background-color: #caae8d;
+    color: #3d2106 !important;
+    font-weight: 400 !important;
+    transform: none !important;
 }
 
 @media (max-width: 480px) {
