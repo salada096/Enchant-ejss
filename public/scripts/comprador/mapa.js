@@ -6,6 +6,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // isso aq vai guardar os dados de risco
 const dadosDosMunicipios = new Map();
+const dadosVulnerabilidade = new Map();
+const dadosExposicao = new Map();
+const dadosAmeaca = new Map();
+
+
 let geojsonFeatureCollection;
 let geojsonLayer;
 
@@ -24,8 +29,11 @@ Promise.all([
     fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2015_geojson.geojson').then(response => response.json()),
     fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2015_csv.CSV').then(response => response.text()),
     fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2030_csv.CSV').then(response => response.text()),
-    fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2050_csv.CSV').then(response => response.text())
-]).then(([geojson, csvData2015, csvData2030, csvData2050]) => {
+    fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_risco_para_inundacoes_enxurradas_e_alagamentos_BR_municipio_2050_csv.CSV').then(response => response.text()),
+    fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_vulnerabilidade_BR_municipio_2015_csv.CSV').then(response => response.text()),
+    fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_exposicao_BR_municipio_2015_csv.CSV').then(response => response.text()),
+    fetch('../../../public/scripts/comprador/AdaptaBrasil_adaptabrasil_desastres_geo-hidrologicos_indice_de_ameaca_de_inundacoes_enxurradas_e_alagamentos_BR_municipio_2015_csv.CSV').then(response => response.text())
+]).then(([geojson, csvData2015, csvData2030, csvData2050, csvVulnerabilidade, csvExposicao, csvAmeaca]) => {
     geojsonFeatureCollection = geojson;
 
     Papa.parse(csvData2015, {
@@ -36,6 +44,27 @@ Promise.all([
                 if (row.geocod_ibge) {
                     dadosDosMunicipios.set(row.geocod_ibge, row);
                 }
+            });
+
+            const dadosVulnerab = Papa.parse(csvVulnerabilidade, { header: true, skipEmptyLines: true }).data;
+            dadosVulnerab.forEach(row => {
+              if (row.geocod_ibge) {
+                dadosVulnerabilidade.set(row.geocod_ibge, row);
+              }
+            });
+
+            const dadosExpo = Papa.parse(csvExposicao, { header: true, skipEmptyLines: true }).data;
+            dadosExpo.forEach(row => {
+              if (row.geocod_ibge) {
+                dadosExposicao.set(row.geocod_ibge, row);
+              }
+            });
+
+            const dadosAme = Papa.parse(csvAmeaca, { header: true, skipEmptyLines: true }).data;
+            dadosAme.forEach(row => {
+              if (row.geocod_ibge) {
+                dadosAmeaca.set(row.geocod_ibge, row);
+              }
             });
             
             const dados2030 = Papa.parse(csvData2030, { header: true, skipEmptyLines: true }).data;
@@ -136,7 +165,24 @@ info.update = function (props) {
     const dados = codMun ? dadosDosMunicipios.get(codMun) : undefined;
     const risco = dados ? parseFloat(dados.valor) : undefined;
     const riscoFormatado = (risco !== undefined && !isNaN(risco)) ? risco.toFixed(2) : 'Sem dados';
-    this._div.innerHTML = '<h4>Risco de Inundação no Brasil</h4>' + (props ? '<b>' + props.name + '</b><br />Índice de Risco: ' + riscoFormatado : 'Passe o mouse sobre um município');
+
+    const dadosVulnerab = codMun ? dadosVulnerabilidade.get(codMun) : undefined;
+    const vulnerabilidade = dadosVulnerab ? parseFloat(dadosVulnerab.valor) : undefined;
+    const vulnerabilidadeFormatado = (vulnerabilidade !== undefined && !isNaN(vulnerabilidade)) ? vulnerabilidade.toFixed(2).replace('.', ',') : 'Sem dados';
+
+    const dadosExpo = codMun ? dadosExposicao.get(codMun) : undefined;
+    const exposicao = dadosExpo ? parseFloat(dadosExpo.valor) : undefined;
+    const exposicaoFormatado = (exposicao !== undefined && !isNaN(exposicao)) ? exposicao.toFixed(2).replace('.', ',') : 'Sem dados';
+
+    const dadosAme = codMun ? dadosAmeaca.get(codMun) : undefined;
+    const ameaca = dadosAme ? parseFloat(dadosAme.valor) : undefined;
+    const ameacaFormatado = (exposicao !== undefined && !isNaN(ameaca)) ? ameaca.toFixed(2).replace('.', ',') : 'Sem dados';
+
+    this._div.innerHTML = '<h4>Risco de Inundação no Brasil</h4>' + (props ? '<b>' + props.name + '</b><br />Índice de Risco: <b>' + riscoFormatado + '</b><br />' +
+        'Índice de Vulnerabilidade: <b>' + vulnerabilidadeFormatado + '</b><br />' +
+        'Índice de Exposição: <b>' + exposicaoFormatado + '</b><br />' +
+        'Índice de Ameaça: <b>' + ameacaFormatado + '</b>'
+        : 'Passe o mouse sobre um município');
 };
 
 function highlightFeature(e) { e.target.setStyle({ weight: 3, color: '#666', dashArray: '' }); info.update(e.target.feature.properties); }
