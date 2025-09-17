@@ -317,12 +317,21 @@ close-modal1:hover {
 
 
 
-.show-password1:hover {
-  color: #333;
+.show-password1 {
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-.show-password1:focus {
-  outline: none;
+.show-password1:focus,
+.show-password1:active,
+.show-password1:hover {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: none !important;
+  color: #333;
 }
 
 .material-symbols-outlined1 {
@@ -469,14 +478,16 @@ close-modal1:hover {
         }
 
         .password-field {
-            position: relative;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            width: 100%;
         }
 
         .password-dots1 {
-            display: inline-block;
-            margin-right: 10px;
+            flex: 1;
+            font-size: 14px;
+            color: #333;
         }
 
         .show-password1 {
@@ -486,6 +497,10 @@ close-modal1:hover {
             color: #666;
             font-size: 16px;
             padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
         }
 
         .show-password1:hover {
@@ -556,12 +571,12 @@ close-modal1:hover {
         }
 
         .footer-button {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
+            background-color: #E2CCAE;
+            border: none;
             padding: 10px 20px;
             border-radius: 8px;
             text-decoration: none;
-            color: #333;
+            color: #3d2106;
             font-size: 14px;
             transition: all 0.3s ease;
             display: flex;
@@ -570,8 +585,8 @@ close-modal1:hover {
         }
 
         .footer-button:hover {
-            background-color: #e9ecef;
-            color: #000;
+            background-color: #caae8d;
+         
             text-decoration: none;
         }
 
@@ -587,7 +602,125 @@ close-modal1:hover {
             justify-content: center;
             align-items: center;
         }
+/* Estilos adicionais para corrigir o campo de senha */
 
+/* Campo de senha na tela principal */
+.password-field-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+}
+
+.password-field-main .password-dots1 {
+    flex: 1;
+    font-size: 14px;
+    color: #333;
+}
+
+.password-field-main .show-password1 {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 16px;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    min-width: 32px;
+    height: 32px;
+}
+
+.password-field-main .show-password1:hover {
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.password-field-main .show-password1:focus {
+    outline: 2px solid #693B11;
+    outline-offset: 1px;
+}
+
+/* Campo de senha no modal de edição */
+.password-field1 {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.password-field1 input {
+    width: 100%;
+    padding: 8px 40px 8px 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.password-field1 .show-password1 {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 16px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    min-width: 24px;
+    height: 24px;
+}
+
+.password-field1 .show-password1:hover {
+    color: #333;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.password-field1 .show-password1:focus {
+    outline: 2px solid #693B11;
+    outline-offset: 1px;
+}
+
+/* Garantir que os ícones do Bootstrap Icons sejam exibidos corretamente */
+.show-password1 i {
+    font-size: inherit;
+    line-height: 1;
+    vertical-align: baseline;
+}
+
+/* Melhorias visuais para feedback */
+.show-password1:active {
+    transform: scale(0.95);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .password-field-main {
+        gap: 8px;
+    }
+    
+    .password-field-main .show-password1 {
+        min-width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+    
+    .password-field1 .show-password1 {
+        min-width: 20px;
+        height: 20px;
+        font-size: 14px;
+    }
+}
         .modal-content1 {
             background-color: white;
             padding: 20px;
