@@ -56,7 +56,7 @@
     }
 
     a{
-        text-decoration:;
+        text-decoration: none;
         color: var(--cor-link);
         font-size: var(--Tamanho-link);
     }

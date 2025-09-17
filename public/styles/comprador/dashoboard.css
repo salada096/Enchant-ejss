@@ -15,7 +15,6 @@
     --warning-color: #ffc107;
     --danger-color: #dc3545;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-    --transition: all 0.3s ease;
     --border-radius: 12px;
 }
 
@@ -80,7 +79,6 @@ body {
     font-size: 0.875rem;
     cursor: pointer;
     white-space: nowrap;
-    transition: var(--transition);
     border: none;
     font-weight: 500;
     display: inline-flex;
@@ -96,8 +94,7 @@ body {
 
 .btn-primary:hover {
     background-color: #caae8d;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
+    color: var(--primary-dark);
 }
 
 .btn-outline {
@@ -108,8 +105,6 @@ body {
 
 .btn-outline:hover {
     background-color: var(--primary-light);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
 }
 
 .btn-date-filter {
@@ -170,15 +165,7 @@ body {
     align-items: center;
     gap: 1rem;
     border: 1px solid var(--border-color);
-    transition: var(--transition);
-    box-shadow: var(--shadow);
 }
-
-.summary-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
 .summary-card-icon {
     font-size: 2rem;
     color: var(--primary-color);
@@ -228,7 +215,6 @@ body {
     padding: 1.5rem;
     border: 1px solid #eee;
     height: 100%;
-    box-shadow: var(--shadow);
     width: 100%;
     overflow: hidden;
 }
@@ -285,7 +271,6 @@ body {
     padding: 1.5rem;
     border: 1px solid #eee;
     height: 100%;
-    box-shadow: var(--shadow);
 }
 
 .sidebar-title {
@@ -346,14 +331,7 @@ body {
     flex-direction: column;
     gap: 0.5rem;
     justify-content: center;
-    min-height: 140px;
-    transition: var(--transition);
-    box-shadow: var(--shadow);
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    min-height: 140px;  
 }
 
 .stat-card-primary {
@@ -404,7 +382,6 @@ body {
     display: flex;
     align-items: center;
     min-height: 80px;
-    box-shadow: var(--shadow);
 }
 
 .achievement-text {
@@ -417,8 +394,7 @@ body {
     background: var(--card-bg);
     border-radius: var(--border-radius);
     padding: 1.5rem;
-    border: 1px solid #000;
-    box-shadow: var(--shadow);
+    border: 1px solid #000; 
 }
 
 .completion-title {
@@ -440,7 +416,6 @@ body {
     border-radius: var(--border-radius);
     padding: 1.5rem;
     border: 1px solid #000;
-    box-shadow: var(--shadow);
 }
 
 .progress-item {
@@ -489,7 +464,6 @@ body {
     height: 100%;
     background: #9e6634;
     border-radius: 3px;
-    transition: width 0.3s ease;
 }
 
 .progress-percent {
@@ -895,4 +869,11 @@ input:focus-visible {
     .btn {
         display: none;
     }
+}
+
+/* Correção para layouts de 3 colunas em notebooks (1000px a 1480px) */
+@media (min-width: 1000px) and (max-width: 1480px) {
+  .stats-grid-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
