@@ -38,7 +38,7 @@ body {
 /* ================ CONTAINER PRINCIPAL ================ */
 .dashboard-container {
     max-width: 1600px;
-    margin: 0 auto;
+    margin: 30px auto;
     padding: 1rem;
     width: 100%;
 }
@@ -72,6 +72,16 @@ body {
     flex-wrap: wrap;
     gap: 0.25rem;
 }
+.btn-secondary{
+    background-color: transparent;
+    border: #3d2106 1px solid;
+    color: var(--primary-dark);
+}
+
+.btn-secondary:hover{
+    background-color: #caae8d;
+    color: var(--primary-dark);
+}
 
 .btn {
     padding: 0.75rem 1rem;
@@ -79,7 +89,6 @@ body {
     font-size: 0.875rem;
     cursor: pointer;
     white-space: nowrap;
-    border: none;
     font-weight: 500;
     display: inline-flex;
     align-items: center;
@@ -90,6 +99,7 @@ body {
 .btn-primary {
     background-color: var(--primary-light);
     color: var(--primary-dark);
+    border: none;
 }
 
 .btn-primary:hover {
@@ -472,6 +482,14 @@ body {
     color: #000;
     min-width: 40px;
     text-align: right;
+}
+
+/* Estilo para o botão "Gerar PDF" quando estiver desabilitado */
+.btn-primary[disabled] {
+    cursor: not-allowed;
+    background-color: #caae8d !important; /* Cor que aparece no hover normal */
+    color: var(--primary-dark) !important;
+    opacity: 0.8;
 }
 
 /* ================ MODAL ================ */

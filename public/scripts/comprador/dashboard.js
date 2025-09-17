@@ -720,7 +720,7 @@ function gerarPDF() {
         const btn = document.querySelector('.btn-primary[onclick*="gerarPDF"]');
         if (btn) {
             const originalText = btn.textContent;
-            btn.textContent = 'PDF Gerado ✓';
+            btn.textContent = 'PDF Gerado';
             btn.disabled = true;
             setTimeout(() => {
                 btn.textContent = originalText;
