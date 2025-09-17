@@ -22,11 +22,17 @@ body {
   line-height: 1.6;
   color: var(--text-dark);
 }
-
 .container {
- margin-left: 150px;
- margin-right: 150px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
+@media (min-width: 1500px) {
+  .benefits-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
 }
 
 :root {
