@@ -161,7 +161,7 @@ main {
   height: auto;
   margin: 0 auto;
   background-color: transparent;
-  border: #5c2f1a solid 2px;
+  border: #5c2f1a solid 1px;
   border-radius: 0.5rem;
 }
 
