@@ -17,7 +17,7 @@
                 const css = `
                     :root {
                         --primary-color: #693B11;
-                        --accent-color: #EC9E07;
+                        --accent-color: #5c3e03ff;
                         --text-color: #333;
                         --light-bg: #ECECEC;
                         --white: #FFFFFF;
@@ -358,7 +358,7 @@
                         .mobile-menu-container .right-section {
                             display: block;
                             width: 100%;
-                            padding: 10px;
+                            padding: 10px 10px 10px 0;
                         }
 
                         .mobile-menu-container .desktop-nav {
@@ -370,8 +370,16 @@
 
                         .mobile-menu-container .desktop-nav a {
                             display: block;
-                            padding: 10px 0;
+                            padding: 8px 16px 8px 0;
                             width: 100%;
+                        }
+
+                        .mobile-menu-container .cadastro-button {
+                            padding: 8px 16px 8px 0;
+                        }
+
+                        #doeagoraMobile {
+                            padding: 10px 16px 10px 10px;
                         }
 
                         .mobile-menu-container .cadastro-section {
@@ -469,14 +477,14 @@
                                                 <a class="cadastro-dropdown-item" href="/src/views/comprador/cadastrodonatario1.html">Donatário</a>
                                             </div>
                                         </div>
+                                        <a href="../index.html" class="doe-agora-link">
+                                            <button class="btn btn-brown" type="button" id="doeagoraMobile">
+                                                Doe agora
+                                            </button>
+                                        </a>
                                     </nav>
                                 </div>
                                 <div class="right-section">
-                                    <a href="../index.html">
-                                        <button class="btn btn-brown" type="button" id="doeagoraMobile">
-                                            Doe agora
-                                        </button>
-                                    </a>
                                 </div>
                             </div>
                         </div>
