@@ -137,7 +137,7 @@ function configurarConsultaDetalhada(geojson, dadosRisco, dadosVuln, dadosAmeaca
                         <span class="value">${risco2030 ? parseFloat(risco2030.valor).toFixed(2).replace('.', ',') : 'N/A'}</span>
                     </div>
                     <div class="resultado-item">
-                        <span class="label">Classe Risco (2030)</span>
+                        <span class="label">Classe Risco (2030 Otimista)</span>
                         <span class="value">${risco2030 ? risco2030.classe : 'N/A'}</span>
                     </div>
                      <div class="resultado-item">
@@ -145,7 +145,7 @@ function configurarConsultaDetalhada(geojson, dadosRisco, dadosVuln, dadosAmeaca
                         <span class="value">${risco2050 ? parseFloat(risco2050.valor).toFixed(2).replace('.', ',') : 'N/A'}</span>
                     </div>
                     <div class="resultado-item">
-                        <span class="label">Classe Risco (2050)</span>
+                        <span class="label">Classe Risco (2050 Otimista)</span>
                         <span class="value">${risco2050 ? risco2050.classe : 'N/A'}</span>
                     </div>
                     <div class="resultado-item">
@@ -154,11 +154,11 @@ function configurarConsultaDetalhada(geojson, dadosRisco, dadosVuln, dadosAmeaca
                     </div>
                     <div class="resultado-item">
                         <span class="label">Ameaça (Presente)</span>
-                        <span class="value">${formatValue(ameaca)}</span>
+                        <span class="value">${ameaca ? parseFloat(ameaca.valor).toFixed(2).replace('.', ',') : 'N/A'}</span>
                     </div>
                     <div class="resultado-item">
                         <span class="label">Exposição (Presente)</span>
-                        <span class="value">${formatValue(exposicao)}</span>
+                        <span class="value">${exposicao ? parseFloat(exposicao.valor).toFixed(2).replace('.', ',') : 'N/A'}</span>
                     </div>
                 </div>
             </div>
