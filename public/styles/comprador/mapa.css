@@ -84,13 +84,14 @@ main {
 /* Estilo para o card de resultado */
 #resultado-consulta {
     text-align: left;
+    margin-bottom: 100px;
 }
 
 .card-resultado {
     border: 1px solid #dee2e6;
     border-radius: 8px;
     padding: 25px;
-    background-color: #f8f9fa;
+    background-color: #ffffff;
     animation: fadeIn 0.5s ease;
 }
 
@@ -140,6 +141,7 @@ main {
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
+    border: 1px solid #dee2e6;
 }
 .grafico p {
     font-size: 1vh;

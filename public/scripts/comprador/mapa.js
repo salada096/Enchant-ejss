@@ -17,10 +17,10 @@ let geojsonLayer;
 // FUNÇÃO DE COR CORRIGIDA
 function getColor(risco) {
     if (risco === undefined || isNaN(risco)) return '#CCCCCC';
-    if (risco > 0.8) return '#800026'; // Muito Alto
-    if (risco > 0.6) return '#BD0026'; // Alto
-    if (risco > 0.4) return '#E31A1C'; // Médio
-    if (risco > 0.2) return '#FC4E2A'; // Baixo  (> 0.2 até 0.4)
+    if (risco >= 0.8) return '#800026'; // Muito Alto
+    if (risco >= 0.6) return '#BD0026'; // Alto
+    if (risco >= 0.4) return '#E31A1C'; // Médio
+    if (risco >= 0.2) return '#FC4E2A'; // Baixo  (> 0.2 até 0.4)
     return '#FFEDA0';                 // Muito Baixo (0 até 0.2)
 }
 
@@ -218,7 +218,7 @@ function styleFunction(feature) {
         const risco = parseFloat(dados.valor);
         return { fillColor: getColor(risco), weight: 1, opacity: 1, color: 'white', dashArray: '3', fillOpacity: 0.75 };
     } else {
-        return { fillOpacity: 0, opacity: 0, stroke: false };
+        return { fillOpacity: 0, opacity: 0 };
     }
 }
 
@@ -273,7 +273,46 @@ info.update = function (props) {
         : 'Passe o mouse sobre um município');
 };
 
-function highlightFeature(e) { e.target.setStyle({ weight: 3, color: '#666', dashArray: '' }); info.update(e.target.feature.properties); }
+function isFeatureVisible(feature) {
+    const codMun = feature.properties.geocod_ibge;
+    const dados = dadosDosMunicipios.get(codMun);
+
+    const regiaoSelecionada = document.getElementById('filter-region').value;
+    const estadoSelecionado = document.getElementById('filter-state').value;
+    const riscosSelecionados = Array.from(document.querySelectorAll('.filter-panel input[type="checkbox"]:checked')).map(cb => cb.value);
+
+    if (!dados) {
+        return false;
+    }
+    
+    const siglaEstado = dados.nome.split('/')[1];
+    if (estadoSelecionado !== "TODOS" && siglaEstado !== estadoSelecionado) {
+        return false;
+    }
+
+    if (estadoSelecionado === "TODOS" && regiaoSelecionada !== "TODAS") {
+        const optionEstado = document.querySelector(`#filter-state option[value="${siglaEstado}"]`);
+        if (!optionEstado || optionEstado.dataset.region !== regiaoSelecionada) {
+            return false;
+        }
+    }
+    
+    if (riscosSelecionados.length > 0 && !riscosSelecionados.includes(dados.classe)) {
+        return false; 
+    }
+
+    return true;
+}
+
+function highlightFeature(e) { 
+
+  const feature = e.target.feature;
+  if (!isFeatureVisible(feature)) {
+        return; 
+  }
+  e.target.setStyle({ weight: 3, color: '#666', dashArray: '' }); info.update(e.target.feature.properties); 
+  
+}
 function resetHighlight(e) { geojsonLayer.resetStyle(e.target); info.update(); }
 function onEachFeature(feature, layer) { layer.on({ mouseover: highlightFeature, mouseout: resetHighlight }); }
 
