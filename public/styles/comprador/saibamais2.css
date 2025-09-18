@@ -1,11 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Passion+One&family=Lexend+Deca:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
+@import url("../../styles/global.css");
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Lexend Deca", sans-serif;
-}
 
 .sidebar-saibamais{
     margin-top: 40px;

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
+@import url("../../styles/global.css");
 
 * {
   margin: 0;
@@ -11,14 +12,17 @@
 body {
   background-color: #ffffff;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 }
 
 main {
-  max-width: 100%;
-  margin: 0 150px; /* Aplica margem lateral apenas no main */
+  max-width: 1400px; 
+  width: 100%;
   padding: 40px;
   border-radius: 10px;
-  width: auto; /* Muda de 100% para auto */
 }
 
 h1 {
@@ -31,12 +35,10 @@ h1 {
 
 .uploads-wrapper {
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
   gap: 20px;
-  justify-items: center;
-  margin: 30px auto;
-  max-width: 1000px;
+  align-items: flex-start;
+  margin: 30px 0;
 }
 
 .upload-container {
@@ -71,6 +73,7 @@ h1 {
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: 20px;
 }
 
 .upload-icon {
@@ -121,11 +124,6 @@ h1 {
     border: none;
 }
 
-.upload-button:hover {
-      background-color: #caae8d !important;
-    color: #3d2106 !important;
-}
-
 .file-input {
   position: absolute;
   top: 0;
@@ -148,33 +146,14 @@ h1 {
   background-color: white;
 }
 
+/* --- ALTERAÇÃO AQUI --- */
 .preview-img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem cubra todo o espaço, cortando se necessário */
   border-radius: 8px;
-  object-fit: contain;
 }
-
-.remove-image {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: rgba(255, 0, 0, 0.7);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-}
-
-.remove-image:hover {
-  background-color: rgba(255, 0, 0, 0.9);
-}
+/* --- FIM DA ALTERAÇÃO --- */
 
 .person-container {
   width: 100%;
@@ -183,45 +162,64 @@ h1 {
   flex-direction: column;
   align-items: center;
   gap: 15px;
+  position: relative;
 }
 
-.person-name-input {
-  font-family: "Passion One", sans-serif;
+.botao-remover-pessoa {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #693b11;
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    line-height: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 11;
+}
+
+.botao-remover-pessoa:hover {
+    background-color: #8a5a2f;
+    transform: scale(1.1);
+}
+
+.person-name-input, .person-profession-input {
+  font-family: "Lexend Deca", sans-serif;
   font-weight: 400;
-  color: #693b11;
-  font-size: 20px;
+  color: #555;
+  font-size: 16px;
   background: transparent;
   border: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 1px solid #ccc;
   padding: 8px 12px;
   text-align: center;
-  min-width: 120px;
-  width: 100%;
+  width: 90%;
   transition: all 0.3s ease;
   border-radius: 5px;
 }
 
-.person-name-input:focus {
-  outline: none;
-  background-color: #f9f7f4;
-  border-bottom: 2px solid #e2ccae;
+.person-name-input {
+  font-family: "Passion One", sans-serif;
+  color: #693b11;
+  font-size: 20px;
+  border-bottom-width: 2px;
 }
 
-.person-name-input:hover {
-  background-color: #fafafa;
+.person-profession-input {
+    margin-top: -10px;
 }
 
-.person-name-input.saved {
-  background-color: #ffffff;
-  border: none;
-  box-shadow: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.person-name-input.saved:hover {
-  background-color: #f9f9f9;
-  transform: translateY(-1px);
+.person-name-input:focus, .person-profession-input:focus {
+    outline: none;
+    background-color: #f9f7f4;
+    border-bottom-color: #e2ccae;
 }
 
 .contatos {
@@ -268,19 +266,6 @@ h1 {
 .contato-item input:focus {
   outline: none;
   background-color: #ffffff;
-}
-
-.contato-item input.saved {
-  background-color: #ffffff;
-  border: none;
-  box-shadow: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.contato-item input.saved:hover {
-  background-color: #f9f9f9;
-  transform: translateY(-1px);
 }
 
 .fa-phone {
@@ -351,167 +336,106 @@ textarea:focus {
   background-color: #ffffff;
 }
 
-textarea.saved {
-  background-color: #ffffff;
-  border: none;
-  box-shadow: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-textarea.saved:hover {
-  background-color: #f9f9f9;
-}
-
-.edit-indicator {
-  font-size: 12px;
-  color: #999;
-  font-style: italic;
-  margin-top: 5px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.saved:hover + .edit-indicator,
-.saved:focus + .edit-indicator {
-  opacity: 1;
-}
-
-.botao-salvar-container {
+.botoes-acao-container {
   display: flex;
   justify-content: flex-end;
   margin-top: 40px;
+  gap: 15px;
 }
 
-.botao-salvar {
-    display: inline-block;
-    margin-top: 10px;
+.botao-acao {
     padding: 10px 22px;
     border-radius: 10px;
     background: #EDD9C7;
-    color: rgb(0, 0, 0);
-    font-weight: 400;
-    text-decoration: none;
-    transition: background 0.3s;
-    font-size: 14px;
-    border: none;
-}
-
-.botao-salvar:hover {
-    background-color: #caae8d;
     color: #3d2106;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
 }
 
-.botao-salvar.has-changes {
-  background-color: #ec9e07;
-  color: white;
-  transform: scale(1.05);
+.botao-acao:hover {
+    background-color: #caae8d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.botao-acao.botao-adicionar-pessoa {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 30px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    flex-shrink: 0;
+}
+
+main.view-mode .upload-content,
+main.view-mode .butao-editar,
+main.view-mode .botao-remover-pessoa,
+main.view-mode .file-input {
+    display: none !important;
+}
+
+main.view-mode .upload-container {
+    border-color: transparent;
+    background-color: #ffffff;
+    cursor: default;
+}
+
+main.view-mode .person-container {
+    display: none;
+}
+
+main.view-mode .person-container.has-image {
+    display: flex;
+}
+
+main.view-mode .person-name-input,
+main.view-mode .person-profession-input,
+main.view-mode .contato-item input,
+main.view-mode textarea {
+    pointer-events: none;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+main.view-mode .input-vazio {
+    display: none;
+}
+
+main.view-mode .upload-container:hover {
+    border-color: transparent;
+    background-color: #ffffff;
+}
+
+main:not(.view-mode) .person-container:not(.is-default) .botao-remover-pessoa {
+    display: flex;
 }
 
 @media (min-width: 1200px) {
-  .uploads-wrapper {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 1200px;
-  }
-
   .sobre-missao {
     grid-template-columns: 1fr 1fr;
     gap: 50px;
-    align-items: start;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1199px) {
-
-
-  .uploads-wrapper {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 800px;
-  }
-
-  .sobre-missao {
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: start;
-  }
-
-  .contatos-container {
-    margin-left: 0;
   }
 }
 
 @media (max-width: 768px) {
-
+  main {
+      padding: 20px;
+  }
   .uploads-wrapper {
-    grid-template-columns: 1fr;
-    max-width: 320px;
+      justify-content: center;
   }
-
-  .upload-container {
-    width: 280px;
-    height: 280px;
-  }
-
-  .sobre-missao {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .contato-item {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-
-  .contato-item input {
-    width: 100%;
-    max-width: 300px;
-    min-width: 200px;
-  }
-
-  .person-name-input {
-    font-size: 18px;
-    min-width: 100px;
-  }
-
   .contatos-container {
     margin-left: 0;
   }
-
-  h1 {
-    font-size: 28px;
-    margin: 30px auto;
-    padding-top: 30px;
-  }
-}
-
-@media (max-width: 480px) {
-
-  .upload-container {
-    width: 260px;
-    height: 260px;
-  }
-
-  .uploads-wrapper {
-    max-width: 280px;
-  }
-
   .contato-item input {
     width: 100%;
-    min-width: 180px;
-  }
-}
-
-@media (min-width: 1200px) {
-  main {
-    margin-left: 150px !important;
-    margin-right: 150px !important;
-  }
-}
-
-@media (max-width: 1199px) {
-
-  main {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
   }
 }
