@@ -55,6 +55,24 @@
             position: relative;
         }
 
+        .btn-premium {
+            width: 160px !important;
+            height: 40px !important;
+            margin: 0 auto; /* centraliza na horizontal */
+            font-family: 'Lexend Deca', sans-serif;
+            background-color: #e2ccae;
+            border-radius: 10px !important;
+            border: none;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            color: #3d2106 !important;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
         .main-container {
             display: flex;
             flex-direction: column;
@@ -415,7 +433,7 @@
 
         .card-ong-conteudo h3 {
             font-family: 'Lexend Deca', sans-serif; /* Fonte ajustada */
-            font-size: 1.5rem;
+            font-size: 20px;
             color: #693B11;
             margin: 0 0 0.5rem 0;
             font-weight: 600;
@@ -810,7 +828,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="timeline-node"></div>
+                            
                         </div>
 
                         <div class="feature-item">
@@ -1329,7 +1347,7 @@
                                         <span>O poder de agir, sem limites financeiros</span>
                                     </li>
                                 </ul>
-                                <a href="/src/views/enchant/requisicao.html" class="btn btn-premium">Fazer requisição</a>
+                                <a href="/src/views/enchant/requisicao.html" class="btn btn-premium" >Fazer requisição</a>
                             </div>
                         </div>
                     </div>
@@ -1533,7 +1551,7 @@
                         <div class="card-ong-conteudo">
                             <h3>${ong.nome}</h3>
                             <p>${ong.descricao}</p>
-                            <a href="${ong.url}" class="card-ong-link" target="_blank">Saiba Mais e Doe</a>
+                            <a href="${ong.url}" class="card-ong-link" target="_blank">Acessar e doar</a>
                         </div>
                     `;
                     grade.appendChild(card);
