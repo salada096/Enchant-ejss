@@ -1,4 +1,4 @@
-// perfilcomprador.js - Arquivo completo unificado
+// perfilcomprador.js - Arquivo completo com correções para visualização de senha
 
 const userData = {
     orgName: "Nome Comprador",
@@ -9,17 +9,16 @@ const userData = {
     estado: "Bahia",
     cidade: "Salvador",
     profileImage: "/api/placeholder/40/40",
-    logoImage: null // Nova propriedade para a logo
+    logoImage: null
 };
 
 // Variáveis globais
 let isPasswordVisible = false;
 let campoAtualComErro = '';
-let logoPreviewData = null; // Para preview da logo
+let logoPreviewData = null;
 
 // ========== FUNÇÕES DE ATUALIZAÇÃO DA UI ==========
 
-// Atualizar interface com dados do usuário 
 function updateUI() {
     console.log('Atualizando UI...');
     
@@ -61,9 +60,11 @@ function updateUI() {
     
     // Atualizar exibição da logo
     updateLogoDisplay();
+    
+    // Reconfigurar toggle de senha após atualizar dados
+    setTimeout(setupMainPasswordToggle, 100);
 }
 
-// Atualizar exibição da logo na tela principal
 function updateLogoDisplay() {
     const logoDisplay = document.getElementById('logo-display');
     const logoPlaceholder = document.getElementById('logo-placeholder');
@@ -83,44 +84,87 @@ function updateLogoDisplay() {
     }
 }
 
-// ========== CONFIGURAÇÕES DE SENHA ==========
+// ========== CONFIGURAÇÕES DE SENHA - VERSÃO CORRIGIDA ==========
 
-// Configurar toggle de senha na tela principal
 function setupMainPasswordToggle() {
-    const togglePassword = document.getElementById("toggle-password");
-    const passwordDots = document.querySelector(".password-dots1");
+    console.log('Configurando toggle de senha principal...');
     
-    if (togglePassword && passwordDots) {
-        togglePassword.addEventListener("click", function() {
-            isPasswordVisible = !isPasswordVisible;
-            if (isPasswordVisible) {
-                passwordDots.textContent = userData.password;
-                togglePassword.textContent = "🙈";
-            } else {
-                passwordDots.textContent = "••••••••";
-                togglePassword.textContent = "👁️";
-            }
-        });
+    // Aguardar elementos estarem disponíveis
+    const checkElements = () => {
+        const toggleButton = document.getElementById("toggle-password");
+        const passwordDisplay = document.querySelector(".password-dots1");
+        
+        console.log('Toggle button:', toggleButton);
+        console.log('Password display:', passwordDisplay);
+        
+        if (toggleButton && passwordDisplay) {
+            console.log('Elementos encontrados, configurando evento...');
+            
+            // Remover listeners anteriores clonando o elemento
+            const newButton = toggleButton.cloneNode(true);
+            toggleButton.parentNode.replaceChild(newButton, toggleButton);
+            
+            // Adicionar novo evento
+            newButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                console.log('Botão de senha clicado!');
+                
+                isPasswordVisible = !isPasswordVisible;
+                
+                const icon = newButton.querySelector('i');
+                if (isPasswordVisible) {
+                    passwordDisplay.textContent = userData.password;
+                    if (icon) {
+                        icon.className = 'bi bi-eye-slash';
+                    }
+                    console.log('Senha mostrada');
+                } else {
+                    passwordDisplay.textContent = '••••••••';
+                    if (icon) {
+                        icon.className = 'bi bi-eye';
+                    }
+                    console.log('Senha oculta');
+                }
+            });
+            
+            console.log('Event listener configurado com sucesso');
+            return true;
+        } else {
+            console.warn('Elementos não encontrados ainda');
+            return false;
+        }
+    };
+    
+    // Tentar configurar imediatamente, se falhar, tentar novamente após delay
+    if (!checkElements()) {
+        setTimeout(() => {
+            console.log('Tentando novamente após delay...');
+            checkElements();
+        }, 1000);
     }
 }
 
-// Configurar toggle de senha no modal de edição
 function setupEditPasswordToggle() {
     const editPasswordField = document.getElementById("edit-password");
     const toggleEditPassword = document.getElementById("toggle-edit-password");
     
     if (toggleEditPassword && editPasswordField) {
-        // Criar novo botão para evitar múltiplos listeners
+        // Clonar para remover listeners anteriores
         const newToggleButton = toggleEditPassword.cloneNode(true);
         toggleEditPassword.parentNode.replaceChild(newToggleButton, toggleEditPassword);
         
-        newToggleButton.addEventListener("click", function() {
+        newToggleButton.addEventListener("click", function(e) {
+            e.preventDefault();
+            
+            const icon = newToggleButton.querySelector('i');
             if (editPasswordField.type === "password") {
                 editPasswordField.type = "text";
-                newToggleButton.innerHTML = '<span class="material-symbols-outlined1">visibility_off</span>';
+                if (icon) icon.className = 'bi bi-eye-slash';
             } else {
                 editPasswordField.type = "password";
-                newToggleButton.innerHTML = '<span class="material-symbols-outlined1">visibility</span>';
+                if (icon) icon.className = 'bi bi-eye';
             }
         });
     }
@@ -128,7 +172,6 @@ function setupEditPasswordToggle() {
 
 // ========== MODAL DE EDIÇÃO DE INFORMAÇÕES ==========
 
-// Abrir modal de edição
 function openEditModal() {
     const editModal = document.getElementById("edit-modal");
     if (!editModal) {
@@ -143,13 +186,12 @@ function openEditModal() {
     editModal.style.zIndex = "1060";
     
     // Configurar o botão de mostrar/ocultar senha do modal de edição
-    setupEditPasswordToggle();
+    setTimeout(setupEditPasswordToggle, 100);
     
     // Atualizar campos do formulário
     updateUI();
 }
 
-// Fechar modal de edição
 function closeEditModal() {
     const modalOverlay = document.getElementById("modal-overlay");
     const editModal = document.getElementById("edit-modal");
@@ -163,13 +205,10 @@ function closeEditModal() {
     document.body.style.overflow = "auto";
 }
 
-// Salvar alterações
 function saveChanges() {
     console.log('Salvando alterações...');
     
-    // Validar o formulário antes de salvar
     if (validarFormulario()) {
-        // Obter valores dos campos
         const editInstitutionName = document.getElementById("edit-institution-name");
         const editEmail = document.getElementById("edit-email");
         const editPassword = document.getElementById("edit-password");
@@ -178,7 +217,6 @@ function saveChanges() {
         const editEstado = document.getElementById("edit-estado");
         const editCidade = document.getElementById("edit-cidade");
         
-        // Formatar campos antes de salvar
         if (editCnpj) {
             editCnpj.value = validadores.formatarCNPJ(editCnpj.value);
         }
@@ -187,7 +225,6 @@ function saveChanges() {
             editPhone.value = validadores.formatarTelefone(editPhone.value);
         }
         
-        // Atualizar os dados do usuário
         if (editInstitutionName) userData.orgName = editInstitutionName.value;
         if (editEmail) userData.email = editEmail.value;
         if (editPassword) userData.password = editPassword.value;
@@ -196,17 +233,18 @@ function saveChanges() {
         if (editEstado) userData.estado = editEstado.value;
         if (editCidade) userData.cidade = editCidade.value;
         
+        // Reset password visibility state
+        isPasswordVisible = false;
+        
         updateUI();
         closeEditModal();
         
-        // Mostrar mensagem de sucesso
         mostrarModal('<div class="alert alert-success"><i class="bi bi-check-circle-fill"></i> Dados atualizados com sucesso!</div>');
     }
 }
 
 // ========== MODAL DE FOTO DE PERFIL ==========
 
-// Abrir modal de foto
 function openPhotoModal() {
     const photoModal = document.getElementById("photo-modal");
     if (photoModal) {
@@ -218,7 +256,6 @@ function openPhotoModal() {
     }
 }
 
-// Fechar modal de foto
 function closePhotoModal() {
     const photoModal = document.getElementById("photo-modal");
     const modalOverlay = document.getElementById("modal-overlay");
@@ -232,7 +269,6 @@ function closePhotoModal() {
     document.body.style.overflow = "auto";
 }
 
-// Salvar nova foto
 function savePhoto() {
     const fileInput = document.getElementById("photo-upload");
     if (fileInput && fileInput.files && fileInput.files[0]) {
@@ -254,7 +290,6 @@ function savePhoto() {
 
 // ========== MODAL DE LOGO ==========
 
-// Abrir modal de logo
 function openLogoModal() {
     const logoModal = document.getElementById("logo-modal");
     if (!logoModal) {
@@ -268,11 +303,9 @@ function openLogoModal() {
     logoModal.style.display = "flex";
     logoModal.style.zIndex = "1060";
     
-    // Configurar área de upload
     setupLogoUpload();
 }
 
-// Fechar modal de logo
 function closeLogoModal() {
     const logoModal = document.getElementById("logo-modal");
     const modalOverlay = document.getElementById("modal-overlay");
@@ -285,18 +318,15 @@ function closeLogoModal() {
     }
     document.body.style.overflow = "auto";
     
-    // Limpar preview
     clearLogoPreview();
 }
 
-// Configurar funcionalidades de upload da logo
 function setupLogoUpload() {
     const logoUploadArea = document.getElementById('logo-upload-area');
     const logoUpload = document.getElementById('logo-upload');
     
     if (!logoUploadArea || !logoUpload) return;
     
-    // Eventos de drag and drop
     logoUploadArea.addEventListener('dragover', function(e) {
         e.preventDefault();
         logoUploadArea.classList.add('drag-over');
@@ -317,7 +347,6 @@ function setupLogoUpload() {
         }
     });
     
-    // Evento de mudança do input de arquivo
     logoUpload.addEventListener('change', function(e) {
         if (e.target.files.length > 0) {
             handleLogoFile(e.target.files[0]);
@@ -325,23 +354,19 @@ function setupLogoUpload() {
     });
 }
 
-// Processar arquivo de logo
 function handleLogoFile(file) {
-    // Validar tipo de arquivo
     const tiposPermitidos = ['image/jpeg', 'image/jpg', 'image/png', 'image/svg+xml'];
     if (!tiposPermitidos.includes(file.type)) {
         mostrarModal('<div class="alert alert-danger"><i class="bi bi-exclamation-triangle-fill"></i> Formato não permitido. Use apenas JPG, PNG ou SVG.</div>');
         return;
     }
     
-    // Validar tamanho (2MB máximo)
-    const tamanhoMaximo = 2 * 1024 * 1024; // 2MB em bytes
+    const tamanhoMaximo = 2 * 1024 * 1024;
     if (file.size > tamanhoMaximo) {
         mostrarModal('<div class="alert alert-danger"><i class="bi bi-exclamation-triangle-fill"></i> Arquivo muito grande. O tamanho máximo é 2MB.</div>');
         return;
     }
     
-    // Ler arquivo e mostrar preview
     const reader = new FileReader();
     reader.onload = function(e) {
         logoPreviewData = e.target.result;
@@ -350,7 +375,6 @@ function handleLogoFile(file) {
     reader.readAsDataURL(file);
 }
 
-// Mostrar preview da logo (SEM CSS inline)
 function showLogoPreview(imageSrc) {
     const logoUploadArea = document.getElementById('logo-upload-area');
     if (!logoUploadArea) return;
@@ -364,7 +388,6 @@ function showLogoPreview(imageSrc) {
     `;
 }
 
-// Limpar preview da logo
 function clearLogoPreview() {
     const logoUploadArea = document.getElementById('logo-upload-area');
     if (!logoUploadArea) return;
@@ -377,21 +400,18 @@ function clearLogoPreview() {
     
     logoPreviewData = null;
     
-    // Limpar o input de arquivo
     const logoUpload = document.getElementById('logo-upload');
     if (logoUpload) {
         logoUpload.value = '';
     }
 }
 
-// Salvar nova logo
 function saveLogo() {
     if (logoPreviewData) {
         userData.logoImage = logoPreviewData;
         updateLogoDisplay();
         mostrarModal('<div class="alert alert-success"><i class="bi bi-check-circle-fill"></i> Logo atualizada com sucesso!</div>');
     } else {
-        // Se não há preview, remover logo atual
         userData.logoImage = null;
         updateLogoDisplay();
         mostrarModal('<div class="alert alert-info"><i class="bi bi-info-circle-fill"></i> Logo removida.</div>');
@@ -402,25 +422,22 @@ function saveLogo() {
 
 // ========== FUNÇÕES PARA ABRIR PDFs ==========
 
-// Abrir PDF de política de privacidade
 function openPrivacyPDF() {
-    const pdfUrl = '/assets/pdfs/politica-privacidade.pdf'; // Ajuste o caminho conforme necessário
+    const pdfUrl = '/assets/pdfs/politica-privacidade.pdf';
     window.open(pdfUrl, '_blank');
 }
 
-// Abrir PDF de termos de serviço
 function openTermsPDF() {
-    const pdfUrl = '/assets/pdfs/termos-servico.pdf'; // Ajuste o caminho conforme necessário
+    const pdfUrl = '/assets/pdfs/termos-servico.pdf';
     window.open(pdfUrl, '_blank');
 }
 
-// Manter as funções de modal antigas para compatibilidade (caso ainda sejam usadas no HTML)
 function openPrivacyModal() {
     openPrivacyPDF();
 }
 
 function closePrivacyModal() {
-    // Função mantida para compatibilidade, mas não faz nada já que abre PDF
+    // Mantido para compatibilidade
 }
 
 function openTermsModal() {
@@ -428,12 +445,11 @@ function openTermsModal() {
 }
 
 function closeTermsModal() {
-    // Função mantida para compatibilidade, mas não faz nada já que abre PDF
+    // Mantido para compatibilidade
 }
 
 // ========== GESTÃO DE MODAIS ==========
 
-// Criar overlay para modais
 function createModalOverlay() {
     let modalOverlay = document.getElementById("modal-overlay");
     if (!modalOverlay) {
@@ -451,7 +467,6 @@ function createModalOverlay() {
         `;
         document.body.appendChild(modalOverlay);
         
-        // Fechar modal ao clicar no overlay
         modalOverlay.addEventListener('click', function(e) {
             if (e.target === modalOverlay) {
                 closeAllModals();
@@ -461,7 +476,6 @@ function createModalOverlay() {
     return modalOverlay;
 }
 
-// Função para fechar todos os modais
 function closeAllModals() {
     closeEditModal();
     closePhotoModal();
@@ -470,7 +484,6 @@ function closeAllModals() {
 
 // ========== FUNÇÕES DE VALIDAÇÃO ==========
 
-// Objeto com funções de validação
 const validadores = {
     validarNome: function(nome) {
         if (!nome || nome.trim() === "") {
@@ -562,7 +575,6 @@ const validadores = {
             return { valido: false, mensagem: "CNPJ inválido." };
         }
         
-        // Validação dos dígitos verificadores
         let tamanho = cnpj.length - 2;
         let numeros = cnpj.substring(0, tamanho);
         const digitos = cnpj.substring(tamanho);
@@ -642,7 +654,6 @@ const validadores = {
     }
 };
 
-// Função para validar o formulário
 function validarFormulario() {
     const campos = {
         "edit-institution-name": { 
@@ -690,7 +701,6 @@ function validarFormulario() {
 
 // ========== FUNÇÕES DE FEEDBACK ==========
 
-// Função para mostrar modal com mensagem personalizada
 function mostrarModal(mensagem) {
     const modalBody = document.getElementById('erroSenhaModalBody');
     if (modalBody) {
@@ -708,7 +718,6 @@ function mostrarModal(mensagem) {
     }
 }
 
-// Função para exibir modal de erro
 function mostrarModalErro(campo, mensagem) {
     const titulo = `Erro de validação: ${campo}`;
     
@@ -740,7 +749,6 @@ function mostrarModalErro(campo, mensagem) {
     }
 }
 
-// Destacar campo com erro
 function destacarCampoComErro(id) {
     campoAtualComErro = id;
     
@@ -761,7 +769,6 @@ function destacarCampoComErro(id) {
 
 // ========== MÁSCARAS DE ENTRADA ==========
 
-// Configurar máscara de CNPJ
 function configurarMascaraCNPJ() {
     const campoCNPJ = document.getElementById('edit-cnpj');
     if (!campoCNPJ) return;
@@ -784,7 +791,6 @@ function configurarMascaraCNPJ() {
     });
 }
 
-// Configurar máscara de telefone
 function configurarMascaraTelefone() {
     const campoTelefone = document.getElementById('edit-phone');
     if (!campoTelefone) return;
@@ -805,7 +811,6 @@ function configurarMascaraTelefone() {
     });
 }
 
-// Configurar verificação de senha em tempo real
 function configurarVerificacaoSenha() {
     const campoSenha = document.getElementById('edit-password');
     if (!campoSenha) return;
@@ -860,197 +865,71 @@ function configurarVerificacaoSenha() {
     });
 }
 
-// ========== MELHORIAS ADICIONAIS ==========
-
-// Função para aplicar máscara visual em tempo real no CNPJ
-function aplicarMascaraCNPJVisual() {
-    const campoCNPJ = document.getElementById('edit-cnpj');
-    if (!campoCNPJ) return;
-    
-    campoCNPJ.addEventListener('blur', function() {
-        if (this.value) {
-            this.value = validadores.formatarCNPJ(this.value);
-        }
-    });
-}
-
-// Função para aplicar máscara visual em tempo real no telefone
-function aplicarMascaraTelefoneVisual() {
-    const campoTelefone = document.getElementById('edit-phone');
-    if (!campoTelefone) return;
-    
-    campoTelefone.addEventListener('blur', function() {
-        if (this.value) {
-            this.value = validadores.formatarTelefone(this.value);
-        }
-    });
-}
-
-// Função para prevenir comportamentos indesejados nos modais
-function prevenirComportamentosIndesejados() {
-    // Prevenir que cliques nos conteúdos dos modais fechem os modais
-    const modalContents = document.querySelectorAll('.modal-content1');
-    modalContents.forEach(content => {
-        content.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-    });
-}
-
-// ========== FUNÇÕES DE UTILIDADE ==========
-
-// Adicionar Material Icons se não existir
-function adicionarMaterialIcons() {
-    if (!document.querySelector('link[href*="material-symbols"]')) {
-        const materialIconsLink = document.createElement('link');
-        materialIconsLink.rel = 'stylesheet';
-        materialIconsLink.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0';
-        document.head.appendChild(materialIconsLink);
-    }
-}
-
-// Função para converter arquivo para base64
-function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-}
-
-// Função para redimensionar imagem se necessário
-function redimensionarImagem(file, maxWidth = 400, maxHeight = 400) {
-    return new Promise((resolve) => {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const img = new Image();
-        
-        img.onload = function() {
-            let { width, height } = img;
-            
-            // Calcular novas dimensões mantendo proporção
-            if (width > height) {
-                if (width > maxWidth) {
-                    height = (height * maxWidth) / width;
-                    width = maxWidth;
-                }
-            } else {
-                if (height > maxHeight) {
-                    width = (width * maxHeight) / height;
-                    height = maxHeight;
-                }
-            }
-            
-            canvas.width = width;
-            canvas.height = height;
-            
-            ctx.drawImage(img, 0, 0, width, height);
-            
-            canvas.toBlob(resolve, file.type, 0.8);
-        };
-        
-        img.src = URL.createObjectURL(file);
-    });
-}
-
-// ========== FUNÇÕES DE DEBUG ==========
-
-// Função para debug - verificar elementos
-function debugElements() {
-    const elementos = [
-        'org-name', 'institution-name', 'email', 'cnpj', 'phone', 
-        'estado', 'cidade', 'profile-image', 'edit-modal', 'photo-modal'
-    ];
-    
-    console.log('=== DEBUG ELEMENTOS ===');
-    elementos.forEach(id => {
-        const elemento = document.getElementById(id);
-        console.log(`${id}: ${elemento ? 'ENCONTRADO' : 'NÃO ENCONTRADO'}`);
-    });
-}
-
-// Função para debug específico das novas funcionalidades
-function debugNovasFuncionalidades() {
-    console.log('=== DEBUG NOVAS FUNCIONALIDADES ===');
-    console.log('userData.logoImage:', userData.logoImage ? 'DEFINIDA' : 'NULL');
-    console.log('logoPreviewData:', logoPreviewData ? 'DEFINIDA' : 'NULL');
-    
-    const elementosLogo = ['logo-display', 'logo-placeholder', 'current-logo', 'logo-upload-area', 'logo-upload'];
-    elementosLogo.forEach(id => {
-        const elemento = document.getElementById(id);
-        console.log(`${id}: ${elemento ? 'ENCONTRADO' : 'NÃO ENCONTRADO'}`);
-    });
-    
-    const modais = ['privacy-modal', 'terms-modal', 'logo-modal'];
-    modais.forEach(id => {
-        const modal = document.getElementById(id);
-        console.log(`${id}: ${modal ? 'ENCONTRADO' : 'NÃO ENCONTRADO'}`);
-    });
-}
-
 // ========== INICIALIZAÇÃO ==========
 
-// Função principal de inicialização
 function inicializar() {
     console.log('Inicializando aplicação...');
     
-    // Adicionar ícones
-    adicionarMaterialIcons();
-    
-    // Verificar se elementos essenciais existem
-    const elementosEssenciais = [
-        'org-name', 'institution-name', 'email', 'cnpj', 
-        'phone', 'estado', 'cidade', 'profile-image'
-    ];
-    
-    let elementosEncontrados = 0;
-    elementosEssenciais.forEach(id => {
-        if (document.getElementById(id)) {
-            elementosEncontrados++;
+    // Aguardar que todos os elementos estejam disponíveis
+    const initializeWithDelay = () => {
+        console.log('Verificando elementos essenciais...');
+        
+        const elementosEssenciais = [
+            'org-name', 'institution-name', 'email', 'cnpj', 
+            'phone', 'estado', 'cidade', 'profile-image'
+        ];
+        
+        let elementosEncontrados = 0;
+        elementosEssenciais.forEach(id => {
+            if (document.getElementById(id)) {
+                elementosEncontrados++;
+            }
+        });
+        
+        console.log(`Elementos encontrados: ${elementosEncontrados}/${elementosEssenciais.length}`);
+        
+        if (elementosEncontrados < elementosEssenciais.length) {
+            console.log('Nem todos os elementos foram encontrados, tentando novamente...');
+            setTimeout(initializeWithDelay, 500);
+            return;
         }
-    });
+        
+        // Inicializar UI
+        updateUI();
+        
+        // Configurar funcionalidades
+        configurarMascaraCNPJ();
+        configurarMascaraTelefone(); 
+        configurarVerificacaoSenha();
+        
+        // Configurar toggle de senha com delay adicional
+        setTimeout(() => {
+            setupMainPasswordToggle();
+            console.log('Toggle de senha configurado');
+        }, 200);
+        
+        console.log('Inicialização concluída');
+    };
     
-    console.log(`Elementos encontrados: ${elementosEncontrados}/${elementosEssenciais.length}`);
-    
-    // Inicializar UI
-    updateUI();
-    
-    // Configurar funcionalidades
-    setupMainPasswordToggle();
-    configurarMascaraCNPJ();
-    configurarMascaraTelefone(); 
-    configurarVerificacaoSenha();
-    
-    console.log('Inicialização concluída');
+    initializeWithDelay();
 }
 
-// Inicialização dos complementos
 function inicializarComplementos() {
     console.log('Inicializando complementos...');
     
-    // Configurar exibição inicial da logo
     updateLogoDisplay();
     
-    // Adicionar event listeners para ESC key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeAllModals();
         }
     });
     
-    // Aplicar melhorias adicionais
-    aplicarMascaraCNPJVisual();
-    aplicarMascaraTelefoneVisual();
-    prevenirComportamentosIndesejados();
-    
-    // Verificar se todos os elementos de modal existem
-    const modaisEssenciais = ['edit-modal', 'photo-modal', 'logo-modal'];
-    modaisEssenciais.forEach(modalId => {
-        const modal = document.getElementById(modalId);
-        if (!modal) {
-            console.warn(`Modal ${modalId} não encontrado`);
-        }
+    const modalContents = document.querySelectorAll('.modal-content1');
+    modalContents.forEach(content => {
+        content.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
     });
     
     console.log('Complementos inicializados');
@@ -1058,7 +937,6 @@ function inicializarComplementos() {
 
 // ========== DISPONIBILIZAR FUNÇÕES GLOBALMENTE ==========
 
-// Garantir que todas as funções estejam disponíveis globalmente
 window.openEditModal = openEditModal;
 window.closeEditModal = closeEditModal;
 window.saveChanges = saveChanges;
@@ -1068,28 +946,31 @@ window.savePhoto = savePhoto;
 window.openLogoModal = openLogoModal;
 window.closeLogoModal = closeLogoModal;
 window.saveLogo = saveLogo;
+window.clearLogoPreview = clearLogoPreview;
 window.openPrivacyPDF = openPrivacyPDF;
 window.openTermsPDF = openTermsPDF;
-window.openPrivacyModal = openPrivacyModal; // Mantido para compatibilidade
-window.closePrivacyModal = closePrivacyModal; // Mantido para compatibilidade
-window.openTermsModal = openTermsModal; // Mantido para compatibilidade
-window.closeTermsModal = closeTermsModal; // Mantido para compatibilidade
+window.openPrivacyModal = openPrivacyModal;
+window.closePrivacyModal = closePrivacyModal;
+window.openTermsModal = openTermsModal;
+window.closeTermsModal = closeTermsModal;
 window.closeAllModals = closeAllModals;
-window.debugElements = debugElements;
-window.debugNovasFuncionalidades = debugNovasFuncionalidades;
 
 // ========== AUTO-INICIALIZAÇÃO ==========
 
-// Inicializar quando o DOM estiver pronto
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
-        inicializar();
-        // Aguardar um pouco para garantir que tudo foi carregado
-        setTimeout(inicializarComplementos, 100);
+        console.log('DOM carregado, iniciando aplicação...');
+        setTimeout(() => {
+            inicializar();
+            inicializarComplementos();
+        }, 100);
     });
 } else {
-    inicializar();
-    setTimeout(inicializarComplementos, 100);
+    console.log('DOM já carregado, iniciando aplicação...');
+    setTimeout(() => {
+        inicializar();
+        inicializarComplementos();
+    }, 100);
 }
 
-console.log('Arquivo JavaScript completo carregado com sucesso!');
+console.log('Arquivo JavaScript completo carregado!');

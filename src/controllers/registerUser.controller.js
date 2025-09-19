@@ -12,7 +12,8 @@ async function registerUserDoador(req, res) {
             nomeCompleto, 
             email, 
             tipo_doador, 
-            senha, 
+            senha,
+            slug,
             pessoaCpf, 
             pessoaRg, 
             pessoaTelefone, 
@@ -38,13 +39,13 @@ async function registerUserDoador(req, res) {
 
             console.log(`\n⌛   Iniciando o cadastro de Organização Não Governamental (ONG)   ⌛\n`);
 
-            const novoDoador = await userRegisterOng({ nomeCompleto, email, tipo_doador, senha, ongCnpj, ongTelefone, ongAno });
+            const novoDoador = await userRegisterOng({ nomeCompleto, email, tipo_doador, senha, slug, ongCnpj, ongTelefone, ongAno });
 
         }else{
 
             console.log(`\n⌛   Iniciando o cadastro de Instituição   ⌛\n`);
 
-            const novoDoador = await userRegisterInstituicao({ nomeCompleto, email, tipo_doador, senha, instituicaoTipo, instituicaoCnpj, instituicaoTelefone, instituicaoCep, instituicaoBairro });
+            const novoDoador = await userRegisterInstituicao({ nomeCompleto, email, tipo_doador, senha, slug, instituicaoTipo, instituicaoCnpj, instituicaoTelefone, instituicaoCep, instituicaoBairro });
 
         }
 

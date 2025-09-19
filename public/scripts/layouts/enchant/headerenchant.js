@@ -30,7 +30,7 @@ class HeaderComponent {
               </li>
             </ul>
             <!-- O botão permanece inalterado -->
-            <a href="../index.html">
+              <a href="#plans">
               <button class="btn btn-brown" type="button" id="doeagora">
                 Junte-se a nós
               </button>

@@ -9,6 +9,7 @@ class SimpleDonationManager {
         this.createControlButton();
         this.loadDeletedCategories();
         this.addStyles();
+        this.addModalEvents(); // Adiciona o novo método para eventos do modal
     }
 
     // Cria o botão principal de controle
@@ -27,7 +28,7 @@ class SimpleDonationManager {
                     color: #3d2106;
                     border: none;
                     padding: 12px 25px;
-                    border-radius: 25px;
+                    border-radius: 10px;
                     font-size: 1rem;
                     font-weight: bold;
                     cursor: pointer;
@@ -97,6 +98,11 @@ class SimpleDonationManager {
                 color: #3d2106;
             }
 
+            #toggle-edit-simple:hover {
+                background-color: #caae8d !important;
+                color: #3d2106 !important;
+            }
+
             .restore-category-btn {
                 background-color: transparent;
                 color: #3d2106;
@@ -115,26 +121,6 @@ class SimpleDonationManager {
 
             .edit-mode-active .todas-imagens {
                 position: relative;
-            }
-
-            .feedback-toast {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                z-index: 9999;
-                padding: 12px 20px;
-                border-radius: 8px;
-                color: white;
-                font-weight: bold;
-                font-family: 'Lexend Deca', sans-serif;
-            }
-
-            .feedback-success,
-            .feedback-warning,
-            .feedback-danger {
-                background: #ffe9c7ff;
-                color: #3d2106;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
 
             @media (max-width: 768px) {
@@ -186,6 +172,24 @@ class SimpleDonationManager {
         });
     }
 
+    // Adiciona eventos ao modal de confirmação
+    addModalEvents() {
+        const confirmBtn = document.getElementById('confirmar-exclusao');
+        const modal = new bootstrap.Modal(document.getElementById('confirmacaoExclusaoModal'));
+        
+        // Armazena a categoria a ser excluída
+        this.categoryIdToDelete = null;
+
+        // Adiciona evento de clique ao botão de confirmar do modal
+        confirmBtn.addEventListener('click', () => {
+            if (this.categoryIdToDelete) {
+                this.performDelete(this.categoryIdToDelete);
+                this.categoryIdToDelete = null;
+                modal.hide();
+            }
+        });
+    }
+
     // Ativa modo de edição
     enableEditMode() {
         document.body.classList.add('edit-mode-active');
@@ -233,39 +237,48 @@ class SimpleDonationManager {
             const categoryId = e.target.closest('.edit-btn')?.dataset.category;
 
             if (action === 'delete' && categoryId) {
-                this.deleteCategory(categoryId);
+                this.showConfirmationModal(categoryId);
             }
         });
     }
 
-    // Remove uma categoria
-    deleteCategory(categoryId) {
+    // Mostra o modal de confirmação
+    showConfirmationModal(categoryId) {
+        this.categoryIdToDelete = categoryId;
+        const categoryTitle = this.getCategoryTitle(document.getElementById(categoryId));
+        const modalBody = document.getElementById('confirmacaoExclusaoModalBody');
+        const modal = new bootstrap.Modal(document.getElementById('confirmacaoExclusaoModal'));
+        
+        modalBody.innerHTML = `Tem certeza que deseja remover a categoria **"${categoryTitle}"**?`;
+        modal.show();
+    }
+
+    // Executa a remoção da categoria
+    performDelete(categoryId) {
         const categoryElement = document.getElementById(categoryId);
         if (!categoryElement) return;
 
         const categoryTitle = this.getCategoryTitle(categoryElement);
 
-        if (confirm(`Tem certeza que deseja remover a categoria "${categoryTitle}"?`)) {
-            // Salva dados da categoria antes de remover PERMANENTEMENTE
-            const categoryData = {
-                element: categoryElement.outerHTML,
-                title: categoryTitle,
-                id: categoryId
-            };
-            
-            this.deletedCategories.set(categoryId, categoryData);
-            this.saveDeletedCategories();
+        // Salva dados da categoria antes de remover
+        const categoryData = {
+            element: categoryElement.outerHTML,
+            title: categoryTitle,
+            id: categoryId
+        };
+        
+        this.deletedCategories.set(categoryId, categoryData);
+        this.saveDeletedCategories();
 
-            // Anima remoção
-            categoryElement.classList.add('category-removing');
-            
-            setTimeout(() => {
-                // REMOVE REALMENTE do DOM
-                categoryElement.remove();
-                this.showFeedback(`"${categoryTitle}" foi removida.`, 'danger');
-                this.updateDeletedCategoriesList();
-            }, 500);
-        }
+        // Anima remoção
+        categoryElement.classList.add('category-removing');
+        
+        setTimeout(() => {
+            // REMOVE REALMENTE do DOM
+            categoryElement.remove();
+            this.showFeedback(`"${categoryTitle}" foi removida.`, 'danger');
+            this.updateDeletedCategoriesList();
+        }, 500);
     }
 
     // Restaura uma categoria

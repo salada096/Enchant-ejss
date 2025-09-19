@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
+@import url("../../styles/global.css");
 
 :root {
     --cor-principal: #693b11;
@@ -410,55 +411,6 @@ a {
 #btn-voltar-2:hover,
 #btn-voltar-3:hover {
     background-color: #ffffff9a;
-}
-
-.modal-content {
-    border-radius: 5px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
-
-.modal-header {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.modal-title {
-    color: rgba(97, 53, 12, 1);
-    font-size: 1.5rem;
-   
-}
-
-.modal-body {
-    padding: 1.5rem;
-    color: black;
-    font-family: 'Lexend Deca', sans-serif;
-}  
-
-.modal-body ul {
-    text-align: left;
-    color: #d9534f;
-    margin-top: 1rem;
-    padding-left: 1.5rem;
-}
-
-.modal-footer {
-    padding: 1rem;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-.modal .btn-primary {
-    background-color: rgba(226, 204, 174, 1);
-    color: #4e3629;
-    border: none;
-    border-radius: 10px;
-    border: 1px solid rgba(226, 204, 174, 1);
-}
-
-.modal .btn-primary:hover {
-    background-color: #caae8d;
-    color: #3d2106;
-    transition: transform 0.2s ease;
 }
 
 .certificados-area {
